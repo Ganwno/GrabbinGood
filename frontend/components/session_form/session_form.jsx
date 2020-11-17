@@ -1,4 +1,6 @@
 import React from 'react';
+import './session_style.css';
+
 class SessionForm extends React.Component {
     constructor(props) {
         super(props);
@@ -37,21 +39,34 @@ class SessionForm extends React.Component {
         return(
             <div>
                 <form onSubmit= {this.handleSubmit}>
-                    Please {this.props.formType} or {this.props.navLink}
+                    <br/>
+                   <h1 className="userpage">
+                    Welcome to GrabbinGood
+                    </h1>
                     {this.renderErrors()}
-                    <div>
+                    <div className = "login-form">
                         <br/>
-                        <label>Username:
+                        <label>Username
+                            <br/>
                             <input type = "text" value = {this.state.username}
-                            onChange = {this.update('username')} />
+                            onChange = {this.update('username')} 
+                            className = "login-input"
+                            />
                         </label>
                         <br/>
-                        <label>Password:
+                        <label>Password
+                            <br/>
                             <input type = "password" value={this.state.password}
-                            onChange={this.update('password')} />
+                            onChange={this.update('password')} 
+                            className = "login-input"
+                            />
                         </label>
                         <br/>
-                        <input type = "submit" value = {this.props.formType}/>
+                    
+                        <input type = "submit" value = {this.props.formType}
+                        className = "hit-button"
+                        />
+                        
                     </div>
 
 

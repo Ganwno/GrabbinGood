@@ -7,8 +7,8 @@ import React from 'react';
 const mSTP = ({errors}) => {
     return {
         errors: errors.session,
-        formType: 'login',
-        navLink: <Link to= '/signup'>Sign Up Instead</Link>
+        formType: 'Login',
+        navLink: <Link to= '/signup'>Sign Up</Link>
     }
 }
 

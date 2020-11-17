@@ -42,5 +42,9 @@
   "bugs": {
     "url": "https://github.com/Gogetaspirit/GrabbinGood/issues"
   },
-  "homepage": "https://github.com/Gogetaspirit/GrabbinGood#readme"
+  "homepage": "https://github.com/Gogetaspirit/GrabbinGood#readme",
+  "devDependencies": {
+    "css-loader": "^5.0.1",
+    "style-loader": "^2.0.0"
+  }
 }

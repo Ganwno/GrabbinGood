@@ -1,0 +1,14 @@
+.userpage {
+    font-size: 21px;
+    
+}
+
+.login-input {
+    height: 48px;
+    width: 412px;
+}
+
+.hit-button {
+    background: #00C805;    
+    color: white;
+}
