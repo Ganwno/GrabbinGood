@@ -179,7 +179,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "GrabbinGood"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "entire-app"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
     exact: true,
     path: "/login",
     component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -187,6 +189,10 @@ var App = function App() {
     exact: true,
     path: "/signup",
     component: _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/",
+    component: _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__["default"]
   })));
 };
 
@@ -216,7 +222,7 @@ var Greeting = function Greeting(_ref) {
   var sessionLinks = function sessionLinks() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
       className: "login-signup"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "THIS IS GRABBINGOOD"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "/login"
     }, "Login"), "\xA0\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "/signup"
@@ -430,23 +436,30 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.handleSubmit
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "user-page"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "/images/stock.jpg",
+        alt: "",
+        className: "image"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit,
+        className: "whole-thing"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-        className: "userpage"
+        className: "title"
       }, "Welcome to GrabbinGood"), this.renderErrors(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "login-form"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Username", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Username", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.username,
         onChange: this.update('username'),
         className: "login-input"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "password",
         value: this.state.password,
         onChange: this.update('password'),
         className: "login-input"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: this.props.formType,
         className: "hit-button"
@@ -963,7 +976,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".userpage {\n    font-size: 21px;\n    \n}\n\n.login-input {\n    height: 48px;\n    width: 412px;\n}\n\n.hit-button {\n    background: #00C805;    \n    color: white;\n}", "",{"version":3,"sources":["webpack://./frontend/components/session_form/session_style.css"],"names":[],"mappings":"AAAA;IACI,eAAe;;AAEnB;;AAEA;IACI,YAAY;IACZ,YAAY;AAChB;;AAEA;IACI,mBAAmB;IACnB,YAAY;AAChB","sourcesContent":[".userpage {\n    font-size: 21px;\n    \n}\n\n.login-input {\n    height: 48px;\n    width: 412px;\n}\n\n.hit-button {\n    background: #00C805;    \n    color: white;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "html, body {\n    height: 100%;\n}\n\nbody {\n    margin-top: 0;\n    margin-bottom: 0;\n    margin-left: 0;\n}\n\n\n#root {\n    height: 100%;\n}\n\n.entire-app {\n    height: 100%;\n}\n.user-page {\n    height: 100%;\n    display: flex;\n    flex-direction: row;\n    \n   \n    \n}\n\n.image {\n    flex: 1;\n    padding-right: 40px;\n    height: 100%;\n    width: 52%;\n    margin: 0;\n    \n \n}\n\n.whole-thing {\n    flex: 1;\n    margin: auto;\n    padding-right: 50px;\n}\n.title {\n    font-family: Arial;\n    font-size: 21px;\n    \n}\n\n.login-input {\n    font-size: medium;\n    height: 15px;\n    width: 412px;\n    padding: 15px 20px 15px 20px;\n    background: #F0F0F0;\n    border: white;\n    \n}\n\n.login-input:hover {\n    background-color: white;\n     border: 2px solid;\n     border-color: #00C805;  \n    \n}\n\n.hit-button {\n    \n    background: #00C805;    \n    color: white;\n    border: none;\n    width: 145px;\n    height: 50px;\n    padding: 5px 10px 5px 10px;\n    font-size: 16px;\n}\n\n.hit-button:hover {\n    background-color: #008000;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/session_form/session_style.css"],"names":[],"mappings":"AAAA;IACI,YAAY;AAChB;;AAEA;IACI,aAAa;IACb,gBAAgB;IAChB,cAAc;AAClB;;;AAGA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;AAChB;AACA;IACI,YAAY;IACZ,aAAa;IACb,mBAAmB;;;;AAIvB;;AAEA;IACI,OAAO;IACP,mBAAmB;IACnB,YAAY;IACZ,UAAU;IACV,SAAS;;;AAGb;;AAEA;IACI,OAAO;IACP,YAAY;IACZ,mBAAmB;AACvB;AACA;IACI,kBAAkB;IAClB,eAAe;;AAEnB;;AAEA;IACI,iBAAiB;IACjB,YAAY;IACZ,YAAY;IACZ,4BAA4B;IAC5B,mBAAmB;IACnB,aAAa;;AAEjB;;AAEA;IACI,uBAAuB;KACtB,iBAAiB;KACjB,qBAAqB;;AAE1B;;AAEA;;IAEI,mBAAmB;IACnB,YAAY;IACZ,YAAY;IACZ,YAAY;IACZ,YAAY;IACZ,0BAA0B;IAC1B,eAAe;AACnB;;AAEA;IACI,yBAAyB;AAC7B","sourcesContent":["html, body {\n    height: 100%;\n}\n\nbody {\n    margin-top: 0;\n    margin-bottom: 0;\n    margin-left: 0;\n}\n\n\n#root {\n    height: 100%;\n}\n\n.entire-app {\n    height: 100%;\n}\n.user-page {\n    height: 100%;\n    display: flex;\n    flex-direction: row;\n    \n   \n    \n}\n\n.image {\n    flex: 1;\n    padding-right: 40px;\n    height: 100%;\n    width: 52%;\n    margin: 0;\n    \n \n}\n\n.whole-thing {\n    flex: 1;\n    margin: auto;\n    padding-right: 50px;\n}\n.title {\n    font-family: Arial;\n    font-size: 21px;\n    \n}\n\n.login-input {\n    font-size: medium;\n    height: 15px;\n    width: 412px;\n    padding: 15px 20px 15px 20px;\n    background: #F0F0F0;\n    border: white;\n    \n}\n\n.login-input:hover {\n    background-color: white;\n     border: 2px solid;\n     border-color: #00C805;  \n    \n}\n\n.hit-button {\n    \n    background: #00C805;    \n    color: white;\n    border: none;\n    width: 145px;\n    height: 50px;\n    padding: 5px 10px 5px 10px;\n    font-size: 16px;\n}\n\n.hit-button:hover {\n    background-color: #008000;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
