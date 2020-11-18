@@ -212,6 +212,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _greeting_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./greeting_style.css */ "./frontend/components/greeting/greeting_style.css");
+
 
 
 
@@ -220,20 +222,53 @@ var Greeting = function Greeting(_ref) {
       logout = _ref.logout;
 
   var sessionLinks = function sessionLinks() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-      className: "login-signup"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "THIS IS GRABBINGOOD"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "front-page"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+      className: "header"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      className: "header-left"
+    }, "GrabbinGood", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: "/images/logo.jpeg",
+      alt: "",
+      className: "logo-image"
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "header-right"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "/login"
-    }, "Login"), "\xA0\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "login-button"
+    }, "Log In")), "\xA0\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "/signup"
-    }, "Sign up"));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "signup-button"
+    }, "Sign Up")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "caption"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "subcaption"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      className: "caption-header"
+    }, "Investing for ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), " Everyone"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      className: "words"
+    }, "GrabbinGood, the best way to invest, ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "gives you more ways to earn money while", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "being free and easy to use."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/signup"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "second-signup-button"
+    }, "Sign Up"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: "/images/homepage.jpeg",
+      alt: "",
+      className: "caption-image"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "black-bottom"
+    }));
   };
 
   var signedIn = function signedIn() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hi ", currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: logout
     }, "Log Out Here!"));
-  };
+  }; //redirect to portfolio page if signed in
+
 
   return currentUser ? signedIn() : sessionLinks();
 };
@@ -273,6 +308,34 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_greeting__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/greeting/greeting_style.css":
+/*!*********************************************************!*\
+  !*** ./frontend/components/greeting/greeting_style.css ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_greeting_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js!./greeting_style.css */ "./node_modules/css-loader/dist/cjs.js!./frontend/components/greeting/greeting_style.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_greeting_style_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_greeting_style_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -405,6 +468,7 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
       password: ""
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.demoHandleSubmit = _this.demoHandleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -432,6 +496,14 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
           key: "error-".concat(i)
         }, error);
       }));
+    }
+  }, {
+    key: "demoHandleSubmit",
+    value: function demoHandleSubmit(e) {
+      this.props.processForm({
+        username: "demouser",
+        password: "password123"
+      });
     }
   }, {
     key: "render",
@@ -463,7 +535,9 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
         type: "submit",
         value: this.props.formType,
         className: "hit-button"
-      }))));
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.demoHandleSubmit
+      }, "Demo User")));
     }
   }]);
 
@@ -958,6 +1032,31 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./frontend/components/greeting/greeting_style.css":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./frontend/components/greeting/greeting_style.css ***!
+  \***********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, "  body {\n    margin-right: 0px;\n  }\n  .header {\n    display: flex;\n    justify-content: space-between;\n    overflow: hidden;\n    padding: 5px 20px;\n    font-family: 'Open Sans', sans-serif;\n    margin-top: 10px;\n    height: 50px;\n    margin-bottom: 2px;\n    border-style: solid;\n    border-top: none;\n    border-right: none;\n    border-left: none;\n    border-color: green;\n    margin-bottom: 0;\n    \n    \n    \n  }\n\n  .header-left {\n    display: flex;\n    margin-top: 0px;\n  }\n\n  .logo-image {\n    object-fit: cover;\n    height: 45px;\n    padding-left: 5px;\n\n  }\n  .login-button {\n\n    background-color: white;\n    border: none;\n    outline: none;\n    padding-right: 15px;\n    cursor: pointer;\n    font-size: 16px;\n    \n }\n\n .signup-button {\n    display: inline-block;\n    padding: 0.6em 1.9em;\n    margin: 0, 0.1em 0.1em 0;\n    border: 0.16em solid rgba(255,255,255,0);\n    border-radius: 2em;\n    box-sizing: border-box;\n    text-decoration: none;\n    text-align: center;\n    background-color: #00C805;\n    cursor: pointer;\n    font-size: 16px;\n    \n }\n\n .caption {\n   font-family: 'Open Sans', sans-serif;\n   height: 70%;\n   margin: auto;\n   background-color: #ADFF2F;\n   filter: brightness();\n   display: flex;\n   justify-content: center;\n \n }\n\n .subcaption {\n   margin: auto;\n   margin-right: 20px;\n }\n\n .caption-header {\n   margin-top: 0;\n   font-size: 50px;\n }\n\n .second-signup-button {\n   display: inline-block;\n    padding: 0.6em 1.9em;\n    margin: 0, 0.1em 0.1em 0;\n    border: 0.16em solid rgba(255,255,255,0);\n    border-radius: 2em;\n    box-sizing: border-box;\n    text-decoration: none;\n    text-align: center;\n    background-color: black;\n    cursor: pointer;\n    font-size: 16px;\n    color: white;\n }\n  \n#root {\n  height: 100%;\n}\n\n.entire-app {\n  height: 100%;\n}\n\n.front-page {\n  height: 100%;\n}\n\n.black-bottom {\n  background-color: black;\n  height: 30%\n}\n \n.caption-image {\n  height: 50%;\n  margin: auto;\n  margin-left: 25px;\n}\n\n.words {\n  font-size: 20px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/greeting/greeting_style.css"],"names":[],"mappings":"EAAE;IACE,iBAAiB;EACnB;EACA;IACE,aAAa;IACb,8BAA8B;IAC9B,gBAAgB;IAChB,iBAAiB;IACjB,oCAAoC;IACpC,gBAAgB;IAChB,YAAY;IACZ,kBAAkB;IAClB,mBAAmB;IACnB,gBAAgB;IAChB,kBAAkB;IAClB,iBAAiB;IACjB,mBAAmB;IACnB,gBAAgB;;;;EAIlB;;EAEA;IACE,aAAa;IACb,eAAe;EACjB;;EAEA;IACE,iBAAiB;IACjB,YAAY;IACZ,iBAAiB;;EAEnB;EACA;;IAEE,uBAAuB;IACvB,YAAY;IACZ,aAAa;IACb,mBAAmB;IACnB,eAAe;IACf,eAAe;;CAElB;;CAEA;IACG,qBAAqB;IACrB,oBAAoB;IACpB,wBAAwB;IACxB,wCAAwC;IACxC,kBAAkB;IAClB,sBAAsB;IACtB,qBAAqB;IACrB,kBAAkB;IAClB,yBAAyB;IACzB,eAAe;IACf,eAAe;;CAElB;;CAEA;GACE,oCAAoC;GACpC,WAAW;GACX,YAAY;GACZ,yBAAyB;GACzB,oBAAoB;GACpB,aAAa;GACb,uBAAuB;;CAEzB;;CAEA;GACE,YAAY;GACZ,kBAAkB;CACpB;;CAEA;GACE,aAAa;GACb,eAAe;CACjB;;CAEA;GACE,qBAAqB;IACpB,oBAAoB;IACpB,wBAAwB;IACxB,wCAAwC;IACxC,kBAAkB;IAClB,sBAAsB;IACtB,qBAAqB;IACrB,kBAAkB;IAClB,uBAAuB;IACvB,eAAe;IACf,eAAe;IACf,YAAY;CACf;;AAED;EACE,YAAY;AACd;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,uBAAuB;EACvB;AACF;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;AACnB;;AAEA;EACE,eAAe;AACjB","sourcesContent":["  body {\n    margin-right: 0px;\n  }\n  .header {\n    display: flex;\n    justify-content: space-between;\n    overflow: hidden;\n    padding: 5px 20px;\n    font-family: 'Open Sans', sans-serif;\n    margin-top: 10px;\n    height: 50px;\n    margin-bottom: 2px;\n    border-style: solid;\n    border-top: none;\n    border-right: none;\n    border-left: none;\n    border-color: green;\n    margin-bottom: 0;\n    \n    \n    \n  }\n\n  .header-left {\n    display: flex;\n    margin-top: 0px;\n  }\n\n  .logo-image {\n    object-fit: cover;\n    height: 45px;\n    padding-left: 5px;\n\n  }\n  .login-button {\n\n    background-color: white;\n    border: none;\n    outline: none;\n    padding-right: 15px;\n    cursor: pointer;\n    font-size: 16px;\n    \n }\n\n .signup-button {\n    display: inline-block;\n    padding: 0.6em 1.9em;\n    margin: 0, 0.1em 0.1em 0;\n    border: 0.16em solid rgba(255,255,255,0);\n    border-radius: 2em;\n    box-sizing: border-box;\n    text-decoration: none;\n    text-align: center;\n    background-color: #00C805;\n    cursor: pointer;\n    font-size: 16px;\n    \n }\n\n .caption {\n   font-family: 'Open Sans', sans-serif;\n   height: 70%;\n   margin: auto;\n   background-color: #ADFF2F;\n   filter: brightness();\n   display: flex;\n   justify-content: center;\n \n }\n\n .subcaption {\n   margin: auto;\n   margin-right: 20px;\n }\n\n .caption-header {\n   margin-top: 0;\n   font-size: 50px;\n }\n\n .second-signup-button {\n   display: inline-block;\n    padding: 0.6em 1.9em;\n    margin: 0, 0.1em 0.1em 0;\n    border: 0.16em solid rgba(255,255,255,0);\n    border-radius: 2em;\n    box-sizing: border-box;\n    text-decoration: none;\n    text-align: center;\n    background-color: black;\n    cursor: pointer;\n    font-size: 16px;\n    color: white;\n }\n  \n#root {\n  height: 100%;\n}\n\n.entire-app {\n  height: 100%;\n}\n\n.front-page {\n  height: 100%;\n}\n\n.black-bottom {\n  background-color: black;\n  height: 30%\n}\n \n.caption-image {\n  height: 50%;\n  margin: auto;\n  margin-left: 25px;\n}\n\n.words {\n  font-size: 20px;\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./frontend/components/session_form/session_style.css":
 /*!**************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./frontend/components/session_form/session_style.css ***!
@@ -976,7 +1075,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "html, body {\n    height: 100%;\n}\n\nbody {\n    margin-top: 0;\n    margin-bottom: 0;\n    margin-left: 0;\n}\n\n\n#root {\n    height: 100%;\n}\n\n.entire-app {\n    height: 100%;\n}\n.user-page {\n    height: 100%;\n    display: flex;\n    flex-direction: row;\n    \n   \n    \n}\n\n.image {\n    flex: 1;\n    padding-right: 40px;\n    height: 100%;\n    width: 52%;\n    margin: 0;\n    \n \n}\n\n.whole-thing {\n    flex: 1;\n    margin: auto;\n    padding-right: 50px;\n}\n.title {\n    font-family: Arial;\n    font-size: 21px;\n    \n}\n\n.login-input {\n    font-size: medium;\n    height: 15px;\n    width: 412px;\n    padding: 15px 20px 15px 20px;\n    background: #F0F0F0;\n    border: white;\n    \n}\n\n.login-input:hover {\n    background-color: white;\n     border: 2px solid;\n     border-color: #00C805;  \n    \n}\n\n.hit-button {\n    \n    background: #00C805;    \n    color: white;\n    border: none;\n    width: 145px;\n    height: 50px;\n    padding: 5px 10px 5px 10px;\n    font-size: 16px;\n}\n\n.hit-button:hover {\n    background-color: #008000;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/session_form/session_style.css"],"names":[],"mappings":"AAAA;IACI,YAAY;AAChB;;AAEA;IACI,aAAa;IACb,gBAAgB;IAChB,cAAc;AAClB;;;AAGA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;AAChB;AACA;IACI,YAAY;IACZ,aAAa;IACb,mBAAmB;;;;AAIvB;;AAEA;IACI,OAAO;IACP,mBAAmB;IACnB,YAAY;IACZ,UAAU;IACV,SAAS;;;AAGb;;AAEA;IACI,OAAO;IACP,YAAY;IACZ,mBAAmB;AACvB;AACA;IACI,kBAAkB;IAClB,eAAe;;AAEnB;;AAEA;IACI,iBAAiB;IACjB,YAAY;IACZ,YAAY;IACZ,4BAA4B;IAC5B,mBAAmB;IACnB,aAAa;;AAEjB;;AAEA;IACI,uBAAuB;KACtB,iBAAiB;KACjB,qBAAqB;;AAE1B;;AAEA;;IAEI,mBAAmB;IACnB,YAAY;IACZ,YAAY;IACZ,YAAY;IACZ,YAAY;IACZ,0BAA0B;IAC1B,eAAe;AACnB;;AAEA;IACI,yBAAyB;AAC7B","sourcesContent":["html, body {\n    height: 100%;\n}\n\nbody {\n    margin-top: 0;\n    margin-bottom: 0;\n    margin-left: 0;\n}\n\n\n#root {\n    height: 100%;\n}\n\n.entire-app {\n    height: 100%;\n}\n.user-page {\n    height: 100%;\n    display: flex;\n    flex-direction: row;\n    \n   \n    \n}\n\n.image {\n    flex: 1;\n    padding-right: 40px;\n    height: 100%;\n    width: 52%;\n    margin: 0;\n    \n \n}\n\n.whole-thing {\n    flex: 1;\n    margin: auto;\n    padding-right: 50px;\n}\n.title {\n    font-family: Arial;\n    font-size: 21px;\n    \n}\n\n.login-input {\n    font-size: medium;\n    height: 15px;\n    width: 412px;\n    padding: 15px 20px 15px 20px;\n    background: #F0F0F0;\n    border: white;\n    \n}\n\n.login-input:hover {\n    background-color: white;\n     border: 2px solid;\n     border-color: #00C805;  \n    \n}\n\n.hit-button {\n    \n    background: #00C805;    \n    color: white;\n    border: none;\n    width: 145px;\n    height: 50px;\n    padding: 5px 10px 5px 10px;\n    font-size: 16px;\n}\n\n.hit-button:hover {\n    background-color: #008000;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "html, body {\n    height: 100%;\n}\n\nbody {\n    margin-top: 0;\n    margin-bottom: 0;\n    margin-left: 0;\n}\n\n\n#root {\n    height: 100%;\n}\n\n.entire-app {\n    height: 100%;\n}\n.user-page {\n    height: 100%;\n    display: flex;\n    flex-direction: row;\n    \n   \n    \n}\n\n.image {\n    flex: 1;\n    padding-right: 40px;\n    height: 100%;\n    width: 52%;\n    margin: 0;\n    \n \n}\n\n.whole-thing {\n    flex: 1;\n    margin: auto;\n    padding-right: 50px;\n    font-family: 'Open Sans', sans-serif;\n}\n.title {\n    font-family: 'Open Sans', sans-serif;\n    font-size: 21px;\n    \n}\n\n.login-input {\n    font-size: medium;\n    height: 15px;\n    width: 412px;\n    padding: 15px 20px 15px 20px;\n    background: #F0F0F0;\n    border: white;\n    \n}\n\n.login-input:hover {\n    background-color: white;\n     border: 2px solid;\n     border-color: #00C805;  \n    \n}\n\n.hit-button {\n    \n    background: #00C805;    \n    color: white;\n    border: none;\n    width: 145px;\n    height: 50px;\n    padding: 5px 10px 5px 10px;\n    font-size: 16px;\n}\n\n.hit-button:hover {\n    background-color: #008000;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/session_form/session_style.css"],"names":[],"mappings":"AAAA;IACI,YAAY;AAChB;;AAEA;IACI,aAAa;IACb,gBAAgB;IAChB,cAAc;AAClB;;;AAGA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;AAChB;AACA;IACI,YAAY;IACZ,aAAa;IACb,mBAAmB;;;;AAIvB;;AAEA;IACI,OAAO;IACP,mBAAmB;IACnB,YAAY;IACZ,UAAU;IACV,SAAS;;;AAGb;;AAEA;IACI,OAAO;IACP,YAAY;IACZ,mBAAmB;IACnB,oCAAoC;AACxC;AACA;IACI,oCAAoC;IACpC,eAAe;;AAEnB;;AAEA;IACI,iBAAiB;IACjB,YAAY;IACZ,YAAY;IACZ,4BAA4B;IAC5B,mBAAmB;IACnB,aAAa;;AAEjB;;AAEA;IACI,uBAAuB;KACtB,iBAAiB;KACjB,qBAAqB;;AAE1B;;AAEA;;IAEI,mBAAmB;IACnB,YAAY;IACZ,YAAY;IACZ,YAAY;IACZ,YAAY;IACZ,0BAA0B;IAC1B,eAAe;AACnB;;AAEA;IACI,yBAAyB;AAC7B","sourcesContent":["html, body {\n    height: 100%;\n}\n\nbody {\n    margin-top: 0;\n    margin-bottom: 0;\n    margin-left: 0;\n}\n\n\n#root {\n    height: 100%;\n}\n\n.entire-app {\n    height: 100%;\n}\n.user-page {\n    height: 100%;\n    display: flex;\n    flex-direction: row;\n    \n   \n    \n}\n\n.image {\n    flex: 1;\n    padding-right: 40px;\n    height: 100%;\n    width: 52%;\n    margin: 0;\n    \n \n}\n\n.whole-thing {\n    flex: 1;\n    margin: auto;\n    padding-right: 50px;\n    font-family: 'Open Sans', sans-serif;\n}\n.title {\n    font-family: 'Open Sans', sans-serif;\n    font-size: 21px;\n    \n}\n\n.login-input {\n    font-size: medium;\n    height: 15px;\n    width: 412px;\n    padding: 15px 20px 15px 20px;\n    background: #F0F0F0;\n    border: white;\n    \n}\n\n.login-input:hover {\n    background-color: white;\n     border: 2px solid;\n     border-color: #00C805;  \n    \n}\n\n.hit-button {\n    \n    background: #00C805;    \n    color: white;\n    border: none;\n    width: 145px;\n    height: 50px;\n    padding: 5px 10px 5px 10px;\n    font-size: 16px;\n}\n\n.hit-button:hover {\n    background-color: #008000;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

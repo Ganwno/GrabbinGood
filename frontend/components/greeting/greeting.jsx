@@ -1,15 +1,35 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import './greeting_style.css';
 
 const Greeting = ({currentUser, logout}) => {
     const sessionLinks = () => (
-
-        <nav className= "login-signup">
-            <h1>THIS IS GRABBINGOOD</h1>
-            <Link to = "/login">Login</Link>
+        <div className = 'front-page'>
+        <nav className= "header">
+            <div>
+            <h1 className="header-left" >GrabbinGood 
+            <img src="/images/logo.jpeg" alt="" className="logo-image"></img>
+            </h1>
+            </div>
+            <div className = "header-right">
+            <Link to = "/login"><button className = 'login-button'>Log In</button></Link>
             &nbsp;&nbsp;
-            <Link to ="/signup">Sign up</Link>
+            <Link to="/signup"><button className = 'signup-button'>Sign Up</button></Link>
+            </div>
         </nav>
+            <div className='caption'>
+                <div className = 'subcaption'>
+                    <h1 className="caption-header">Investing for <br></br> Everyone</h1>
+                <p className = "words">GrabbinGood, the best way to invest, <br></br>gives you more ways to earn money 
+                while<br></br>being free and easy to use.</p>
+                <br/>
+                <Link to="/signup"><button className='second-signup-button'>Sign Up</button></Link>
+                </div>
+                <img src="/images/homepage.jpeg" alt="" className="caption-image"></img>
+            </div>
+            <div className = "black-bottom">
+            </div>
+        </div>
     )
 
     const signedIn = () => (
@@ -18,6 +38,7 @@ const Greeting = ({currentUser, logout}) => {
             <button onClick = {logout}>Log Out Here!</button>
     </div>
     )
+    //redirect to portfolio page if signed in
 
     return currentUser ? signedIn() : sessionLinks();
 }

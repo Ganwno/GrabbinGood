@@ -39,9 +39,10 @@ body {
     flex: 1;
     margin: auto;
     padding-right: 50px;
+    font-family: 'Open Sans', sans-serif;
 }
 .title {
-    font-family: Arial;
+    font-family: 'Open Sans', sans-serif;
     font-size: 21px;
     
 }
