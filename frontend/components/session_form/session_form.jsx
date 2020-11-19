@@ -47,6 +47,7 @@ class SessionForm extends React.Component {
 
 
     render(){
+        if (this.props.formType === 'Login') {
         return(
             <div className = "user-page">
                 <img src="/images/stock.jpg" alt="" className = "image"></img>
@@ -91,7 +92,51 @@ class SessionForm extends React.Component {
                     
                 </form>
             </div>
-        )
+        )}
+        else {
+            return (
+                <div className = "user-page">
+                <img src="/images/stock.jpg" alt="" className = "image"></img>
+                <form onSubmit= {this.handleSubmit} className ="whole-thing" >
+                    <br/>
+                   <h1 className="title">
+                    Welcome to GrabbinGood
+                    </h1>
+                    {this.renderErrors()}
+                    <div className = "login-form">
+                        <br/>
+                        <label>Username
+                            
+                            <p>
+                            <input type = "text" value = {this.state.username}
+                            onChange = {this.update('username')} 
+                            className = "login-input"
+                            />
+                            </p>
+                        </label>
+                        <br/>
+                        <label>Password
+                            <br/>
+                            <p>
+                            <input type = "password" value={this.state.password}
+                            onChange={this.update('password')} 
+                            className = "login-input"
+                            />
+                            </p>
+                        </label>
+                        <br/>
+                        <div className = "buttons">
+                        <input type = "submit" value = {this.props.formType}
+                        className = "hit-button"
+                        />
+                        </div>
+                        
+                    </div>
+                    
+                </form>
+            </div>
+            )
+        }
     }
 }
 
