@@ -502,6 +502,7 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "demoHandleSubmit",
     value: function demoHandleSubmit(e) {
+      e.preventDefault();
       this.props.processForm({
         username: "demouser",
         password: "password123"
