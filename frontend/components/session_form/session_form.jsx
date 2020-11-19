@@ -12,6 +12,7 @@ class SessionForm extends React.Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.demoHandleSubmit = this.demoHandleSubmit.bind(this);
+        this.renderErrors = this.renderErrors.bind(this);
        
     }
 
@@ -30,13 +31,13 @@ class SessionForm extends React.Component {
     renderErrors(){
         return(
             <ul>
-                {this.props.errors.map((error, i) => (
-                    <li key={`error-${i}`}>
+                {this.props.errors.map((error, idx) => (
+                    <li key={idx}>
                         {error}
                     </li>
                 ))}
             </ul>
-        );
+        )
     }
 
     demoHandleSubmit(e) {
@@ -49,7 +50,7 @@ class SessionForm extends React.Component {
     render(){
         return(
             <div className = "user-page">
-                <img src="/images/stock.jpg" alt="" className = "image"></img>
+                <img src={window.stockURL} className = "image"></img>
                 <form onSubmit= {this.handleSubmit} className ="whole-thing" >
                     <br/>
                    <h1 className="title">
