@@ -49,7 +49,7 @@ class SessionForm extends React.Component {
     render(){
         return(
             <div className = "user-page">
-                <img src={window.stockURL} className = "image"></img>
+                <img src="/images/stock.jpg" alt="" className = "image"></img>
                 <form onSubmit= {this.handleSubmit} className ="whole-thing" >
                     <br/>
                    <h1 className="title">

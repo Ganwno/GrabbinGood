@@ -8,7 +8,7 @@ const Greeting = ({currentUser, logout}) => {
         <nav className= "header">
             <div>
             <h1 className="header-left" >GrabbinGood 
-            <img src={window.logoURL} className="logo-image"></img>
+            <img src="/images/logo.jpeg" alt="" className="logo-image"></img>
             </h1>
             </div>
             <div className = "header-right">
@@ -25,7 +25,7 @@ const Greeting = ({currentUser, logout}) => {
                 <br/>
                 <Link to="/signup"><button className='second-signup-button'>Sign Up</button></Link>
                 </div>
-                <img className = "caption-image"src={window.homepageURL}></img>
+                <img className = "caption-image"src="/images/homepage.jpeg" alt=""></img>
             </div>
             <div className = "black-bottom">
             </div>
