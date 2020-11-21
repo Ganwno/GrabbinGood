@@ -1,0 +1,1 @@
+json.extract! stock, :id, :company_name, :description, :stock_symbol, :price

@@ -5,6 +5,7 @@ import Root from './components/root';
 
 //testing
 import { login } from './actions/session_actions';
+import {showStock, showStocks} from './actions/stock_actions'
 
 document.addEventListener("DOMContentLoaded", () => {
     let store;
@@ -27,6 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
     window.dispatch = store.dispatch;
     window.getState = store.getState;
     window.login = login;
+    window.showStock = showStock;
+    window.showStocks = showStocks;
+ 
 
     
     ReactDOM.render(<Root store = {store}/>, root);

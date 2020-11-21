@@ -24,7 +24,8 @@ class SessionForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const user = Object.assign({}, this.state)
-        this.props.processForm(user)
+        this.props.showStocks().then(() => this.props.processForm(user))
+        
     }
 
     renderErrors(){
@@ -41,10 +42,9 @@ class SessionForm extends React.Component {
 
     demoHandleSubmit(e) {
         e.preventDefault();
-       this.props.processForm({username: "demouser", password: "password123"})
-
+        this.props.showStocks().then(() => this.props.processForm({ username: "demouser", password: "password123" }))
+       
     }
-
 
     render(){
         if (this.props.formType === 'Login') {
@@ -95,6 +95,7 @@ class SessionForm extends React.Component {
         )}
         else {
             return (
+                
                 <div className = "user-page">
                 <img src="/images/stock.jpg" alt="" className = "image"></img>
                 <form onSubmit= {this.handleSubmit} className ="whole-thing" >

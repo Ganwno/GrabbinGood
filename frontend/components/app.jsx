@@ -5,6 +5,8 @@ import GreetingContainer from './greeting/greeting_container';
 import LoginFormContainer from './session_form/login_form_container';
 import SignupFormContainer from './session_form/signup_form_container';
 import {AuthRoute} from '../util/route_util';
+import StockDetail from './stocks/stock_detail';
+import PortfolioContainer from './portfolio/portfolio_container';
 
 const App = () => (
     <div className = "entire-app">
@@ -14,8 +16,11 @@ const App = () => (
         <AuthRoute exact path= "/login" component={LoginFormContainer} />
         <AuthRoute exact path = "/signup" component= {SignupFormContainer}/>
         <Route exact path ="/" component={GreetingContainer}/>
+        <Route exact path = "/portfolio" component= {PortfolioContainer}/>
+        <Route exact path = {`/stocks/:id`} component = {StockDetail}/>
         </Switch>
     </div>
 )
+// need to figure out how to make it so you can only visit /portfolio if logged in.
 
 export default App;

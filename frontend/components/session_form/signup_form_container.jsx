@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {signup} from '../../actions/session_actions';
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { showStocks } from '../../actions/stock_actions'
 
 const mSTP = ({errors}) => {
     return {
@@ -14,7 +15,8 @@ const mSTP = ({errors}) => {
 
 const mDTP = dispatch => {
     return {
-        processForm: (user) => dispatch(signup(user))
+        processForm: (user) => dispatch(signup(user)),
+        showStocks: () => dispatch(showStocks())
     }
 }
 

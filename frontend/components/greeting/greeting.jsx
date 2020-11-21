@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './greeting_style.css';
+import PortfolioContainer from '../portfolio/portfolio_container';
 
 const Greeting = ({currentUser, logout}) => {
     const sessionLinks = () => (
@@ -33,10 +34,11 @@ const Greeting = ({currentUser, logout}) => {
     )
 
     const signedIn = () => (
-    <div>
-        <h1>Hi {currentUser.username}</h1>
-            <button onClick = {logout}>Log Out Here!</button>
-    </div>
+    // <div>
+    //     <h1>Hi {currentUser.username}</h1>
+    //         <button onClick = {logout}>Log Out Here!</button>
+    // </div>
+    <PortfolioContainer/>
     )
     //redirect to portfolio page if signed in
 

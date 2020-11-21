@@ -40,6 +40,7 @@
     padding-right: 15px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: bold;
     
  }
 
@@ -55,14 +56,14 @@
     background-color: #00C805;
     cursor: pointer;
     font-size: 16px;
-    
+    font-weight: bold;
  }
 
  .caption {
    font-family: 'Open Sans', sans-serif;
    height: 70%;
    margin: auto;
-   background-color: #ADFF2F;
+   background-color: #c3f648;
    filter: brightness();
    display: flex;
    justify-content: center;
