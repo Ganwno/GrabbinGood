@@ -1,70 +1,65 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import './portfolio_style.css'
+import StockContainer from '../stocks/stock_container';
+import UserChart from './user_chart'
 
 class Portfolio extends React.Component {
     constructor(props) {
         super(props);
-        this.buttonPress = this.buttonPress.bind(this);
+    this.state = {
+        inputVal: ""
+    }
+      this.handleChange = this.handleChange.bind(this)
+      
+
       
     }
+    
 
-    componentDidMount() {
-        const searchSuggestions = () => {
-        const companies = this.props.stocks;
-         const searchInput = document.querySelector('.search-bar')
-         const suggestionsPanel = document.querySelector('.suggestions')
-            searchInput.addEventListener('keyup', function(){
-            const input = searchInput.value.toLowerCase(); 
-            suggestionsPanel.innerHTML = "";
-            const suggestions = companies.filter(function(companies){
-                return companies.stock_symbol.toLowerCase().startsWith(input)
-            })
-            suggestions.forEach(function(suggested) {
-                const div = document.createElement('div');
-                div.className = 'stock-selector'
-                div.innerHTML = suggested.stock_symbol
-                suggestionsPanel.appendChild(div);
-            })
-                if (input === "") {
-                    suggestionsPanel.innerHTML = '';
-                }
-        });
-    }
-        if (this.props.stocks.length < 1) {
-            this.props.showStocks().then(() => searchSuggestions())
-        }
-        else {
-            searchSuggestions();
-        }
 
+    handleChange(e) {
+        this.setState({inputVal: e.target.value})
     }
 
-
-
-    buttonPress(e){
-        e.preventDefault();
-        this.props.showStock({id: 1, company_name: "Amazon", description: "this is a test for jbuilder",
-    stock_symbol: "AMZN", price: 1465
-    })
-
-    }
+    
 
 
     render() {
+        let matchedInputs = [];
+        const searchKey = this.state.inputVal.toLowerCase();
+        if(searchKey && searchKey.length > 0) {
+            matchedInputs = this.props.stocks.filter(stock =>{
+                return stock.stock_symbol.toLowerCase().match(searchKey)
+            })
+        }
+        
         return(
             <div>
                 <div className="search-section">
-                    <input type="text" placeholder = "Search" className = "search-bar"/>
+                    <input type="text" placeholder="Search" className="search-bar" 
+                    onChange={this.handleChange} />
                     <div className = "suggestions">
+                        {
+                            matchedInputs.map((stock, idx) => {
+                            return <div key = {idx}><Link to={"/stocks/1"}>{stock.stock_symbol}</Link></div>
+                            })  
+                           
+                            
+                        }
                     </div>
                 </div>
-                {/* <Link to= {`/stocks/1`} ><button onClick={this.buttonPress}>Amazon</button></Link> */}
+                <br/>
+                <br/>
+                <UserChart/>
                 <br/>
                 <button onClick={this.props.logout}>Log Out Here!</button>
             </div>
         )
     }
+
 }
+
+
 
 export default Portfolio;

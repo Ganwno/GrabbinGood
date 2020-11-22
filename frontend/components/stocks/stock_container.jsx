@@ -1,4 +1,4 @@
-import StockDetail from './stock_detail';
+
 import {connect} from 'react-redux';
 import React from 'react'
 import {showStock} from '../../actions/stock_actions'
@@ -6,9 +6,11 @@ import StockDetail from './stock_detail';
 
 const mSTP = (state, ownProps) => {
     return {
-        stock: state.entities.stocks[ownProps.match.params.stockId]
+        stock: "hi"
     }
 }
+
+//state.entities.stocks[ownProps.match.params.stockId]
 
 const mDTP = (dispatch) => {
     return {
