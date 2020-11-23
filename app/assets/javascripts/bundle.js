@@ -479,13 +479,29 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var matchedInputs = [];
-      var searchKey = this.state.inputVal.toLowerCase();
+      var _this2 = this;
 
-      if (searchKey && searchKey.length > 0) {
-        matchedInputs = this.props.stocks.filter(function (stock) {
-          return stock.stock_symbol.toLowerCase().match(searchKey);
+      var matchedInputs = [];
+
+      if (this.props.stocks.length < 1) {
+        //fixes refresh issue
+        this.props.showStocks().then(function () {
+          var searchKey = _this2.state.inputVal.toLowerCase();
+
+          if (searchKey && searchKey.length > 0) {
+            matchedInputs = _this2.props.stocks.filter(function (stock) {
+              return stock.stock_symbol.toLowerCase().match(searchKey);
+            });
+          }
         });
+      } else {
+        var searchKey = this.state.inputVal.toLowerCase();
+
+        if (searchKey && searchKey.length > 0) {
+          matchedInputs = this.props.stocks.filter(function (stock) {
+            return stock.stock_symbol.toLowerCase().match(searchKey);
+          });
+        }
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

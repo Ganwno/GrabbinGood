@@ -24482,3 +24482,213 @@ Processing by Api::SessionsController#create as JSON
 Completed 200 OK in 394ms (Views: 14.7ms | ActiveRecord: 2.9ms)
 
 
+Started GET "/" for ::1 at 2020-11-22 18:39:27 -0500
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "puVTTi4lBh-_sNLpCqRsAg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11
+  Rendered api/users/_user.json.jbuilder (0.5ms)
+  Rendered static_pages/root.html.erb within layouts/application (14.3ms)
+Completed 200 OK in 83ms (Views: 76.7ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/" for ::1 at 2020-11-22 18:41:06 -0500
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  [1m[36mUser Load (3.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "puVTTi4lBh-_sNLpCqRsAg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11
+  Rendered api/users/_user.json.jbuilder (0.6ms)
+  Rendered static_pages/root.html.erb within layouts/application (19.8ms)
+Completed 200 OK in 1401ms (Views: 1382.9ms | ActiveRecord: 3.5ms)
+
+
+Started GET "/api/stocks" for ::1 at 2020-11-22 18:41:08 -0500
+Processing by Api::StocksController#index as JSON
+  Rendering api/stocks/index.json.jbuilder
+  [1m[36mStock Load (1.4ms)[0m  [1m[34mSELECT "stocks".* FROM "stocks"[0m
+  ↳ app/views/api/stocks/index.json.jbuilder:1
+  Rendered api/stocks/_stock.json.jbuilder (1.7ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.6ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.3ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.3ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.7ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.4ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.3ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.9ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/index.json.jbuilder (131.0ms)
+Completed 200 OK in 148ms (Views: 145.9ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/" for ::1 at 2020-11-22 18:41:11 -0500
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "puVTTi4lBh-_sNLpCqRsAg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11
+  Rendered api/users/_user.json.jbuilder (0.6ms)
+  Rendered static_pages/root.html.erb within layouts/application (7.9ms)
+Completed 200 OK in 58ms (Views: 52.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/api/stocks" for ::1 at 2020-11-22 18:41:12 -0500
+Processing by Api::StocksController#index as JSON
+  Rendering api/stocks/index.json.jbuilder
+  [1m[36mStock Load (1.5ms)[0m  [1m[34mSELECT "stocks".* FROM "stocks"[0m
+  ↳ app/views/api/stocks/index.json.jbuilder:1
+  Rendered api/stocks/_stock.json.jbuilder (1.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.3ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (1.0ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.3ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.6ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.7ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.6ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.8ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.4ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/index.json.jbuilder (110.4ms)
+Completed 200 OK in 132ms (Views: 129.8ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/" for ::1 at 2020-11-22 18:41:39 -0500
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "puVTTi4lBh-_sNLpCqRsAg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11
+  Rendered api/users/_user.json.jbuilder (0.5ms)
+  Rendered static_pages/root.html.erb within layouts/application (7.8ms)
+Completed 200 OK in 1350ms (Views: 1342.4ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/api/stocks" for ::1 at 2020-11-22 18:41:41 -0500
+Processing by Api::StocksController#index as JSON
+  Rendering api/stocks/index.json.jbuilder
+  [1m[36mStock Load (55.5ms)[0m  [1m[34mSELECT "stocks".* FROM "stocks"[0m
+  ↳ app/views/api/stocks/index.json.jbuilder:1
+  Rendered api/stocks/_stock.json.jbuilder (1.0ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (1.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.7ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.3ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.4ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.6ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/index.json.jbuilder (188.6ms)
+Completed 200 OK in 206ms (Views: 150.0ms | ActiveRecord: 55.5ms)
+
+
+Started GET "/" for ::1 at 2020-11-22 20:13:59 -0500
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "puVTTi4lBh-_sNLpCqRsAg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11
+  Rendered api/users/_user.json.jbuilder (2.6ms)
+  Rendered static_pages/root.html.erb within layouts/application (32.9ms)
+Completed 200 OK in 148ms (Views: 135.9ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/api/stocks" for ::1 at 2020-11-22 20:14:00 -0500
+Processing by Api::StocksController#index as JSON
+  Rendering api/stocks/index.json.jbuilder
+  [1m[36mStock Load (69.2ms)[0m  [1m[34mSELECT "stocks".* FROM "stocks"[0m
+  ↳ app/views/api/stocks/index.json.jbuilder:1
+  Rendered api/stocks/_stock.json.jbuilder (0.9ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.5ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (1.4ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.3ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.4ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.1ms)
+  Rendered api/stocks/_stock.json.jbuilder (0.2ms)
+  Rendered api/stocks/index.json.jbuilder (190.7ms)
+Completed 200 OK in 216ms (Views: 145.6ms | ActiveRecord: 69.2ms)
+
+

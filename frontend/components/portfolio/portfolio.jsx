@@ -27,12 +27,25 @@ class Portfolio extends React.Component {
 
     render() {
         let matchedInputs = [];
-        const searchKey = this.state.inputVal.toLowerCase();
-        if(searchKey && searchKey.length > 0) {
-            matchedInputs = this.props.stocks.filter(stock =>{
-                return stock.stock_symbol.toLowerCase().match(searchKey)
+        if (this.props.stocks.length < 1) {
+            //fixes refresh issue
+            this.props.showStocks().then(() =>{
+                const searchKey = this.state.inputVal.toLowerCase();
+                if (searchKey && searchKey.length > 0) {
+                    matchedInputs = this.props.stocks.filter(stock => {
+                        return stock.stock_symbol.toLowerCase().match(searchKey)
+                    })
+                }
             })
-        }
+    }
+    else {
+            const searchKey = this.state.inputVal.toLowerCase();
+            if (searchKey && searchKey.length > 0) {
+                matchedInputs = this.props.stocks.filter(stock => {
+                    return stock.stock_symbol.toLowerCase().match(searchKey)
+                })
+            }
+    }
         
         return(
             <div>
