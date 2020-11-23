@@ -5,7 +5,7 @@ import GreetingContainer from './greeting/greeting_container';
 import LoginFormContainer from './session_form/login_form_container';
 import SignupFormContainer from './session_form/signup_form_container';
 import {AuthRoute} from '../util/route_util';
-import StockDetail from './stocks/stock_detail';
+import StockDetailContainer from './stocks/stock_container';
 import PortfolioContainer from './portfolio/portfolio_container';
 
 const App = () => (
@@ -17,7 +17,7 @@ const App = () => (
         <AuthRoute exact path = "/signup" component= {SignupFormContainer}/>
         <Route exact path ="/" component={GreetingContainer}/>
         <Route exact path = "/portfolio" component= {PortfolioContainer}/>
-        <Route exact path = {`/stocks/:id`} component = {StockDetail}/>
+        <Route exact path = {`/stocks/:id`} component = {StockDetailContainer}/>
         </Switch>
     </div>
 )

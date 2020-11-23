@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import './portfolio_style.css'
 import UserChart from './user_chart'
-import SearchBarContainer from './search/searh_bar_container';
+import SearchBarContainer from './search/search_bar_container';
 
 class Portfolio extends React.Component {
     constructor(props) {
@@ -14,7 +14,6 @@ class Portfolio extends React.Component {
      
 
     render() {
-        
         return(
             <div>
                 <SearchBarContainer/>

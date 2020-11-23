@@ -220,7 +220,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
 /* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
-/* harmony import */ var _stocks_stock_detail__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./stocks/stock_detail */ "./frontend/components/stocks/stock_detail.jsx");
+/* harmony import */ var _stocks_stock_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./stocks/stock_container */ "./frontend/components/stocks/stock_container.jsx");
 /* harmony import */ var _portfolio_portfolio_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./portfolio/portfolio_container */ "./frontend/components/portfolio/portfolio_container.jsx");
 
 
@@ -253,7 +253,7 @@ var App = function App() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/stocks/:id",
-    component: _stocks_stock_detail__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _stocks_stock_container__WEBPACK_IMPORTED_MODULE_6__["default"]
   })));
 }; // need to figure out how to make it so you can only visit /portfolio if logged in.
 
@@ -422,7 +422,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _portfolio_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./portfolio_style.css */ "./frontend/components/portfolio/portfolio_style.css");
 /* harmony import */ var _user_chart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user_chart */ "./frontend/components/portfolio/user_chart.jsx");
-/* harmony import */ var _search_searh_bar_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./search/searh_bar_container */ "./frontend/components/portfolio/search/searh_bar_container.jsx");
+/* harmony import */ var _search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./search/search_bar_container */ "./frontend/components/portfolio/search/search_bar_container.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -471,7 +471,7 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
   _createClass(Portfolio, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_searh_bar_container__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.props.logout
       }, "Log Out Here!"));
     }
@@ -655,8 +655,11 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
           key: idx,
           className: "indiv-suggestions"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "/stocks/".concat(stock.id)
-        }, stock.stock_symbol, stock.company_name));
+          to: {
+            pathname: "/stocks/".concat(stock.id),
+            wow: stock
+          }
+        }, stock.stock_symbol, "----", stock.company_name));
       }))));
     }
   }]);
@@ -668,10 +671,10 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
-/***/ "./frontend/components/portfolio/search/searh_bar_container.jsx":
-/*!**********************************************************************!*\
-  !*** ./frontend/components/portfolio/search/searh_bar_container.jsx ***!
-  \**********************************************************************/
+/***/ "./frontend/components/portfolio/search/search_bar_container.jsx":
+/*!***********************************************************************!*\
+  !*** ./frontend/components/portfolio/search/search_bar_container.jsx ***!
+  \***********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1113,6 +1116,108 @@ var mDTP = function mDTP(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/stocks/stock_chart.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/components/stocks/stock_chart.jsx ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var data = [{
+  name: '1:00',
+  uv: 400,
+  pv: 2400,
+  amt: 2400
+}, {
+  name: '1:30',
+  uv: 200
+}, {
+  name: '1:10',
+  uv: 150
+}, {
+  name: '1:20',
+  uv: 320
+}];
+
+var StockChart = function StockChart(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+    width: 780,
+    height: 300,
+    data: data,
+    margin: {
+      top: 5,
+      right: 20,
+      bottom: 5,
+      left: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Line"], {
+    type: "monotone",
+    dataKey: "uv",
+    stroke: "#EE4E34"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["CartesianGrid"], {
+    vertical: false,
+    horizontalPoints: [50]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
+    dataKey: "name",
+    hide: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["YAxis"], {
+    hide: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Tooltip"], {
+    cursor: {
+      stroke: 'grey'
+    },
+    coordinate: {
+      x: 0,
+      y: -300
+    }
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (StockChart);
+
+/***/ }),
+
+/***/ "./frontend/components/stocks/stock_container.jsx":
+/*!********************************************************!*\
+  !*** ./frontend/components/stocks/stock_container.jsx ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_stock_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/stock_actions */ "./frontend/actions/stock_actions.js");
+/* harmony import */ var _stock_detail__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stock_detail */ "./frontend/components/stocks/stock_detail.jsx");
+
+
+
+
+var mSTP = function mSTP(state, ownProps) {
+  return {
+    stock: state.entities.stocks[ownProps.match.params.id]
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    showStocks: function showStocks() {
+      return dispatch(Object(_actions_stock_actions__WEBPACK_IMPORTED_MODULE_1__["showStocks"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_stock_detail__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/stocks/stock_detail.jsx":
 /*!*****************************************************!*\
   !*** ./frontend/components/stocks/stock_detail.jsx ***!
@@ -1124,7 +1229,8 @@ var mDTP = function mDTP(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _portfolio_search_searh_bar_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../portfolio/search/searh_bar_container */ "./frontend/components/portfolio/search/searh_bar_container.jsx");
+/* harmony import */ var _portfolio_search_search_bar_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../portfolio/search/search_bar_container */ "./frontend/components/portfolio/search/search_bar_container.jsx");
+/* harmony import */ var _stock_chart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stock_chart */ "./frontend/components/stocks/stock_chart.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1150,6 +1256,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var StockDetail = /*#__PURE__*/function (_React$Component) {
   _inherits(StockDetail, _React$Component);
 
@@ -1162,9 +1269,21 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(StockDetail, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.showStocks();
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_search_searh_bar_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+      if (!this.props.stock) {
+        return null;
+      } //fixes refresh issue
+
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_search_search_bar_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.stock.company_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stock_chart__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        stock: this.props.stock
+      }));
     }
   }]);
 
