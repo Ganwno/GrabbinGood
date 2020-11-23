@@ -1,12 +1,12 @@
 
 import {connect} from 'react-redux';
 import React from 'react'
-import {showStock} from '../../actions/stock_actions'
+import {showStocks} from '../../actions/stock_actions'
 import StockDetail from './stock_detail';
 
 const mSTP = (state, ownProps) => {
     return {
-        stock: "hi"
+        stock: state.entities.stocks[ownProps.match.params.id]
     }
 }
 
@@ -14,7 +14,7 @@ const mSTP = (state, ownProps) => {
 
 const mDTP = (dispatch) => {
     return {
-        showStock: (stock) => dispatch(showStock(stock))
+        showStocks: () => dispatch(showStocks())
     }
 }
 
