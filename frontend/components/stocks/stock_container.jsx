@@ -2,6 +2,8 @@
 import {connect} from 'react-redux';
 import {showStocks} from '../../actions/stock_actions';
 import StockDetail from './stock_detail'
+import {logout} from '../../actions/session_actions';
+
 
 const mSTP = (state, ownProps) => {
     return {
@@ -12,7 +14,8 @@ const mSTP = (state, ownProps) => {
 
 const mDTP = (dispatch) => {
     return {
-        showStocks: () => dispatch(showStocks())
+        showStocks: () => dispatch(showStocks()),
+        logout: () => dispatch(logout())
     }
 }
 

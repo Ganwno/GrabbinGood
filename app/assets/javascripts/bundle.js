@@ -86,6 +86,55 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/actions/external_stock_actions.js":
+/*!****************************************************!*\
+  !*** ./frontend/actions/external_stock_actions.js ***!
+  \****************************************************/
+/*! exports provided: CURRENT_ASSET, COMPANY_INFO, updateCurrentFinanceInfo, updateCurrentCompanyInfo */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CURRENT_ASSET", function() { return CURRENT_ASSET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COMPANY_INFO", function() { return COMPANY_INFO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCurrentFinanceInfo", function() { return updateCurrentFinanceInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCurrentCompanyInfo", function() { return updateCurrentCompanyInfo; });
+/* harmony import */ var _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/info_stock_util */ "./frontend/util/info_stock_util.js");
+
+var CURRENT_ASSET = 'CURRENT_ASSET';
+var COMPANY_INFO = 'COMPANY_INFO';
+
+var receiveCurrentAssetInfo = function receiveCurrentAssetInfo(asset) {
+  return {
+    type: 'CURRENT_ASSET',
+    currentAsset: asset
+  };
+};
+
+var receiveCompanyInfo = function receiveCompanyInfo(asset) {
+  return {
+    type: 'COMPANY_INFO',
+    info: asset
+  };
+};
+
+var updateCurrentFinanceInfo = function updateCurrentFinanceInfo(symbol) {
+  return function (dispatch) {
+    return _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__["fetchInfoForStock"](symbol).then(function (info) {
+      return dispatch(receiveCurrentAssetInfo(info));
+    });
+  };
+};
+var updateCurrentCompanyInfo = function updateCurrentCompanyInfo(symbol) {
+  return function (dispatch) {
+    return _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__["fetchCompanyInfo"](symbol).then(function (info) {
+      return dispatch(receiveCompanyInfo(info));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -328,14 +377,7 @@ var Greeting = function Greeting(_ref) {
   };
 
   var signedIn = function signedIn() {
-    return (
-      /*#__PURE__*/
-      // <div>
-      //     <h1>Hi {currentUser.username}</h1>
-      //         <button onClick = {logout}>Log Out Here!</button>
-      // </div>
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_portfolio_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)
-    );
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_portfolio_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
   }; //redirect to portfolio page if signed in
 
 
@@ -656,8 +698,7 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
           className: "indiv-suggestions"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: {
-            pathname: "/stocks/".concat(stock.id),
-            wow: stock
+            pathname: "/stocks/".concat(stock.id)
           }
         }, stock.stock_symbol, "----", stock.company_name));
       }))));
@@ -1116,6 +1157,122 @@ var mDTP = function mDTP(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/stocks/about_section.jsx":
+/*!******************************************************!*\
+  !*** ./frontend/components/stocks/about_section.jsx ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/external_stock_actions */ "./frontend/actions/external_stock_actions.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var AboutSection = /*#__PURE__*/function (_React$Component) {
+  _inherits(AboutSection, _React$Component);
+
+  var _super = _createSuper(AboutSection);
+
+  function AboutSection(props) {
+    var _this;
+
+    _classCallCheck(this, AboutSection);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      symbol: '',
+      description: ''
+    };
+    return _this;
+  } // componentDidMount(){
+  //     let symbol = this.props.stock.stock_symbol
+  //     console.log(symbol);
+  //     let url = `https://cloud.iexapis.com/stable/stock/${symbol}/company?token=pk_ad1084a6b8f141fd80e5996f98df89f6`
+  //     fetch(url).then(response => response.json())
+  //     .then(result => this.setState({symbol: result.symbol, description: result.description}))
+  //     let url2 = `https://cloud.iexapis.com/stable/stock/${symbol}/intraday-prices?token=pk_ad1084a6b8f141fd80e5996f98df89f6`
+  //     fetch(url2).then(response => response.json())
+  //     .then(result => console.log())
+  // }
+
+
+  _createClass(AboutSection, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      if (this.props.stock.stock_symbol !== this.state.symbol) {
+        var symbol = this.props.stock.stock_symbol;
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_ad1084a6b8f141fd80e5996f98df89f6");
+        fetch(url).then(function (response) {
+          return response.json();
+        }).then(function (result) {
+          return _this2.setState({
+            symbol: result.symbol,
+            description: result.description
+          });
+        }); // let url2 = `https://cloud.iexapis.com/stable/stock/${symbol}/intraday-prices?token=pk_ad1084a6b8f141fd80e5996f98df89f6`
+        // fetch(url2).then(response => response.json())
+        //     .then(result => console.log())
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "hi its me"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.stock.company_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "About"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "HI"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.description));
+    }
+  }]);
+
+  return AboutSection;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var mSTP = function mSTP(state, ownProps) {
+  return {
+    info: state.entities.currentAsset.info,
+    financial: state.entities.currentAsset.company
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    updateInfo: function updateInfo(sym) {
+      return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_2__["updateCurrentCompanyInfo"])(sym));
+    },
+    updateFinancial: function updateFinancial(sym) {
+      return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_2__["updateCurrentFinanceInfo"])(sym));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mSTP, mDTP)(AboutSection));
+
+/***/ }),
+
 /***/ "./frontend/components/stocks/stock_chart.jsx":
 /*!****************************************************!*\
   !*** ./frontend/components/stocks/stock_chart.jsx ***!
@@ -1196,6 +1353,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_stock_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/stock_actions */ "./frontend/actions/stock_actions.js");
 /* harmony import */ var _stock_detail__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stock_detail */ "./frontend/components/stocks/stock_detail.jsx");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+
 
 
 
@@ -1210,6 +1369,9 @@ var mDTP = function mDTP(dispatch) {
   return {
     showStocks: function showStocks() {
       return dispatch(Object(_actions_stock_actions__WEBPACK_IMPORTED_MODULE_1__["showStocks"])());
+    },
+    logout: function logout() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["logout"])());
     }
   };
 };
@@ -1231,6 +1393,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _portfolio_search_search_bar_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../portfolio/search/search_bar_container */ "./frontend/components/portfolio/search/search_bar_container.jsx");
 /* harmony import */ var _stock_chart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stock_chart */ "./frontend/components/stocks/stock_chart.jsx");
+/* harmony import */ var _about_section__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./about_section */ "./frontend/components/stocks/about_section.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1257,15 +1421,24 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var StockDetail = /*#__PURE__*/function (_React$Component) {
   _inherits(StockDetail, _React$Component);
 
   var _super = _createSuper(StockDetail);
 
   function StockDetail(props) {
+    var _this;
+
     _classCallCheck(this, StockDetail);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      symbol: '',
+      description: ''
+    };
+    return _this;
   }
 
   _createClass(StockDetail, [{
@@ -1283,7 +1456,13 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_search_search_bar_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.stock.company_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stock_chart__WEBPACK_IMPORTED_MODULE_2__["default"], {
         stock: this.props.stock
-      }));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_about_section__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        stock: this.props.stock
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+        to: '/'
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.props.logout
+      }, "Log Out Here!")));
     }
   }]);
 
@@ -1352,6 +1531,91 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
+/***/ "./frontend/reducers/current_asset_reducer.js":
+/*!****************************************************!*\
+  !*** ./frontend/reducers/current_asset_reducer.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _current_company_financial_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./current_company_financial_reducer */ "./frontend/reducers/current_company_financial_reducer.js");
+/* harmony import */ var _current_company_info_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./current_company_info_reducer */ "./frontend/reducers/current_company_info_reducer.js");
+
+
+
+var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  company: _current_company_financial_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  info: _current_company_info_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+});
+/* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/current_company_financial_reducer.js":
+/*!****************************************************************!*\
+  !*** ./frontend/reducers/current_company_financial_reducer.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/external_stock_actions */ "./frontend/actions/external_stock_actions.js");
+
+
+var currentCompanyFinancial = function currentCompanyFinancial() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var dupState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__["CURRENT_ASSET"]:
+      return Object.assign({}, state, action.asset);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (currentCompanyFinancial);
+
+/***/ }),
+
+/***/ "./frontend/reducers/current_company_info_reducer.js":
+/*!***********************************************************!*\
+  !*** ./frontend/reducers/current_company_info_reducer.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/external_stock_actions */ "./frontend/actions/external_stock_actions.js");
+
+
+var currentCompanyInfo = function currentCompanyInfo() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var dupState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__["COMPANY_INFO"]:
+      return Object.assign({}, state, action.info);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (currentCompanyInfo);
+
+/***/ }),
+
 /***/ "./frontend/reducers/entities_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/entities_reducer.js ***!
@@ -1364,12 +1628,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _stocks_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stocks_reducer */ "./frontend/reducers/stocks_reducer.js");
+/* harmony import */ var _current_asset_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./current_asset_reducer */ "./frontend/reducers/current_asset_reducer.js");
+
 
 
 
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  stocks: _stocks_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  stocks: _stocks_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  currentAsset: _current_asset_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -1588,6 +1855,32 @@ var configureStore = function configureStore() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
+
+/***/ }),
+
+/***/ "./frontend/util/info_stock_util.js":
+/*!******************************************!*\
+  !*** ./frontend/util/info_stock_util.js ***!
+  \******************************************/
+/*! exports provided: fetchInfoForStock, fetchCompanyInfo */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchInfoForStock", function() { return fetchInfoForStock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCompanyInfo", function() { return fetchCompanyInfo; });
+var fetchInfoForStock = function fetchInfoForStock(symbol) {
+  return $.ajax({
+    url: "\"https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=pk_ad1084a6b8f141fd80e5996f98df89f6\""),
+    method: 'GET'
+  });
+};
+var fetchCompanyInfo = function fetchCompanyInfo(symbol) {
+  return $.ajax({
+    url: "\"https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_ad1084a6b8f141fd80e5996f98df89f6\""),
+    method: 'GET'
+  });
+};
 
 /***/ }),
 

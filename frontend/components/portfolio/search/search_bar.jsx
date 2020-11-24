@@ -46,11 +46,7 @@ class SearchBar extends React.Component {
                         {
                             matchedInputs.map((stock, idx) => {
                             return <div key = {idx} className="indiv-suggestions">
-                            <Link to={{pathname: `/stocks/${stock.id}`,
-                            wow: stock
-                            }} 
-                           
-                            >
+                            <Link to={{pathname: `/stocks/${stock.id}`}} >
                             {stock.stock_symbol}----{stock.company_name}
                             </Link>
                             </div>

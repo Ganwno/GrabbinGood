@@ -1,15 +1,23 @@
 import React from 'react';
 import SearchBarContainer from '../portfolio/search/search_bar_container';
 import StockChart from './stock_chart';
+import AboutSectionContainer from './about_section';
+import {Link} from 'react-router-dom'
 
 class StockDetail extends React.Component {
     
     constructor(props) {
         super(props);
+        this.state = {
+            symbol: '',
+            description: ''
+        }
     }
 
     componentDidMount(){
+        
         this.props.showStocks()
+        
     }
 
     render() {
@@ -21,8 +29,11 @@ class StockDetail extends React.Component {
             <div>
                 <SearchBarContainer />
                 <br/>
-        <h1>{this.props.stock.company_name}</h1>
-        <StockChart stock={this.props.stock}/>
+                <h1>{this.props.stock.company_name}</h1>
+                <StockChart stock={this.props.stock}/>
+                <AboutSectionContainer stock={this.props.stock}/>
+                <br/>
+                <Link to={'/'}><button onClick={this.props.logout}>Log Out Here!</button></Link>
            </div>
         )
     }

@@ -34,10 +34,7 @@ const Greeting = ({currentUser, logout}) => {
     )
 
     const signedIn = () => (
-    // <div>
-    //     <h1>Hi {currentUser.username}</h1>
-    //         <button onClick = {logout}>Log Out Here!</button>
-    // </div>
+
     <PortfolioContainer/>
     )
     //redirect to portfolio page if signed in
