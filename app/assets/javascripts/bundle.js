@@ -1212,17 +1212,7 @@ var AboutSection = /*#__PURE__*/function (_React$Component) {
       description: ''
     };
     return _this;
-  } // componentDidMount(){
-  //     let symbol = this.props.stock.stock_symbol
-  //     console.log(symbol);
-  //     let url = `https://cloud.iexapis.com/stable/stock/${symbol}/company?token=pk_ad1084a6b8f141fd80e5996f98df89f6`
-  //     fetch(url).then(response => response.json())
-  //     .then(result => this.setState({symbol: result.symbol, description: result.description}))
-  //     let url2 = `https://cloud.iexapis.com/stable/stock/${symbol}/intraday-prices?token=pk_ad1084a6b8f141fd80e5996f98df89f6`
-  //     fetch(url2).then(response => response.json())
-  //     .then(result => console.log())
-  // }
-
+  }
 
   _createClass(AboutSection, [{
     key: "render",
@@ -1231,7 +1221,7 @@ var AboutSection = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.stock.stock_symbol !== this.state.symbol) {
         var symbol = this.props.stock.stock_symbol;
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_ad1084a6b8f141fd80e5996f98df89f6");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_dddf054b3e7d4ebf9009872325ff7376");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -1239,12 +1229,10 @@ var AboutSection = /*#__PURE__*/function (_React$Component) {
             symbol: result.symbol,
             description: result.description
           });
-        }); // let url2 = `https://cloud.iexapis.com/stable/stock/${symbol}/intraday-prices?token=pk_ad1084a6b8f141fd80e5996f98df89f6`
-        // fetch(url2).then(response => response.json())
-        //     .then(result => console.log())
+        });
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "hi its me"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.stock.company_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "About"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "HI"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.description));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "About"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.description));
     }
   }]);
 
@@ -1273,6 +1261,95 @@ var mDTP = function mDTP(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/stocks/news_section_container.jsx":
+/*!***************************************************************!*\
+  !*** ./frontend/components/stocks/news_section_container.jsx ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var NewsSection = /*#__PURE__*/function (_React$Component) {
+  _inherits(NewsSection, _React$Component);
+
+  var _super = _createSuper(NewsSection);
+
+  function NewsSection(props) {
+    var _this;
+
+    _classCallCheck(this, NewsSection);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      arrNews: []
+    };
+    return _this;
+  }
+
+  _createClass(NewsSection, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      if (this.props.stock.stock_symbol !== this.state.symbol) {
+        var stock = this.props.stock.stock_symbol.toLowerCase();
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/news/last/3?token=pk_dddf054b3e7d4ebf9009872325ff7376");
+        fetch(url).then(function (response) {
+          return response.json();
+        }).then(function (result) {
+          return _this2.setState({
+            arrNews: result
+          });
+        });
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "News"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.state.arrNews.map(function (news, idx) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: idx
+        }, news.source, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: news.url
+        }, news.headline), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: news.image,
+          alt: ""
+        }));
+      })));
+    }
+  }]);
+
+  return NewsSection;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (NewsSection);
+
+/***/ }),
+
 /***/ "./frontend/components/stocks/stock_chart.jsx":
 /*!****************************************************!*\
   !*** ./frontend/components/stocks/stock_chart.jsx ***!
@@ -1285,57 +1362,109 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
-var data = [{
-  name: '1:00',
-  uv: 400,
-  pv: 2400,
-  amt: 2400
-}, {
-  name: '1:30',
-  uv: 200
-}, {
-  name: '1:10',
-  uv: 150
-}, {
-  name: '1:20',
-  uv: 320
-}];
 
-var StockChart = function StockChart(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
-    width: 780,
-    height: 300,
-    data: data,
-    margin: {
-      top: 5,
-      right: 20,
-      bottom: 5,
-      left: 0
+
+var StockChart = /*#__PURE__*/function (_React$Component) {
+  _inherits(StockChart, _React$Component);
+
+  var _super = _createSuper(StockChart);
+
+  function StockChart(props) {
+    var _this;
+
+    _classCallCheck(this, StockChart);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      data: [],
+      symbol: ""
+    };
+    return _this;
+  } // const data = [{ name: '1:00', uv: 400, pv: 2400, amt: 2400 }, { name: '1:30', uv: 200 },
+  // { name: '1:10', uv: 150 }, { name: '1:20', uv: 320 }
+  // ];
+
+
+  _createClass(StockChart, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      // refresh issue fixed
+      if (this.state.symbol !== this.props.stock.stock_symbol) {
+        var stock = this.props.stock.stock_symbol.toLowerCase();
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/intraday-prices?token=pk_dddf054b3e7d4ebf9009872325ff7376&chartInterval=5");
+        fetch(url).then(function (response) {
+          return response.json();
+        }).then(function (result) {
+          return _this2.setState({
+            data: result,
+            symbol: _this2.props.stock.stock_symbol
+          });
+        });
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+        width: 780,
+        height: 300,
+        data: this.state.data,
+        margin: {
+          top: 5,
+          right: 20,
+          bottom: 5,
+          left: 0
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Line"], {
+        type: "monotone",
+        dataKey: "high",
+        stroke: "#EE4E34"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["CartesianGrid"], {
+        vertical: false,
+        horizontalPoints: [50]
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
+        dataKey: "minute",
+        hide: true
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["YAxis"], {
+        type: "number",
+        domain: ['dataMin', 'dataMax'],
+        hide: true
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Tooltip"], {
+        cursor: {
+          stroke: 'grey'
+        },
+        coordinate: {
+          x: 0,
+          y: -300
+        }
+      })));
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Line"], {
-    type: "monotone",
-    dataKey: "uv",
-    stroke: "#EE4E34"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["CartesianGrid"], {
-    vertical: false,
-    horizontalPoints: [50]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
-    dataKey: "name",
-    hide: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["YAxis"], {
-    hide: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Tooltip"], {
-    cursor: {
-      stroke: 'grey'
-    },
-    coordinate: {
-      x: 0,
-      y: -300
-    }
-  })));
-};
+  }]);
+
+  return StockChart;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (StockChart);
 
@@ -1394,7 +1523,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _portfolio_search_search_bar_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../portfolio/search/search_bar_container */ "./frontend/components/portfolio/search/search_bar_container.jsx");
 /* harmony import */ var _stock_chart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stock_chart */ "./frontend/components/stocks/stock_chart.jsx");
 /* harmony import */ var _about_section__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./about_section */ "./frontend/components/stocks/about_section.jsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _news_section_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./news_section_container */ "./frontend/components/stocks/news_section_container.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1416,6 +1546,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -1458,7 +1589,9 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
         stock: this.props.stock
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_about_section__WEBPACK_IMPORTED_MODULE_3__["default"], {
         stock: this.props.stock
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_section_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        stock: this.props.stock
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
         to: '/'
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.props.logout
