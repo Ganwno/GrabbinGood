@@ -20,7 +20,7 @@ class StockChart extends React.Component {
         // refresh issue fixed
         if (this.state.symbol !== this.props.stock.stock_symbol){
             let stock = this.props.stock.stock_symbol.toLowerCase();
-            let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_7d93844855214a2f9fc4c2b10d900df5&chartInterval=5`
+            let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_7f907de6dd184f68962cd03c99b625ce&chartInterval=5`
             fetch(url).then(response => response.json())
                 .then(result => this.setState({data: result, symbol: this.props.stock.stock_symbol, 
                 lastPrice: result[result.length-1].high
