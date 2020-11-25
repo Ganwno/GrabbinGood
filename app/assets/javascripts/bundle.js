@@ -1301,7 +1301,7 @@ var AboutSection = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.stock.stock_symbol !== this.state.symbol) {
         var symbol = this.props.stock.stock_symbol;
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_7d93844855214a2f9fc4c2b10d900df5");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_7f907de6dd184f68962cd03c99b625ce");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -1438,7 +1438,8 @@ var NewsSection = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      arrNews: []
+      arrNews: [],
+      symbol: ''
     };
     return _this;
   }
@@ -1450,15 +1451,18 @@ var NewsSection = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.stock.stock_symbol !== this.state.symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/news/last/2?token=pk_7d93844855214a2f9fc4c2b10d900df5");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
           return _this2.setState({
-            arrNews: result
+            arrNews: result,
+            symbol: _this2.props.stock.stock_symbol
           });
         });
-      }
+        console.log("hi");
+      } //conditional making api call infinite number of times need to change it
+
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "section-name"
@@ -1589,7 +1593,7 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       // refresh issue fixed
       if (this.state.symbol !== this.props.stock.stock_symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/intraday-prices?token=pk_7d93844855214a2f9fc4c2b10d900df5&chartInterval=5");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/intraday-prices?token=pk_7f907de6dd184f68962cd03c99b625ce&chartInterval=5");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {

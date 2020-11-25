@@ -5,7 +5,8 @@ class NewsSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrNews: []
+            arrNews: [],
+            symbol: ''
         }
     }
 
@@ -14,8 +15,10 @@ class NewsSection extends React.Component {
             let stock = this.props.stock.stock_symbol.toLowerCase()
             let url = `https://cloud.iexapis.com/stable/stock/${stock}/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce`;
              fetch(url).then(response => response.json())
-                .then(result => this.setState({arrNews: result}))
+                 .then(result => this.setState({ arrNews: result, symbol: this.props.stock.stock_symbol}))
+            console.log("hi")
         }
+        //conditional making api call infinite number of times need to change it
         return (
             <div>
                 <h2 className = "section-name">News</h2>
