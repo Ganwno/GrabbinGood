@@ -1,12 +1,15 @@
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import React from 'react';
+import './stock_chart_style.css'
 
 class StockChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            symbol: ""
+            percentChange: '',
+            symbol: "",
+            lastPrice: ''
         }
     }
 // const data = [{ name: '1:00', uv: 400, pv: 2400, amt: 2400 }, { name: '1:30', uv: 200 },
@@ -17,19 +20,22 @@ class StockChart extends React.Component {
         // refresh issue fixed
         if (this.state.symbol !== this.props.stock.stock_symbol){
             let stock = this.props.stock.stock_symbol.toLowerCase();
-            let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_dddf054b3e7d4ebf9009872325ff7376&chartInterval=5`
+            let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_7d93844855214a2f9fc4c2b10d900df5&chartInterval=5`
             fetch(url).then(response => response.json())
-                .then(result => this.setState({data: result, symbol: this.props.stock.stock_symbol}))
+                .then(result => this.setState({data: result, symbol: this.props.stock.stock_symbol, 
+                lastPrice: result[result.length-1].high
+                }))
         }
         return(
             <div>
-                {/* <h2>
-                    {this.state.data[this.state.data.length - 1]}
-                </h2> */}
-                <LineChart width={780} height={300} data={this.state.data}
-                    margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                    <Line type="monotone" dataKey="high" stroke="#EE4E34" />
-                    <CartesianGrid vertical={false} horizontalPoints={[50]} />
+                <h1 className = "stock-name-for-chart">
+                    ${this.state.lastPrice}
+                </h1>
+                <LineChart width={740} height={300} data={this.state.data} className = "chart"
+                    margin={{top: 20, right: 20, bottom: 20, left: 20,}}>
+                    <Line connectNulls={true} type="monotone" dataKey="high" stroke="#5EC933" dot ={false} 
+                        strokeWidth={2}
+                    />
                     <XAxis dataKey="minute"  hide={true}/>
                     <YAxis type="number" domain={['dataMin', 'dataMax']} hide={true}/>
                     <Tooltip cursor={{ stroke: 'grey' }} coordinate={{ x: 0, y: -300 }} />

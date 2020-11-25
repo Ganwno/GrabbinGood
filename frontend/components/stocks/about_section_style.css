@@ -1,0 +1,35 @@
+.descript {
+    width: 700px;
+}
+
+.company-stats {
+    display: flex;
+   font-size: 14px;
+}
+
+.ceo {
+    flex-basis: 0;
+     flex: 1 1 0px;
+}
+
+.employees {
+    flex-basis: 0;
+     flex: 1 1 0px;
+}
+
+.headquarters {
+    flex-basis: 0;
+     flex: 1 1 0px;
+}
+
+.ceo-name {
+    font-size: 12px;
+}
+
+.employees-names {
+    font-size: 12px;
+}
+
+.headquarters-name {
+    font-size: 12px;
+}

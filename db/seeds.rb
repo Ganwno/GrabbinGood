@@ -13,7 +13,6 @@ Stock.create!({company_name: 'Amazon', stock_symbol:"AMZN", price: 3111, descrip
 Stock.create!({company_name: 'Disney', stock_symbol:"DIS", price: 140.11, description: "h"})
 Stock.create!({company_name: 'Apple', stock_symbol:"AAPL", price: 118.88, description: "h"})
 Stock.create!({company_name: 'Starbucks', stock_symbol:"SBUX", price: 97.05, description: "h"})
-Stock.create!({company_name: 'Toyota', stock_symbol:"TM", price: 140.23, description: "h"})
 Stock.create!({company_name: 'Tesla', stock_symbol:"TSLA", price: 493.15, description: "h"})
 Stock.create!({company_name: 'Zoom', stock_symbol:"ZM", price: 414.18, description: "h"})
 Stock.create!({company_name: 'Facebook', stock_symbol:"FB", price: 272.24, description: "h"})

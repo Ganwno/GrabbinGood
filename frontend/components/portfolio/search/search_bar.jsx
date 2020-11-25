@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './search.css'
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -8,11 +9,17 @@ class SearchBar extends React.Component {
             inputVal: ""
         }
         this.handleChange = this.handleChange.bind(this)
+        this.clearSearch = this.clearSearch.bind(this)
     }
 
     handleChange(e) {
         this.setState({ inputVal: e.target.value })
     }
+
+    clearSearch(e){
+        this.setState({inputVal: ''})
+    }
+    //helps clear search bar when clicking a link
 
     render() {
         let matchedInputs = [];
@@ -46,8 +53,10 @@ class SearchBar extends React.Component {
                         {
                             matchedInputs.map((stock, idx) => {
                             return <div key = {idx} className="indiv-suggestions">
-                            <Link to={{pathname: `/stocks/${stock.id}`}} >
-                            {stock.stock_symbol}----{stock.company_name}
+                            <Link to={{pathname: `/stocks/${stock.id}`}} className = 'link' 
+                            onClick={this.clearSearch}
+                            >
+                                    {stock.stock_symbol}    {stock.company_name}
                             </Link>
                             </div>
                             })  

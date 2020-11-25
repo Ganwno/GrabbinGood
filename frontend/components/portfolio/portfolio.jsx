@@ -16,12 +16,16 @@ class Portfolio extends React.Component {
     render() {
         return(
             <div>
+                <div className = "nav-section">
                 <SearchBarContainer/>
+                <button onClick={this.props.logout} className = "logout-button">
+                Log Out Here!
+                </button>
+                </div>
                 <br/>
                 <br/>
                 <UserChart/>
                 <br/>
-                <button onClick={this.props.logout}>Log Out Here!</button>
             </div>
         )
     }

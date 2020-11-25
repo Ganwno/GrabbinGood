@@ -1,12 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateCurrentCompanyInfo, updateCurrentFinanceInfo } from '../../actions/external_stock_actions';
+import './about_section_style.css'
+
 class AboutSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             symbol: '',
             description: '',
+            employees: '',
+            city: '',
+            state: '',
+            CEO: ''
 
         }
         
@@ -18,14 +24,30 @@ class AboutSection extends React.Component {
     render() {
         if(this.props.stock.stock_symbol !== this.state.symbol) {
             let symbol = this.props.stock.stock_symbol
-            let url = `https://cloud.iexapis.com/stable/stock/${symbol}/company?token=pk_dddf054b3e7d4ebf9009872325ff7376`
+            let url = `https://cloud.iexapis.com/stable/stock/${symbol}/company?token=pk_7d93844855214a2f9fc4c2b10d900df5`
             fetch(url).then(response => response.json())
-                .then(result => this.setState({ symbol: result.symbol, description: result.description }))
+                .then(result => this.setState({ symbol: result.symbol, description: result.description, 
+                employees: result.employees, city: result.city, state: result.state, CEO: result.CEO
+                            }))
         }
         return(
         <div>
             <h2>About</h2>
-        <p>{this.state.description}</p>
+        <p className = 'descript'>{this.state.description}</p>
+        <div className = 'company-stats'>
+            <div className = 'ceo'>
+                <h3>CEO</h3>
+                <div className = 'ceo-name'>{this.state.CEO}</div>
+            </div>
+            <div className = 'employees'>
+                <h3>Employees</h3>
+                <div className = 'employees-names'>{this.state.employees}</div>
+            </div>
+            <div className = 'headquarters'>
+                <h3>Headquarters</h3>
+                <div className = 'headquarters-name'>{this.state.city}, {this.state.state}</div>
+            </div>
+        </div>
         </div>
         )
     }

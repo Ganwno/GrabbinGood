@@ -1,22 +1,15 @@
-.search-section {
-    width: 485px;
-    box-sizing: border-box;
-    background: white;
-    border-width: 5px;
-    border-style: solid;
-    border-color: gray;
-    margin-right: 0px;
-}
 
-.search-bar {
-    width: 467px;
-}
-
-.suggestions > div:hover{
-    background-color: lightblue;
-    cursor: pointer;
-}
 
 .indiv-suggestions {
     justify-content: space-between;
+}
+
+.nav-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logout-button {
+    display: block;
+    height: 40px;
 }

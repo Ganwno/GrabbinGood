@@ -1,0 +1,48 @@
+.search-bar {
+    background-color: white;
+    height: 30px;
+    width: 469px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: white;
+}
+
+.search-bar:focus {
+    outline: none;
+}
+
+.search-section {
+    border: thin;
+    position: absolute;
+    z-index: 1;
+    margin-left: 20px;
+    box-shadow: 0 1px 6px gray;
+    width: 475px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.suggestions {
+    width: inherit;
+    border-width: 2px;
+    border-style: solid;
+    border: transparent;
+    box-shadow: 0 1px 6px gray;
+    background-color: white;
+    font-size: 15px;
+}
+
+.suggestions > div:hover{
+    background-color: rgb(231, 242, 246);
+    cursor: pointer;
+}
+
+.indiv-suggestions {
+    width: inherit;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+    display:block;
+    width: inherit;
+}

@@ -1,0 +1,12 @@
+.stock-name-for-chart {
+    margin-top: 0px;
+}
+
+.chart {
+    border-width: 2px;
+    border-style: solid;
+    border-top: #E3E9ED;
+    border-left:#E3E9ED;
+    border-right: #E3E9ED;
+    border-color: #E3E9ED;
+}
