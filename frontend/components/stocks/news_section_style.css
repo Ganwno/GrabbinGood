@@ -15,6 +15,7 @@
     height: 70%;
     width: 35%;
     margin: auto;
+    padding-left: 10px;
 }
 
 .news-elements {
@@ -47,4 +48,8 @@
 
 .news-source {
     font-size: 11px;
+}
+
+.whole-section-news {
+    width: 80%;
 }

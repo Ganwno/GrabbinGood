@@ -16,22 +16,23 @@ class NewsSection extends React.Component {
             let url = `https://cloud.iexapis.com/stable/stock/${stock}/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce`;
              fetch(url).then(response => response.json())
                  .then(result => this.setState({ arrNews: result, symbol: this.props.stock.stock_symbol}))
-            console.log("hi")
         }
-        //conditional making api call infinite number of times need to change it
+        //fixed infinite api call
         return (
-            <div>
+            <div className = "whole-section-news">
                 <h2 className = "section-name">News</h2>
             <ul className = "news-elements">
                 {this.state.arrNews.map((news, idx) => (
-                    <li key = {idx} className = 'indiv-news'>
+                    <a href={news.url} key={idx} className="news-link">
+                    <li  className = 'indiv-news'>
                         <div className = 'subsection-news'>
                             <div className = "news-source">{news.source}</div>
                         <br/>
-                        <a href={news.url} className = "news-link">{news.headline}</a>
+                        {news.headline}
                         </div>
                         <img src={news.image} alt="" className ='img-news'/>
                     </li>
+                    </a>
                 ))}
                 
             </ul>

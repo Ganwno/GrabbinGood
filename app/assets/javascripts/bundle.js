@@ -1291,10 +1291,20 @@ var AboutSection = /*#__PURE__*/function (_React$Component) {
       state: '',
       CEO: ''
     };
+    _this.employees = _this.employees.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(AboutSection, [{
+    key: "employees",
+    value: function employees() {
+      if (this.state.employees === null) {
+        return 'N/A';
+      } else {
+        return this.state.employees;
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -1328,7 +1338,7 @@ var AboutSection = /*#__PURE__*/function (_React$Component) {
         className: "employees"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Employees"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "employees-names"
-      }, this.state.employees)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.employees())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "headquarters"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Headquarters"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "headquarters-name"
@@ -1460,30 +1470,31 @@ var NewsSection = /*#__PURE__*/function (_React$Component) {
             symbol: _this2.props.stock.stock_symbol
           });
         });
-        console.log("hi");
-      } //conditional making api call infinite number of times need to change it
+      } //fixed infinite api call
 
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "whole-section-news"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "section-name"
       }, "News"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "news-elements"
       }, this.state.arrNews.map(function (news, idx) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: news.url,
           key: idx,
+          className: "news-link"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "indiv-news"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "subsection-news"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "news-source"
-        }, news.source), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-          href: news.url,
-          className: "news-link"
-        }, news.headline)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        }, news.source), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), news.headline), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: news.image,
           alt: "",
           className: "img-news"
-        }));
+        })));
       })));
     }
   }]);
@@ -1577,15 +1588,77 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       data: [],
       percentChange: '',
       symbol: "",
-      lastPrice: ''
-    };
+      lastPrice: '',
+      firstPrice: '',
+      val: ''
+    }; // this.theLastPrice = this.theLastPrice.bind(this);
+
+    _this.strokeColor = _this.strokeColor.bind(_assertThisInitialized(_this));
+    _this.handleMouseMove = _this.handleMouseMove.bind(_assertThisInitialized(_this));
+    _this.handleMouseOff = _this.handleMouseOff.bind(_assertThisInitialized(_this));
     return _this;
   } // const data = [{ name: '1:00', uv: 400, pv: 2400, amt: 2400 }, { name: '1:30', uv: 200 },
   // { name: '1:10', uv: 150 }, { name: '1:20', uv: 320 }
   // ];
+  //     componentDidMount(){
+  //     if(this.state.lastPrice === null) {
+  //         let result = this.state.data.filter((obj) => {
+  //             if (obj.high != null) {
+  //                 return obj
+  //             } 
+  //         })
+  //        this.setState({ val: result.slice(-1)[0].high })
+  //     }
+  //     else {
+  //         this.setState({ val: this.state.lastPrice })
+  //     }
+  // }
+  // }
+  //if last price is null find the last price in array
 
 
   _createClass(StockChart, [{
+    key: "strokeColor",
+    value: function strokeColor() {
+      if (this.state.lastPrice > this.state.firstPrice) {
+        return '#5EC933';
+      } else {
+        return '#EE4E34';
+      }
+    }
+  }, {
+    key: "handleMouseMove",
+    value: function handleMouseMove(e) {
+      if (e.activePayload) {
+        this.setState({
+          val: e.activePayload[0].value
+        });
+      } // else if (e.activePayload === null || e.activePayload[0].value === null){
+      //     return null;
+      // }
+
+    }
+  }, {
+    key: "handleMouseOff",
+    value: function handleMouseOff() {
+      var newVal = this.state.lastPrice;
+
+      if (this.state.lastPrice === null) {
+        var result = this.state.data.filter(function (obj) {
+          if (obj.high != null) {
+            return obj;
+          }
+        });
+        newVal = result.slice(-1)[0].high;
+      } else {
+        newVal = this.state.lastPrice;
+      }
+
+      this.setState({
+        val: newVal
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -1600,14 +1673,36 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
           return _this2.setState({
             data: result,
             symbol: _this2.props.stock.stock_symbol,
-            lastPrice: result[result.length - 1].high
+            lastPrice: result[result.length - 1].high,
+            firstPrice: result[0].high,
+            val: result[result.length - 1].high
           });
         });
       }
 
+      function CustomToolTip(_ref) {
+        var payload = _ref.payload,
+            label = _ref.label,
+            active = _ref.active;
+
+        if (active) {
+          if (label.includes(":") === false) {
+            label = label.split(" ").join(":00 ");
+          }
+
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "".concat(label)));
+        }
+
+        return null;
+      }
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
         className: "stock-name-for-chart"
-      }, "$", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+      }, "$", this.state.val), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+        onMouseMove: this.handleMouseMove,
+        onMouseLeave: function onMouseLeave() {
+          return _this2.handleMouseOff();
+        },
         width: 740,
         height: 300,
         data: this.state.data,
@@ -1622,24 +1717,32 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
         connectNulls: true,
         type: "monotone",
         dataKey: "high",
-        stroke: "#5EC933",
+        stroke: this.strokeColor(),
         dot: false,
         strokeWidth: 2
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
-        dataKey: "minute",
+        dataKey: "label",
         hide: true
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["YAxis"], {
         type: "number",
         domain: ['dataMin', 'dataMax'],
         hide: true
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Tooltip"], {
+        wrapperStyle: {
+          left: -35
+        },
+        allowEscapeViewBox: {
+          x: true,
+          y: true
+        },
+        position: {
+          y: -20
+        },
         cursor: {
           stroke: 'grey'
         },
-        coordinate: {
-          x: 0,
-          y: -300
-        }
+        isAnimationActive: false,
+        content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(CustomToolTip, null)
       })));
     }
   }]);
@@ -4652,7 +4755,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".descript {\n    width: 700px;\n}\n\n.company-stats {\n    display: flex;\n   font-size: 14px;\n}\n\n.ceo {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.employees {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.headquarters {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.ceo-name {\n    font-size: 12px;\n}\n\n.employees-names {\n    font-size: 12px;\n}\n\n.headquarters-name {\n    font-size: 12px;\n}\n", "",{"version":3,"sources":["webpack://./frontend/components/stocks/about_section_style.css"],"names":[],"mappings":"AAAA;IACI,YAAY;AAChB;;AAEA;IACI,aAAa;GACd,eAAe;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB","sourcesContent":[".descript {\n    width: 700px;\n}\n\n.company-stats {\n    display: flex;\n   font-size: 14px;\n}\n\n.ceo {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.employees {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.headquarters {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.ceo-name {\n    font-size: 12px;\n}\n\n.employees-names {\n    font-size: 12px;\n}\n\n.headquarters-name {\n    font-size: 12px;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".descript {\n    width: 700px;\n    font-size: 15px;\n}\n\n.company-stats {\n    display: flex;\n   font-size: 14px;\n}\n\n.ceo {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.employees {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.headquarters {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.ceo-name {\n    font-size: 12px;\n}\n\n.employees-names {\n    font-size: 12px;\n}\n\n.headquarters-name {\n    font-size: 12px;\n}\n", "",{"version":3,"sources":["webpack://./frontend/components/stocks/about_section_style.css"],"names":[],"mappings":"AAAA;IACI,YAAY;IACZ,eAAe;AACnB;;AAEA;IACI,aAAa;GACd,eAAe;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB","sourcesContent":[".descript {\n    width: 700px;\n    font-size: 15px;\n}\n\n.company-stats {\n    display: flex;\n   font-size: 14px;\n}\n\n.ceo {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.employees {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.headquarters {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.ceo-name {\n    font-size: 12px;\n}\n\n.employees-names {\n    font-size: 12px;\n}\n\n.headquarters-name {\n    font-size: 12px;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -4677,7 +4780,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".indiv-news {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n}\n\n.news-elements {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news {\n    width: 75%;\n}\n\n.section-name {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source {\n    font-size: 11px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/news_section_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,WAAW;IACX,8BAA8B;IAC9B,eAAe;IACf;AACJ;;AAEA;IACI,oCAAoC;AACxC;;AAEA;KACK,iBAAiB;IAClB,WAAW;IACX,UAAU;IACV,YAAY;AAChB;;AAEA;IACI,UAAU;IACV,qBAAqB;;AAEzB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,oBAAoB;IACpB,qBAAqB;IACrB,qBAAqB;IACrB,oBAAoB;AACxB;;AAEA;IACI,YAAY;IACZ,qBAAqB;IACrB,eAAe;IACf,yCAAyC;IACzC,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB","sourcesContent":[".indiv-news {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n}\n\n.news-elements {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news {\n    width: 75%;\n}\n\n.section-name {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source {\n    font-size: 11px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".indiv-news {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news {\n    width: 75%;\n}\n\n.section-name {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source {\n    font-size: 11px;\n}\n\n.whole-section-news {\n    width: 80%;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/news_section_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,WAAW;IACX,8BAA8B;IAC9B,eAAe;IACf;AACJ;;AAEA;IACI,oCAAoC;AACxC;;AAEA;KACK,iBAAiB;IAClB,WAAW;IACX,UAAU;IACV,YAAY;IACZ,kBAAkB;AACtB;;AAEA;IACI,UAAU;IACV,qBAAqB;;AAEzB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,oBAAoB;IACpB,qBAAqB;IACrB,qBAAqB;IACrB,oBAAoB;AACxB;;AAEA;IACI,YAAY;IACZ,qBAAqB;IACrB,eAAe;IACf,yCAAyC;IACzC,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,UAAU;AACd","sourcesContent":[".indiv-news {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news {\n    width: 75%;\n}\n\n.section-name {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source {\n    font-size: 11px;\n}\n\n.whole-section-news {\n    width: 80%;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

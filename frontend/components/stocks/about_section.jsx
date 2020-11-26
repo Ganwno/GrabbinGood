@@ -15,8 +15,17 @@ class AboutSection extends React.Component {
             CEO: ''
 
         }
-        
+        this.employees = this.employees.bind(this);
 
+    }
+
+    employees(){
+        if(this.state.employees === null) {
+            return 'N/A'
+        }
+        else {
+            return this.state.employees
+        }
     }
 
 
@@ -41,7 +50,7 @@ class AboutSection extends React.Component {
             </div>
             <div className = 'employees'>
                 <h3>Employees</h3>
-                <div className = 'employees-names'>{this.state.employees}</div>
+                <div className = 'employees-names'>{this.employees()}</div>
             </div>
             <div className = 'headquarters'>
                 <h3>Headquarters</h3>
