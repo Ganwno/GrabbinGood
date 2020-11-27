@@ -25,7 +25,6 @@ Stock.create!({company_name: 'Delta Airlines', stock_symbol:"DAL", price: 37.44,
 Stock.create!({company_name: 'Carnival', stock_symbol:"CCL", price: 17.96, description: "h"})
 Stock.create!({company_name: 'GoPro', stock_symbol:"GPRO", price: 6.99, description: "h"})
 Stock.create!({company_name: 'Pfizer', stock_symbol:"PFE", price: 36.43, description: "h"})
-Stock.create!({company_name: 'Alibaba', stock_symbol:"BABA", price: 258.88, description: "h"})
 Stock.create!({company_name: 'Moderna', stock_symbol:"MRNA", price: 94.10, description: "h"})
 Stock.create!({company_name: 'Bank of America', stock_symbol:"BAC", price: 26.69, description: "h"})
 Stock.create!({company_name: 'Snap', stock_symbol:"SNAP", price: 42.50, description: "h"})

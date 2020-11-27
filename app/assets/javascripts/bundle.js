@@ -1590,32 +1590,16 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       symbol: "",
       lastPrice: '',
       firstPrice: '',
-      val: ''
+      val: '',
+      difference: '',
+      previousClose: 0
     }; // this.theLastPrice = this.theLastPrice.bind(this);
 
     _this.strokeColor = _this.strokeColor.bind(_assertThisInitialized(_this));
     _this.handleMouseMove = _this.handleMouseMove.bind(_assertThisInitialized(_this));
     _this.handleMouseOff = _this.handleMouseOff.bind(_assertThisInitialized(_this));
     return _this;
-  } // const data = [{ name: '1:00', uv: 400, pv: 2400, amt: 2400 }, { name: '1:30', uv: 200 },
-  // { name: '1:10', uv: 150 }, { name: '1:20', uv: 320 }
-  // ];
-  //     componentDidMount(){
-  //     if(this.state.lastPrice === null) {
-  //         let result = this.state.data.filter((obj) => {
-  //             if (obj.high != null) {
-  //                 return obj
-  //             } 
-  //         })
-  //        this.setState({ val: result.slice(-1)[0].high })
-  //     }
-  //     else {
-  //         this.setState({ val: this.state.lastPrice })
-  //     }
-  // }
-  // }
-  //if last price is null find the last price in array
-
+  }
 
   _createClass(StockChart, [{
     key: "strokeColor",
@@ -1630,8 +1614,32 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
     key: "handleMouseMove",
     value: function handleMouseMove(e) {
       if (e.activePayload) {
+        var currentPrice = e.activePayload[0].value;
+
+        if (currentPrice === null) {
+          return null;
+        }
+
+        var difference = currentPrice - this.state.firstPrice;
+        var percentDecminal = difference / currentPrice;
+        var percentChange = percentDecminal * 100;
+
+        if (percentChange < 0) {
+          percentChange = percentChange.toFixed(2) + "%";
+        } else {
+          percentChange = "+" + "".concat(percentChange.toFixed(2)) + "%";
+        }
+
+        if (difference >= 0) {
+          difference = "+$" + "".concat(difference.toFixed(2));
+        } else {
+          difference = "".concat(difference.toFixed(2));
+        }
+
         this.setState({
-          val: e.activePayload[0].value
+          val: currentPrice.toFixed(2),
+          percentChange: percentChange,
+          difference: difference
         });
       } // else if (e.activePayload === null || e.activePayload[0].value === null){
       //     return null;
@@ -1649,13 +1657,31 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
             return obj;
           }
         });
-        newVal = result.slice(-1)[0].high;
+        newVal = result.slice(-1)[0].high.toFixed(2);
       } else {
-        newVal = this.state.lastPrice;
+        newVal = this.state.lastPrice.toFixed(2);
+      }
+
+      var newLastPrice = newVal;
+      var difference = newLastPrice - this.state.firstPrice;
+      var percentChange = difference / this.state.firstPrice * 100;
+
+      if (percentChange < 0) {
+        percentChange = percentChange.toFixed(2) + "%";
+      } else {
+        percentChange = "+" + "".concat(percentChange.toFixed(2)) + "%";
+      }
+
+      if (difference >= 0) {
+        difference = "+$" + "".concat(difference.toFixed(2));
+      } else {
+        difference = "".concat(difference.toFixed(2));
       }
 
       this.setState({
-        val: newVal
+        val: newVal,
+        percentChange: percentChange,
+        difference: difference
       });
     }
   }, {
@@ -1670,12 +1696,30 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
-          return _this2.setState({
+          var difference = result[result.length - 1].high - result[0].high;
+          var percentChange = difference / result[0].high * 100;
+
+          if (percentChange < 0) {
+            percentChange = percentChange.toFixed(2) + "%";
+          } else {
+            percentChange = "+" + "".concat(percentChange.toFixed(2)) + "%";
+          }
+
+          if (difference >= 0) {
+            difference = "+$" + "".concat(difference.toFixed(2));
+          } else {
+            difference = "".concat(difference.toFixed(2));
+          }
+
+          _this2.setState({
             data: result,
             symbol: _this2.props.stock.stock_symbol,
             lastPrice: result[result.length - 1].high,
             firstPrice: result[0].high,
-            val: result[result.length - 1].high
+            val: result[result.length - 1].high.toFixed(2),
+            previousClose: result[result.length - 1].close,
+            difference: difference,
+            percentChange: percentChange
           });
         });
       }
@@ -1698,7 +1742,7 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
         className: "stock-name-for-chart"
-      }, "$", this.state.val), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+      }, "$", this.state.val), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, this.state.difference, " (", this.state.percentChange, ") today"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
         onMouseMove: this.handleMouseMove,
         onMouseLeave: function onMouseLeave() {
           return _this2.handleMouseOff();
@@ -1720,6 +1764,10 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
         stroke: this.strokeColor(),
         dot: false,
         strokeWidth: 2
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["CartesianGrid"], {
+        vertical: false,
+        horizontalPoints: [this.state.previousClose],
+        strokeDasharray: "3 3"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
         dataKey: "label",
         hide: true

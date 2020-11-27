@@ -11,33 +11,16 @@ class StockChart extends React.Component {
             symbol: "",
             lastPrice: '',
             firstPrice: '',
-            val: ''
+            val: '',
+            difference: '',
+            previousClose: 0
         }
         // this.theLastPrice = this.theLastPrice.bind(this);
         this.strokeColor = this.strokeColor.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.handleMouseOff = this.handleMouseOff.bind(this)
     }
-// const data = [{ name: '1:00', uv: 400, pv: 2400, amt: 2400 }, { name: '1:30', uv: 200 },
-// { name: '1:10', uv: 150 }, { name: '1:20', uv: 320 }
-// ];
 
-    //     componentDidMount(){
-    //     if(this.state.lastPrice === null) {
-    //         let result = this.state.data.filter((obj) => {
-    //             if (obj.high != null) {
-    //                 return obj
-    //             } 
-    //         })
-    //        this.setState({ val: result.slice(-1)[0].high })
-    //     }
-    //     else {
-    //         this.setState({ val: this.state.lastPrice })
-    //     }
-    // }
-
-    // }
-    //if last price is null find the last price in array
 
     strokeColor(){
 
@@ -51,7 +34,27 @@ class StockChart extends React.Component {
 
     handleMouseMove(e){
         if(e.activePayload){
-            this.setState({val: e.activePayload[0].value})
+        let currentPrice =  e.activePayload[0].value  
+        if (currentPrice === null) {
+            return null;
+        }      
+        let difference = currentPrice - this.state.firstPrice
+        let percentDecminal = difference / currentPrice
+        let percentChange = percentDecminal * 100
+        if (percentChange < 0) {
+            percentChange = percentChange.toFixed(2) + "%"
+        }
+        else {
+            percentChange = "+" + `${percentChange.toFixed(2)}` + "%"
+        }
+        if (difference >= 0) {
+            difference = "+$" + `${difference.toFixed(2)}`
+        }
+        else {
+            difference = `${difference.toFixed(2)}`
+        }
+        
+            this.setState({val: currentPrice.toFixed(2), percentChange: percentChange, difference: difference})
         }
         // else if (e.activePayload === null || e.activePayload[0].value === null){
         //     return null;
@@ -66,15 +69,34 @@ class StockChart extends React.Component {
                     return obj
                 }
             })
-             newVal = result.slice(-1)[0].high
+             newVal = result.slice(-1)[0].high.toFixed(2)
         }
         else {
-            newVal = this.state.lastPrice
+            newVal = this.state.lastPrice.toFixed(2)
         }
+        let newLastPrice = newVal;
+        let difference = newLastPrice - this.state.firstPrice
+        let percentChange = (difference / this.state.firstPrice) * 100
+        if (percentChange < 0) {
+            percentChange = percentChange.toFixed(2) + "%"
+        }
+        else {
+            percentChange = "+" + `${percentChange.toFixed(2)}` + "%"
+        }
+        if (difference >= 0) {
+            difference = "+$" + `${difference.toFixed(2)}`
+        }
+        else {
+            difference = `${difference.toFixed(2)}`
+        }
+        
         this.setState({
-            val: newVal
+            val: newVal,
+            percentChange: percentChange,
+            difference: difference
         })
     }
+
 
     render(){
         // refresh issue fixed
@@ -82,11 +104,35 @@ class StockChart extends React.Component {
             let stock = this.props.stock.stock_symbol.toLowerCase();
             let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_7f907de6dd184f68962cd03c99b625ce&chartInterval=5`
             fetch(url).then(response => response.json())
-                .then(result => this.setState({data: result, symbol: this.props.stock.stock_symbol, 
-                lastPrice: result[result.length-1].high, firstPrice: result[0].high, val: result[result.length-1].high
-                }))
+                .then((result) => { 
+
+                let difference = result[result.length - 1].high - result[0].high;
+                    let percentChange = (difference / result[0].high) * 100
+                if (percentChange < 0) {
+                        percentChange = percentChange.toFixed(2) + "%"
+                    }
+                else {
+                        percentChange = "+" + `${percentChange.toFixed(2)}` + "%"
+                    }
+                if (difference >= 0 ) {
+                    difference = "+$" + `${difference.toFixed(2)}`
+                }
+                else {
+                    difference = `${difference.toFixed(2)}`
+                }
+
+                this.setState({data: result, symbol: this.props.stock.stock_symbol, 
+                lastPrice: result[result.length-1].high, 
+                firstPrice: result[0].high, 
+                val: result[result.length-1].high.toFixed(2),
+                previousClose: result[result.length - 1].close,
+                difference: difference,
+                percentChange: percentChange
+                })
+            })
         }
 
+        
 
         function CustomToolTip({ payload, label, active }) {
             if (active) {
@@ -103,16 +149,20 @@ class StockChart extends React.Component {
             return null;
         }
 
+        
+
         return(
             <div>
                 <h1 className = "stock-name-for-chart">
                     ${this.state.val}
                 </h1>
+        <div>{this.state.difference} ({this.state.percentChange}) today</div>
                 <LineChart onMouseMove={this.handleMouseMove} onMouseLeave={() => this.handleMouseOff()} width={740} height={300} data={this.state.data} className = "chart"
                     margin={{top: 20, right: 20, bottom: 20, left: 20,}}>
                     <Line connectNulls={true} type="monotone" dataKey="high" stroke={this.strokeColor()} dot ={false} 
                         strokeWidth={2}
                     />
+                    <CartesianGrid vertical={false} horizontalPoints={[this.state.previousClose]} strokeDasharray={"3 3"}/>
                     <XAxis dataKey="label"  hide={true}/>
                     <YAxis type="number" domain={['dataMin', 'dataMax']} hide={true}/>
                     <Tooltip 
