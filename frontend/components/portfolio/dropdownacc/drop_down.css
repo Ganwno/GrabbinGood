@@ -1,0 +1,49 @@
+.right-nav {
+    display: flex;
+    margin-right: 30px;
+}
+.linkedin-img-container {
+    margin: auto;
+}
+
+.linkedin-image {
+    object-fit: cover;
+    height: 35px;
+
+}
+
+.github-img-container {
+    margin: auto;
+    margin-left: 30px;
+}
+
+.github-image {
+    object-fit: cover;
+    height: 35px;
+
+}
+
+.drop-log-out {
+    margin: auto;
+    margin-left: 30px;
+}
+.account-dd-button {
+    background-color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.account-dd-button:hover {
+    color: #00C805;
+}
+
+.logout-button-for-nav {
+    background-color: white;
+    border: none;
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+}
+

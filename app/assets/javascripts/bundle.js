@@ -450,6 +450,271 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./frontend/components/portfolio/dropdownacc/account_drop_down.jsx":
+/*!*************************************************************************!*\
+  !*** ./frontend/components/portfolio/dropdownacc/account_drop_down.jsx ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _drop_down_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./drop_down.css */ "./frontend/components/portfolio/dropdownacc/drop_down.css");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var AccountDropDown = /*#__PURE__*/function (_React$Component) {
+  _inherits(AccountDropDown, _React$Component);
+
+  var _super = _createSuper(AccountDropDown);
+
+  function AccountDropDown(props) {
+    var _this;
+
+    _classCallCheck(this, AccountDropDown);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      dropDown: false
+    };
+    _this.extendDropDown = _this.extendDropDown.bind(_assertThisInitialized(_this));
+    _this.closeMenu = _this.closeMenu.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(AccountDropDown, [{
+    key: "extendDropDown",
+    value: function extendDropDown(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+
+      if (this.state.dropDown === false) {
+        this.setState({
+          dropDown: true
+        }, function () {
+          document.addEventListener('mousedown', _this2.closeMenu);
+        });
+      }
+    }
+  }, {
+    key: "closeMenu",
+    value: function closeMenu(e) {
+      var _this3 = this;
+
+      if (!this.dropdownMenu.contains(e.target)) {
+        this.setState({
+          dropDown: false
+        }, function () {
+          document.removeEventListener('mousedown', _this3.closeMenu);
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "right-nav"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://www.linkedin.com/in/christopher-lee-7b48b6134/",
+        className: "linkedin-img-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "/images/linkedin.svg",
+        alt: "",
+        className: "linkedin-image"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://github.com/Gogetaspirit/GrabbinGood",
+        className: "github-img-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "/images/github.png",
+        alt: "",
+        className: "github-image"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "drop-log-out"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "account-dd-button",
+        onClick: this.extendDropDown
+      }, "Account"), this.state.dropDown ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "menu",
+        ref: function ref(element) {
+          _this4.dropdownMenu = element;
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: '/'
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.props.logout,
+        className: "logout-button-for-nav"
+      }, "Log Out"))) : null));
+    }
+  }]);
+
+  return AccountDropDown;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (AccountDropDown);
+
+/***/ }),
+
+/***/ "./frontend/components/portfolio/dropdownacc/drop_down.css":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/portfolio/dropdownacc/drop_down.css ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_drop_down_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js!./drop_down.css */ "./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/dropdownacc/drop_down.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_drop_down_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_drop_down_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./frontend/components/portfolio/news/user_news.jsx":
+/*!**********************************************************!*\
+  !*** ./frontend/components/portfolio/news/user_news.jsx ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var UserNews = /*#__PURE__*/function (_React$Component) {
+  _inherits(UserNews, _React$Component);
+
+  var _super = _createSuper(UserNews);
+
+  function UserNews(props) {
+    var _this;
+
+    _classCallCheck(this, UserNews);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      arrNews: [],
+      firstRender: false,
+      symbol: ''
+    };
+    return _this;
+  }
+
+  _createClass(UserNews, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      if (this.state.firstRender === false) {
+        var url = "https://cloud.iexapis.com/stable/stock/msft/news/last/6?token=pk_7f907de6dd184f68962cd03c99b625ce";
+        fetch(url).then(function (response) {
+          return response.json();
+        }).then(function (result) {
+          return _this2.setState({
+            arrNews: result,
+            firstRender: true
+          });
+        });
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "whole-section-news"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "section-name"
+      }, "News"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "news-elements"
+      }, this.state.arrNews.map(function (news, idx) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: news.url,
+          key: idx,
+          className: "news-link"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "indiv-news"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "subsection-news"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "news-source"
+        }, news.source), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), news.headline), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: news.image,
+          alt: "",
+          className: "img-news"
+        })));
+      })));
+    }
+  }]);
+
+  return UserNews;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (UserNews);
+
+/***/ }),
+
 /***/ "./frontend/components/portfolio/portfolio.jsx":
 /*!*****************************************************!*\
   !*** ./frontend/components/portfolio/portfolio.jsx ***!
@@ -465,6 +730,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _portfolio_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./portfolio_style.css */ "./frontend/components/portfolio/portfolio_style.css");
 /* harmony import */ var _user_chart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user_chart */ "./frontend/components/portfolio/user_chart.jsx");
 /* harmony import */ var _search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./search/search_bar_container */ "./frontend/components/portfolio/search/search_bar_container.jsx");
+/* harmony import */ var _dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dropdownacc/account_drop_down */ "./frontend/components/portfolio/dropdownacc/account_drop_down.jsx");
+/* harmony import */ var _news_user_news__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./news/user_news */ "./frontend/components/portfolio/news/user_news.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -493,6 +760,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var Portfolio = /*#__PURE__*/function (_React$Component) {
   _inherits(Portfolio, _React$Component);
 
@@ -513,12 +782,23 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
   _createClass(Portfolio, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-section"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.props.logout,
-        className: "logout-button"
-      }, "Log Out Here!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "portfolio"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-bar"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "left-nav"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: '/'
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "/images/logo.jpeg",
+        alt: "",
+        className: "logo-image"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        logout: this.props.logout
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-content"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
     }
   }]);
 
@@ -808,58 +1088,141 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _user_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user_style.css */ "./frontend/components/portfolio/user_style.css");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
 
-var data = [{
-  name: '1:00',
-  uv: 400,
-  pv: 2400,
-  amt: 2400
-}, {
-  name: '1:30',
-  uv: 200
-}, {
-  name: '1:10',
-  uv: 150
-}, {
-  name: '1:20',
-  uv: 320
-}];
 
-var UserChart = function UserChart() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
-    width: 780,
-    height: 300,
-    data: data,
-    margin: {
-      top: 5,
-      right: 20,
-      bottom: 5,
-      left: 0
+
+var UserChart = /*#__PURE__*/function (_React$Component) {
+  _inherits(UserChart, _React$Component);
+
+  var _super = _createSuper(UserChart);
+
+  function UserChart() {
+    _classCallCheck(this, UserChart);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(UserChart, [{
+    key: "render",
+    value: function render() {
+      var data = [{
+        name: '9:00 AM',
+        uv: 200,
+        pv: 2400,
+        amt: 2400
+      }, {
+        name: '9:05 AM',
+        uv: 200
+      }, {
+        name: '9:10 AM',
+        uv: 200
+      }, {
+        name: '9:15 AM',
+        uv: 200
+      }, {
+        name: '9:20 AM',
+        uv: 200
+      }, {
+        name: '9:25 AM',
+        uv: 200
+      }, {
+        name: '9:30 AM',
+        uv: 200
+      }, {
+        name: '9:35 AM',
+        uv: 200
+      }];
+
+      function CustomToolTip(_ref) {
+        var payload = _ref.payload,
+            label = _ref.label,
+            active = _ref.active;
+
+        if (active) {
+          if (label.includes(":") === false) {
+            label = label.split(" ").join(":00 ");
+          }
+
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "".concat(label)));
+        }
+
+        return null;
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "user-portion-chart"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
+        className: "stock-name-for-chart"
+      }, "$0.00"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "percent-change"
+      }, "+$0.00 (+0.00%) Today"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+        connectNulls: true,
+        width: 740,
+        height: 300,
+        data: data,
+        dot: false,
+        className: "chart",
+        margin: {
+          top: 5,
+          right: 20,
+          bottom: 5,
+          left: 0
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Line"], {
+        type: "monotone",
+        dataKey: "uv",
+        stroke: "#EE4E34"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
+        dataKey: "name",
+        hide: true
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["YAxis"], {
+        hide: true,
+        domain: [0, 500]
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Tooltip"], {
+        wrapperStyle: {
+          left: -35
+        },
+        allowEscapeViewBox: {
+          x: true,
+          y: true
+        },
+        position: {
+          y: -30
+        },
+        cursor: {
+          stroke: 'grey'
+        },
+        isAnimationActive: false,
+        content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(CustomToolTip, null)
+      })));
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Line"], {
-    type: "monotone",
-    dataKey: "uv",
-    stroke: "#EE4E34"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["CartesianGrid"], {
-    vertical: false,
-    horizontalPoints: [50]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
-    dataKey: "name",
-    hide: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["YAxis"], {
-    hide: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Tooltip"], {
-    cursor: {
-      stroke: 'grey'
-    },
-    coordinate: {
-      x: 0,
-      y: -300
-    }
-  })));
-};
+  }]);
+
+  return UserChart;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (UserChart);
 
@@ -1461,7 +1824,7 @@ var NewsSection = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.stock.stock_symbol !== this.state.symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/news/last/6?token=pk_7f907de6dd184f68962cd03c99b625ce");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -1742,7 +2105,9 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
         className: "stock-name-for-chart"
-      }, "$", this.state.val), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, this.state.difference, " (", this.state.percentChange, ") today"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+      }, "$", this.state.val), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "percent-change"
+      }, this.state.difference, " (", this.state.percentChange, ") Today"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
         onMouseMove: this.handleMouseMove,
         onMouseLeave: function onMouseLeave() {
           return _this2.handleMouseOff();
@@ -1884,8 +2249,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stock_chart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stock_chart */ "./frontend/components/stocks/stock_chart.jsx");
 /* harmony import */ var _about_section__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./about_section */ "./frontend/components/stocks/about_section.jsx");
 /* harmony import */ var _news_section_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./news_section_container */ "./frontend/components/stocks/news_section_container.jsx");
-/* harmony import */ var _stock_detail_style_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stock_detail_style.css */ "./frontend/components/stocks/stock_detail_style.css");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _portfolio_dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../portfolio/dropdownacc/account_drop_down */ "./frontend/components/portfolio/dropdownacc/account_drop_down.jsx");
+/* harmony import */ var _stock_detail_style_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./stock_detail_style.css */ "./frontend/components/stocks/stock_detail_style.css");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1907,6 +2273,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -1953,18 +2320,15 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
         className: "nav-bar"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "left-nav"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["Link"], {
         to: '/'
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "/images/logo.jpeg",
         alt: "",
         className: "logo-image"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_search_search_bar_container__WEBPACK_IMPORTED_MODULE_1__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"], {
-        to: '/'
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.props.logout,
-        className: "logout-button"
-      }, "Log Out Here!"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_search_search_bar_container__WEBPACK_IMPORTED_MODULE_1__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        logout: this.props.logout
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-content"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "stock-name"
@@ -4685,6 +5049,31 @@ ___CSS_LOADER_EXPORT___.push([module.i, "  body {\n    margin-right: 0px;\n  }\n
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/dropdownacc/drop_down.css":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/dropdownacc/drop_down.css ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    position: absolute;\n    z-index: 1;\n    cursor: pointer;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/dropdownacc/drop_down.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,kBAAkB;AACtB;AACA;IACI,YAAY;AAChB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;AACA;IACI,uBAAuB;IACvB,YAAY;IACZ,aAAa;IACb,eAAe;IACf,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kBAAkB;IAClB,UAAU;IACV,eAAe;AACnB","sourcesContent":[".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    position: absolute;\n    z-index: 1;\n    cursor: pointer;\n}\n\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/portfolio_style.css":
 /*!*************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/portfolio_style.css ***!
@@ -4703,7 +5092,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/portfolio_style.css"],"names":[],"mappings":";;AAEA;IACI,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;AAChB","sourcesContent":["\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/portfolio_style.css"],"names":[],"mappings":";;AAEA;IACI,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;AAChB","sourcesContent":["\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -4728,7 +5117,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".search-bar {\n    background-color: white;\n    height: 30px;\n    width: 469px;\n    border-width: 2px;\n    border-style: solid;\n    border-color: white;\n}\n\n.search-bar:focus {\n    outline: none;\n}\n\n.search-section {\n    border: thin;\n    position: absolute;\n    z-index: 1;\n    margin-left: 20px;\n    box-shadow: 0 1px 6px gray;\n    width: 475px;\n    font-family: 'Open Sans', sans-serif;\n}\n\n.suggestions {\n    width: inherit;\n    border-width: 2px;\n    border-style: solid;\n    border: transparent;\n    box-shadow: 0 1px 6px gray;\n    background-color: white;\n    font-size: 15px;\n}\n\n.suggestions > div:hover{\n    background-color: rgb(231, 242, 246);\n    cursor: pointer;\n}\n\n.indiv-suggestions {\n    width: inherit;\n}\n\n.link {\n    text-decoration: none;\n    color: black;\n    display:block;\n    width: inherit;\n}\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/search/search.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;IACvB,YAAY;IACZ,YAAY;IACZ,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,YAAY;IACZ,kBAAkB;IAClB,UAAU;IACV,iBAAiB;IACjB,0BAA0B;IAC1B,YAAY;IACZ,oCAAoC;AACxC;;AAEA;IACI,cAAc;IACd,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,0BAA0B;IAC1B,uBAAuB;IACvB,eAAe;AACnB;;AAEA;IACI,oCAAoC;IACpC,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,qBAAqB;IACrB,YAAY;IACZ,aAAa;IACb,cAAc;AAClB","sourcesContent":[".search-bar {\n    background-color: white;\n    height: 30px;\n    width: 469px;\n    border-width: 2px;\n    border-style: solid;\n    border-color: white;\n}\n\n.search-bar:focus {\n    outline: none;\n}\n\n.search-section {\n    border: thin;\n    position: absolute;\n    z-index: 1;\n    margin-left: 20px;\n    box-shadow: 0 1px 6px gray;\n    width: 475px;\n    font-family: 'Open Sans', sans-serif;\n}\n\n.suggestions {\n    width: inherit;\n    border-width: 2px;\n    border-style: solid;\n    border: transparent;\n    box-shadow: 0 1px 6px gray;\n    background-color: white;\n    font-size: 15px;\n}\n\n.suggestions > div:hover{\n    background-color: rgb(231, 242, 246);\n    cursor: pointer;\n}\n\n.indiv-suggestions {\n    width: inherit;\n}\n\n.link {\n    text-decoration: none;\n    color: black;\n    display:block;\n    width: inherit;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".search-bar {\n    background-color: white;\n    height: 30px;\n    width: 469px;\n    border-width: 2px;\n    border-style: solid;\n    border-color: white;\n}\n\n.search-bar:focus {\n    outline: none;\n}\n\n.search-section {\n    border: thin;\n    position: absolute;\n    z-index: 1;\n    margin-left: 70px;\n    box-shadow: 0 1px 6px gray;\n    width: 475px;\n    font-family: 'Open Sans', sans-serif;\n}\n\n.suggestions {\n    width: inherit;\n    border-width: 2px;\n    border-style: solid;\n    border: transparent;\n    box-shadow: 0 1px 6px gray;\n    background-color: white;\n    font-size: 15px;\n}\n\n.suggestions > div:hover{\n    background-color: rgb(231, 242, 246);\n    cursor: pointer;\n}\n\n.indiv-suggestions {\n    width: inherit;\n}\n\n.link {\n    text-decoration: none;\n    color: black;\n    display:block;\n    width: inherit;\n}\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/search/search.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;IACvB,YAAY;IACZ,YAAY;IACZ,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,YAAY;IACZ,kBAAkB;IAClB,UAAU;IACV,iBAAiB;IACjB,0BAA0B;IAC1B,YAAY;IACZ,oCAAoC;AACxC;;AAEA;IACI,cAAc;IACd,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,0BAA0B;IAC1B,uBAAuB;IACvB,eAAe;AACnB;;AAEA;IACI,oCAAoC;IACpC,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,qBAAqB;IACrB,YAAY;IACZ,aAAa;IACb,cAAc;AAClB","sourcesContent":[".search-bar {\n    background-color: white;\n    height: 30px;\n    width: 469px;\n    border-width: 2px;\n    border-style: solid;\n    border-color: white;\n}\n\n.search-bar:focus {\n    outline: none;\n}\n\n.search-section {\n    border: thin;\n    position: absolute;\n    z-index: 1;\n    margin-left: 70px;\n    box-shadow: 0 1px 6px gray;\n    width: 475px;\n    font-family: 'Open Sans', sans-serif;\n}\n\n.suggestions {\n    width: inherit;\n    border-width: 2px;\n    border-style: solid;\n    border: transparent;\n    box-shadow: 0 1px 6px gray;\n    background-color: white;\n    font-size: 15px;\n}\n\n.suggestions > div:hover{\n    background-color: rgb(231, 242, 246);\n    cursor: pointer;\n}\n\n.indiv-suggestions {\n    width: inherit;\n}\n\n.link {\n    text-decoration: none;\n    color: black;\n    display:block;\n    width: inherit;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -4753,7 +5142,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "/* .graph {\n    z-index: -1;\n} */", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/user_style.css"],"names":[],"mappings":"AAAA;;GAEG","sourcesContent":["/* .graph {\n    z-index: -1;\n} */"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".user-portion-chart {\n    width: 100%;\n}\n\n.stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 20px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/user_style.css"],"names":[],"mappings":"AAAA;IACI,WAAW;AACf;;AAEA;IACI,eAAe;IACf,kBAAkB;IAClB,eAAe;AACnB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,yCAAyC;IACzC,eAAe;IACf,iBAAiB;IACjB,mBAAmB;AACvB","sourcesContent":[".user-portion-chart {\n    width: 100%;\n}\n\n.stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 20px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -4853,7 +5242,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".stock-name-for-chart {\n    margin-top: 0px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_chart_style.css"],"names":[],"mappings":"AAAA;IACI,eAAe;AACnB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB","sourcesContent":[".stock-name-for-chart {\n    margin-top: 0px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_chart_style.css"],"names":[],"mappings":"AAAA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,yCAAyC;IACzC,eAAe;IACf,iBAAiB;AACrB","sourcesContent":[".stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -4878,7 +5267,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 100px;\n    width: 60%;\n}\n\n.stock-name {\n    margin-bottom: 5px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_detail_style.css"],"names":[],"mappings":"AAAA;IACI,oCAAoC;AACxC;;AAEA;IACI,aAAa;IACb,8BAA8B;IAC9B,gBAAgB;AACpB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;IACZ,UAAU;AACd;;AAEA;IACI,kBAAkB;IAClB,iBAAiB;AACrB;;AAEA;IACI,kBAAkB;IAClB,UAAU;AACd;;AAEA;IACI,kBAAkB;AACtB","sourcesContent":[".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 100px;\n    width: 60%;\n}\n\n.stock-name {\n    margin-bottom: 5px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 150px;\n    width: 60%;\n}\n\n.stock-name {\n    margin-bottom: 5px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_detail_style.css"],"names":[],"mappings":"AAAA;IACI,oCAAoC;AACxC;;AAEA;IACI,aAAa;IACb,8BAA8B;IAC9B,gBAAgB;AACpB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;IACZ,UAAU;AACd;;AAEA;IACI,kBAAkB;IAClB,iBAAiB;AACrB;;AAEA;IACI,kBAAkB;IAClB,UAAU;AACd;;AAEA;IACI,kBAAkB;AACtB","sourcesContent":[".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 150px;\n    width: 60%;\n}\n\n.stock-name {\n    margin-bottom: 5px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

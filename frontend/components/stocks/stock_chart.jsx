@@ -144,6 +144,7 @@ class StockChart extends React.Component {
                         <p>{`${label}`}</p>
                     </div>
                 );
+
             }
 
             return null;
@@ -156,7 +157,7 @@ class StockChart extends React.Component {
                 <h1 className = "stock-name-for-chart">
                     ${this.state.val}
                 </h1>
-        <div>{this.state.difference} ({this.state.percentChange}) today</div>
+        <div className = "percent-change">{this.state.difference} ({this.state.percentChange}) Today</div>
                 <LineChart onMouseMove={this.handleMouseMove} onMouseLeave={() => this.handleMouseOff()} width={740} height={300} data={this.state.data} className = "chart"
                     margin={{top: 20, right: 20, bottom: 20, left: 20,}}>
                     <Line connectNulls={true} type="monotone" dataKey="high" stroke={this.strokeColor()} dot ={false} 

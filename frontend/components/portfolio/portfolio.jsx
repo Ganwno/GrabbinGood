@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './portfolio_style.css'
 import UserChart from './user_chart'
 import SearchBarContainer from './search/search_bar_container';
+import AccountDropDown from './dropdownacc/account_drop_down';
+import UserNews from './news/user_news';
 
 class Portfolio extends React.Component {
     constructor(props) {
@@ -15,16 +17,21 @@ class Portfolio extends React.Component {
 
     render() {
         return(
-            <div>
-                <div className = "nav-section">
+            <div className = "portfolio">
+                <div className = "nav-bar">
+                <div className= "left-nav">
+                <Link to={'/'}>
+                <img src="/images/logo.jpeg" alt="" className="logo-image"></img>
+                </Link>
                 <SearchBarContainer/>
-                <button onClick={this.props.logout} className = "logout-button">
-                Log Out Here!
-                </button>
                 </div>
-                <br/>
+                <AccountDropDown logout={this.props.logout}/>
+                </div>
+                <div className="page-content">
                 <br/>
                 <UserChart/>
+                <UserNews/>
+                </div>
                 <br/>
             </div>
         )
