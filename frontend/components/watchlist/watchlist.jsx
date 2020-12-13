@@ -6,22 +6,44 @@ class Watchlist extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            watchlists: {}
+            watchlists: []
+        }
+        this.doesUserHaveStocks = this.doesUserHaveStocks.bind(this)
+    }
+
+    doesUserHaveStocks() {
+        if (this.state.watchlists.length < 1) {
+            return false
+        }
+        else {
+            return true
         }
     }
 
 
     render(){
         if (Object.keys(this.state.watchlists).length < 1) {
-            this.props.fetchWatchlists(this.props.user.id).then(watchlists => {
+            this.props.fetchWatchlists(this.props.user).then(watchlists => {
+                console.log(watchlists)
                 this.setState({
-                    watchlists: watchlists
+                    watchlists: Object.values(watchlists.watchlists)
                 })
             })
         }
         return(
             <div>
-                {this.props.user.id}
+                {this.props.user}
+                <div>
+                Stocks
+                </div>
+                {this.doesUserHaveStocks() ? 
+                this.state.watchlists.map((watchlist) => (
+                    <div>
+                        {watchlist.stock}
+                    </div>
+                ))
+                : <div>User Has No Stocks!</div>
+                }
             </div>
         )
     }

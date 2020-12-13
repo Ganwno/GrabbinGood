@@ -12,7 +12,7 @@ class UserNews extends React.Component {
 
     render() {
         if (this.state.firstRender === false) {
-            let url = `https://cloud.iexapis.com/stable/stock/msft/news/last/6?token=pk_7f907de6dd184f68962cd03c99b625ce`;
+            let url = `https://cloud.iexapis.com/stable/stock/msft/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce`;
             fetch(url).then(response => response.json())
                 .then(result => this.setState({ arrNews: result, firstRender: true  }))
         }

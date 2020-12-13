@@ -1,6 +1,6 @@
 @user.watchlists.each do |watchlist|
     json.set! watchlist.id do 
-        json.extract! watchlist, :id, :stock_id, :user_id
+        json.extract! watchlist, :id, :stock_id, :user_id, :num_stocks
     end
 end
 

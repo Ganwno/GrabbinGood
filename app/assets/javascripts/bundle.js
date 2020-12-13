@@ -703,7 +703,7 @@ var UserNews = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       if (this.state.firstRender === false) {
-        var url = "https://cloud.iexapis.com/stable/stock/msft/news/last/6?token=pk_7f907de6dd184f68962cd03c99b625ce";
+        var url = "https://cloud.iexapis.com/stable/stock/msft/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce";
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -868,7 +868,7 @@ __webpack_require__.r(__webpack_exports__);
 var mSTP = function mSTP(state) {
   return {
     stocks: Object.values(state.entities.stocks),
-    user: state.entities.users[13]
+    user: state.session.id
   };
 };
 
@@ -2470,25 +2470,39 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      watchlists: {}
+      watchlists: []
     };
+    _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Watchlist, [{
+    key: "doesUserHaveStocks",
+    value: function doesUserHaveStocks() {
+      if (this.state.watchlists.length < 1) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 
       if (Object.keys(this.state.watchlists).length < 1) {
-        this.props.fetchWatchlists(this.props.user.id).then(function (watchlists) {
+        this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
+          console.log(watchlists);
+
           _this2.setState({
-            watchlists: watchlists
+            watchlists: Object.values(watchlists.watchlists)
           });
         });
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.id);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? this.state.watchlists.map(function (watchlist) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, watchlist.stock);
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"));
     }
   }]);
 
