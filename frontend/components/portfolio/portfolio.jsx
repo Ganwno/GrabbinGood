@@ -30,7 +30,7 @@ class Portfolio extends React.Component {
                 </div>
                 <div className="page-content">
                 <br/>
-                <UserChart/>
+                <UserChart ownStocks={this.props.arrOfUsersStocks}/>
                 <UserNews/>
                 <WatchlistContainer user={this.props.user} />
                 </div>

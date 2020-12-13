@@ -9,6 +9,7 @@ class UserChart extends React.Component{
 
 
     render(){
+        // if (this.props.ownStocks.length < 1) {}
 
         const data = [{ name: '9:00 AM', uv: 200, pv: 2400, amt: 2400 }, { name: '9:05 AM', uv: 200 },
         { name: '9:10 AM', uv: 200 }, { name: '9:15 AM', uv: 200 }, { name: '9:20 AM', uv: 200 },
@@ -55,8 +56,7 @@ class UserChart extends React.Component{
             position={{ y: -30 }} cursor={{ stroke: 'grey' }} isAnimationActive={false} 
             content={<CustomToolTip />}
             />
-        </LineChart>
-        
+        </LineChart>  
     </div>
         )
     }

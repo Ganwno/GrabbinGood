@@ -7,7 +7,8 @@ import { fetchWatchlists } from '../../actions/watchlist_actions';
 const mSTP = (state) => {
     return {
         stocks: Object.values(state.entities.stocks),
-        user: state.session.id
+        user: state.session.id,
+        arrOfUsersStocks: Object.values(state.entities.watchlist)
     }
 }
 

@@ -832,7 +832,9 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
         logout: this.props.logout
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        ownStocks: this.props.arrOfUsersStocks
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
         user: this.props.user
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
     }
@@ -868,7 +870,8 @@ __webpack_require__.r(__webpack_exports__);
 var mSTP = function mSTP(state) {
   return {
     stocks: Object.values(state.entities.stocks),
-    user: state.session.id
+    user: state.session.id,
+    arrOfUsersStocks: Object.values(state.entities.watchlist)
   };
 };
 
@@ -1170,6 +1173,7 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
   _createClass(UserChart, [{
     key: "render",
     value: function render() {
+      // if (this.props.ownStocks.length < 1) {}
       var data = [{
         name: '9:00 AM',
         uv: 200,
@@ -2484,7 +2488,8 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
       } else {
         return true;
       }
-    }
+    } //Object.values(watchlists.watchlists)
+
   }, {
     key: "render",
     value: function render() {
@@ -2492,16 +2497,16 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
 
       if (Object.keys(this.state.watchlists).length < 1) {
         this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-          console.log(watchlists);
-
           _this2.setState({
             watchlists: Object.values(watchlists.watchlists)
           });
         });
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? this.state.watchlists.map(function (watchlist) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, watchlist.stock);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? this.state.watchlists.map(function (watchlist, idx) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: idx
+        }, watchlist.stock_symbol, watchlist.num_stocks);
       }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"));
     }
   }]);

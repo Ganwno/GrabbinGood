@@ -20,11 +20,13 @@ class Watchlist extends React.Component {
         }
     }
 
+//Object.values(watchlists.watchlists)
+
+
 
     render(){
         if (Object.keys(this.state.watchlists).length < 1) {
             this.props.fetchWatchlists(this.props.user).then(watchlists => {
-                console.log(watchlists)
                 this.setState({
                     watchlists: Object.values(watchlists.watchlists)
                 })
@@ -32,16 +34,16 @@ class Watchlist extends React.Component {
         }
         return(
             <div>
-                {this.props.user}
                 <div>
                 Stocks
                 </div>
                 {this.doesUserHaveStocks() ? 
-                this.state.watchlists.map((watchlist) => (
-                    <div>
-                        {watchlist.stock}
-                    </div>
-                ))
+                    this.state.watchlists.map((watchlist, idx) => (
+                        <div key = {idx}>
+                            {watchlist.stock_symbol}
+                            {watchlist.num_stocks}
+                        </div>
+                    ))
                 : <div>User Has No Stocks!</div>
                 }
             </div>
