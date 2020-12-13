@@ -7,6 +7,15 @@ class User < ApplicationRecord
 
     after_initialize :ensure_session_token
 
+    has_many :watchlists,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :Watchlist
+
+    has_many :stocks,
+    through: :watchlists,
+    source: :stock
+
     def password=(password) 
         @password = password
         self.password_digest = BCrypt::Password.create(password)

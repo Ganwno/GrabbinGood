@@ -1,24 +1,28 @@
-# README
+#GrabbinGood
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+GrabbinGood is a fullstack application that mimics the qualities and features of Robinhood. The purpose of GrabbinGood is to display the same functionalities of Robinhood such as simulating trades or managing portfolios. This is done using real-time data through the use of an API.
 
-Things you may want to cover:
+##[See the Live Site](https://grabbin-good.herokuapp.com/#/)
 
-* Ruby version
+## Technologies Used
+This fullstack application mainly uses Ruby on Rails for managing backend API while React manages the frontend. Redux is also used for application state management. A full list will be shown down below.
 
-* System dependencies
+### Frameworks/Libraries/Languages
 
-* Configuration
+* Ruby on Rails
+* React
+* Redux
+* HTML
+* CSS
+* JavaScript
 
-* Database creation
+### APIs & External Libraries Used
 
-* Database initialization
+* IEX Cloud
+* Recharts
 
-* How to run the test suite
+## Features
 
-* Services (job queues, cache servers, search engines, etc.)
+* One key feature that was implemented in this project is the search bar. Users will be able to search assets via ticker symbol or the full name of the company.
 
-* Deployment instructions
-
-* ...
+* Another key feature is the asset page which implements an API in order to retrieve stock information such as current news, intraday data, and general organization information.

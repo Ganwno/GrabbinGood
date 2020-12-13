@@ -253,6 +253,38 @@ var showStocks = function showStocks() {
 
 /***/ }),
 
+/***/ "./frontend/actions/watchlist_actions.js":
+/*!***********************************************!*\
+  !*** ./frontend/actions/watchlist_actions.js ***!
+  \***********************************************/
+/*! exports provided: RECEIVE_WATCHLISTS, fetchWatchlists */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_WATCHLISTS", function() { return RECEIVE_WATCHLISTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWatchlists", function() { return fetchWatchlists; });
+/* harmony import */ var _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/watchlist_util */ "./frontend/util/watchlist_util.js");
+
+var RECEIVE_WATCHLISTS = 'RECEIVE_WATCHLISTS';
+
+var receiveWatchlists = function receiveWatchlists(watchlists) {
+  return {
+    type: RECEIVE_WATCHLISTS,
+    watchlists: watchlists
+  };
+};
+
+var fetchWatchlists = function fetchWatchlists(user_id) {
+  return function (dispatch) {
+    return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["showWatchlists"](user_id).then(function (watchlists) {
+      return dispatch(receiveWatchlists(watchlists));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/components/app.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/app.jsx ***!
@@ -671,7 +703,7 @@ var UserNews = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       if (this.state.firstRender === false) {
-        var url = "https://cloud.iexapis.com/stable/stock/msft/news/last/6?token=pk_7f907de6dd184f68962cd03c99b625ce";
+        var url = "https://cloud.iexapis.com/stable/stock/msft/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce";
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -732,6 +764,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./search/search_bar_container */ "./frontend/components/portfolio/search/search_bar_container.jsx");
 /* harmony import */ var _dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dropdownacc/account_drop_down */ "./frontend/components/portfolio/dropdownacc/account_drop_down.jsx");
 /* harmony import */ var _news_user_news__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./news/user_news */ "./frontend/components/portfolio/news/user_news.jsx");
+/* harmony import */ var _watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../watchlist/watchlist */ "./frontend/components/watchlist/watchlist.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -753,6 +786,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -798,7 +832,9 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
         logout: this.props.logout
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        user: this.props.user
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
     }
   }]);
 
@@ -822,6 +858,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _portfolio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./portfolio */ "./frontend/components/portfolio/portfolio.jsx");
 /* harmony import */ var _actions_stock_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/stock_actions */ "./frontend/actions/stock_actions.js");
+/* harmony import */ var _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/watchlist_actions */ "./frontend/actions/watchlist_actions.js");
+
 
 
 
@@ -829,7 +867,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mSTP = function mSTP(state) {
   return {
-    stocks: Object.values(state.entities.stocks)
+    stocks: Object.values(state.entities.stocks),
+    user: state.session.id
   };
 };
 
@@ -840,6 +879,9 @@ var mDTP = function mDTP(dispatch) {
     },
     showStocks: function showStocks() {
       return dispatch(Object(_actions_stock_actions__WEBPACK_IMPORTED_MODULE_3__["showStocks"])());
+    },
+    fetchWatchlists: function fetchWatchlists(user_id) {
+      return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWatchlists"])(user_id));
     }
   };
 };
@@ -1674,7 +1716,7 @@ var AboutSection = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.stock.stock_symbol !== this.state.symbol) {
         var symbol = this.props.stock.stock_symbol;
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_7f907de6dd184f68962cd03c99b625ce");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_0df25c5085a9428590bbb49600f9487c");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -1824,7 +1866,7 @@ var NewsSection = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.stock.stock_symbol !== this.state.symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/news/last/6?token=pk_7f907de6dd184f68962cd03c99b625ce");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/news/last/2?token=pk_0df25c5085a9428590bbb49600f9487c");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -2055,7 +2097,7 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       // refresh issue fixed
       if (this.state.symbol !== this.props.stock.stock_symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/intraday-prices?token=pk_7f907de6dd184f68962cd03c99b625ce&chartInterval=5");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -2377,6 +2419,114 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./frontend/components/watchlist/watchlist.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/watchlist/watchlist.jsx ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/watchlist_actions */ "./frontend/actions/watchlist_actions.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var Watchlist = /*#__PURE__*/function (_React$Component) {
+  _inherits(Watchlist, _React$Component);
+
+  var _super = _createSuper(Watchlist);
+
+  function Watchlist(props) {
+    var _this;
+
+    _classCallCheck(this, Watchlist);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      watchlists: []
+    };
+    _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Watchlist, [{
+    key: "doesUserHaveStocks",
+    value: function doesUserHaveStocks() {
+      if (this.state.watchlists.length < 1) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      if (Object.keys(this.state.watchlists).length < 1) {
+        this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
+          console.log(watchlists);
+
+          _this2.setState({
+            watchlists: Object.values(watchlists.watchlists)
+          });
+        });
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? this.state.watchlists.map(function (watchlist) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, watchlist.stock);
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"));
+    }
+  }]);
+
+  return Watchlist;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var mSTP = function mSTP(state) {
+  return {
+    watchlist: Object.values(state.entities.watchlist)
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchWatchlists: function fetchWatchlists(user_id) {
+      return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["fetchWatchlists"])(user_id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mSTP, mDTP)(Watchlist));
+
+/***/ }),
+
 /***/ "./frontend/grabbin_good.jsx":
 /*!***********************************!*\
   !*** ./frontend/grabbin_good.jsx ***!
@@ -2533,6 +2683,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _stocks_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stocks_reducer */ "./frontend/reducers/stocks_reducer.js");
 /* harmony import */ var _current_asset_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./current_asset_reducer */ "./frontend/reducers/current_asset_reducer.js");
+/* harmony import */ var _watchlist_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./watchlist_reducer */ "./frontend/reducers/watchlist_reducer.js");
+
 
 
 
@@ -2540,7 +2692,8 @@ __webpack_require__.r(__webpack_exports__);
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   stocks: _stocks_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  currentAsset: _current_asset_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  currentAsset: _current_asset_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  watchlist: _watchlist_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -2611,7 +2764,7 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ERRORS"]:
-      return action.errors;
+      return Object.assign([], state, action.errors);
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return [];
@@ -2734,6 +2887,37 @@ var usersReducer = function usersReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/watchlist_reducer.js":
+/*!************************************************!*\
+  !*** ./frontend/reducers/watchlist_reducer.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/watchlist_actions */ "./frontend/actions/watchlist_actions.js");
+
+
+var watchlistReducer = function watchlistReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var dupState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_WATCHLISTS"]:
+      return Object.assign({}, state, action.watchlists);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (watchlistReducer);
+
+/***/ }),
+
 /***/ "./frontend/store/store.js":
 /*!*********************************!*\
   !*** ./frontend/store/store.js ***!
@@ -2847,7 +3031,7 @@ __webpack_require__.r(__webpack_exports__);
 var signup = function signup(user) {
   return $.ajax({
     method: "POST",
-    url: "/api/user",
+    url: "/api/users",
     data: {
       user: user
     }
@@ -2892,6 +3076,25 @@ var showStock = function showStock(id) {
   return $.ajax({
     method: "GET",
     url: "/api/stocks/".concat(id)
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/watchlist_util.js":
+/*!*****************************************!*\
+  !*** ./frontend/util/watchlist_util.js ***!
+  \*****************************************/
+/*! exports provided: showWatchlists */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showWatchlists", function() { return showWatchlists; });
+var showWatchlists = function showWatchlists(user_id) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users/".concat(user_id)
   });
 };
 
