@@ -5,7 +5,8 @@ import {showStocks} from '../../actions/stock_actions';
 
 const mSTP = (state) => {
     return {
-        stocks: Object.values(state.entities.stocks)
+        stocks: Object.values(state.entities.stocks),
+        user: state.entities.users[13]
     }
 }
 

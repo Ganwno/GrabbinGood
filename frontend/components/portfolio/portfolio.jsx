@@ -5,6 +5,7 @@ import UserChart from './user_chart'
 import SearchBarContainer from './search/search_bar_container';
 import AccountDropDown from './dropdownacc/account_drop_down';
 import UserNews from './news/user_news';
+import Watchlist from '../watchlist/watchlist'
 
 class Portfolio extends React.Component {
     constructor(props) {
@@ -31,6 +32,7 @@ class Portfolio extends React.Component {
                 <br/>
                 <UserChart/>
                 <UserNews/>
+                {/* <Watchlist user={this.props.user}/> */}
                 </div>
                 <br/>
             </div>

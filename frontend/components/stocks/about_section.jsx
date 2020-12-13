@@ -33,7 +33,7 @@ class AboutSection extends React.Component {
     render() {
         if(this.props.stock.stock_symbol !== this.state.symbol) {
             let symbol = this.props.stock.stock_symbol
-            let url = `https://cloud.iexapis.com/stable/stock/${symbol}/company?token=pk_7f907de6dd184f68962cd03c99b625ce`
+            let url = `https://cloud.iexapis.com/stable/stock/${symbol}/company?token=pk_0df25c5085a9428590bbb49600f9487c`
             fetch(url).then(response => response.json())
                 .then(result => this.setState({ symbol: result.symbol, description: result.description, 
                 employees: result.employees, city: result.city, state: result.state, CEO: result.CEO
