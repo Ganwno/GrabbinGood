@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import { logout} from '../../actions/session_actions';
 import Portfolio from './portfolio';
 import {showStocks} from '../../actions/stock_actions';
+import { fetchWatchlists } from '../../actions/watchlist_actions';
 
 const mSTP = (state) => {
     return {
@@ -13,7 +14,8 @@ const mSTP = (state) => {
 const mDTP = (dispatch) => {
     return {
     logout: () => dispatch(logout()),
-    showStocks: () => dispatch(showStocks())
+    showStocks: () => dispatch(showStocks()),
+    fetchWatchlists: (user_id) => dispatch(fetchWatchlists(user_id))
     }
 }
 
