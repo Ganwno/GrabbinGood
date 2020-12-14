@@ -4,17 +4,25 @@ import './user_style.css';
 
 
 class UserChart extends React.Component{ 
-   
+    constructor(props) {
+        super(props);
+    }
+//    let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`
+// fetch(url).then(response => response.json())
+//     .then((result) => { 
 
 
 
     render(){
         // if (this.props.ownStocks.length < 1) {}
+        console.log(this.props.ownStocks)
 
         const data = [{ name: '9:00 AM', uv: 200, pv: 2400, amt: 2400 }, { name: '9:05 AM', uv: 200 },
         { name: '9:10 AM', uv: 200 }, { name: '9:15 AM', uv: 200 }, { name: '9:20 AM', uv: 200 },
         { name: '9:25 AM', uv: 200 }, { name: '9:30 AM', uv: 200 }, { name: '9:35 AM', uv: 200 }
         ];
+
+        // const data = this.props.ownStocks;
 
         function CustomToolTip({ payload, label, active }) {
             if (active) {

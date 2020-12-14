@@ -1164,16 +1164,20 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(UserChart);
 
-  function UserChart() {
+  function UserChart(props) {
     _classCallCheck(this, UserChart);
 
-    return _super.apply(this, arguments);
-  }
+    return _super.call(this, props);
+  } //    let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`
+  // fetch(url).then(response => response.json())
+  //     .then((result) => { 
+
 
   _createClass(UserChart, [{
     key: "render",
     value: function render() {
       // if (this.props.ownStocks.length < 1) {}
+      console.log(this.props.ownStocks);
       var data = [{
         name: '9:00 AM',
         uv: 200,
@@ -1200,7 +1204,7 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
       }, {
         name: '9:35 AM',
         uv: 200
-      }];
+      }]; // const data = this.props.ownStocks;
 
       function CustomToolTip(_ref) {
         var payload = _ref.payload,
