@@ -1,6 +1,6 @@
 import React from 'react';
 import './session_style.css';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 
 
 class SessionForm extends React.Component {
@@ -80,12 +80,17 @@ class SessionForm extends React.Component {
                         </label>
                         <br/>
                         <div className = "buttons">
+                        <Link to={'/portfolio'}>
                         <input type = "submit" value = {this.props.formType}
                         className = "hit-button"
                         />
+                        </Link>
 
+                        <Link to={'/portfolio'}>
                         <button className="demo-button"
                             onClick={this.demoHandleSubmit}>Demo User</button>
+                        </Link>
+
                         </div>
                         
                     </div>

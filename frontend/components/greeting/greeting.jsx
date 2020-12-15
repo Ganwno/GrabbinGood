@@ -4,7 +4,8 @@ import './greeting_style.css';
 import PortfolioContainer from '../portfolio/portfolio_container';
 
 const Greeting = ({currentUser, logout}) => {
-    const sessionLinks = () => (
+    // const sessionLinks = () => (
+        return(
         <div className = 'front-page'>
         <nav className= "header">
             <div>
@@ -33,13 +34,13 @@ const Greeting = ({currentUser, logout}) => {
         </div>
     )
 
-    const signedIn = () => (
+    // const signedIn = () => (
 
-    <PortfolioContainer/>
-    )
-    //redirect to portfolio page if signed in
+    // <PortfolioContainer/>
+    // )
+    // redirect to portfolio page if signed in
 
-    return currentUser ? signedIn() : sessionLinks();
+    // return currentUser ? signedIn() : sessionLinks();
 }
 
 export default Greeting;

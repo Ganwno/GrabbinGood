@@ -51,7 +51,7 @@ class AccountDropDown extends React.Component {
                     <div className="menu" ref={(element) => {
                     this.dropdownMenu = element
                     }}>
-                    <Link to={'/'}><button onClick={this.props.logout} className='logout-button-for-nav'>Log Out</button></Link>
+                  <button onClick={this.props.logout} className='logout-button-for-nav'>Log Out</button>
                 </div>
                 ) : 
                 ( null)
