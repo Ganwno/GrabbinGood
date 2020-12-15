@@ -67,7 +67,7 @@
    font-family: 'Open Sans', sans-serif;
    height: 70%;
    margin: auto;
-   background-color: #c3f648;
+   background-color: #CAF65C;
    filter: brightness();
    display: flex;
    justify-content: center;
@@ -117,7 +117,7 @@
 }
  
 .caption-image {
-  height: 50%;
+  height: 85%;
   margin: auto;
   margin-left: 31px;
 }

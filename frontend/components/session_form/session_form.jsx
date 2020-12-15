@@ -50,7 +50,7 @@ class SessionForm extends React.Component {
         if (this.props.formType === 'Login') {
         return(
             <div className = "user-page">
-                <img src="/images/stock.jpg" alt="" className = "image"></img>
+                <img src="/images/stock.jpeg" alt="" className = "image"></img>
                 <form onSubmit= {this.handleSubmit} className ="whole-thing" >
                     <br/>
                    <h1 className="title">
@@ -102,7 +102,7 @@ class SessionForm extends React.Component {
             return (
                 
                 <div className = "user-page">
-                <img src="/images/stock.jpg" alt="" className = "image"></img>
+                <img src="/images/stock.jpeg" alt="" className = "image"></img>
                 <form onSubmit= {this.handleSubmit} className ="whole-thing" >
                     <br/>
                    <h1 className="title">

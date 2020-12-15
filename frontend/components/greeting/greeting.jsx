@@ -27,7 +27,8 @@ const Greeting = ({currentUser, logout}) => {
                 <br/>
                 <Link to="/signup"><button className='second-signup-button'>Sign Up</button></Link>
                 </div>
-                <img className = "caption-image"src="/images/homepage.jpeg" alt=""></img>
+                {/* <img className = "caption-image"src="/images/homepage.jpeg" alt=""></img> */}
+                    <img className = "caption-image" src="https://media.giphy.com/media/mMwer72fBJfMyLVL9P/giphy.gif" />
             </div>
             <div className = "black-bottom">
             </div>
