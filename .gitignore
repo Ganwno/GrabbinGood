@@ -1,14 +1,22 @@
-node_modules
-/app/assets/javascripts/bundle.js
-/public/assets
+/node_modules
+/bundle.*
+/.bundle
 
-/config/master.key
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep 
 
-/.bundle
+/storage/*
+!/storage/.keep
+
+/app/assets/javascripts/bundle.js
+/public/assets
+
+/config/master.key
+
+
+
 
 /storage/*
 !/storage/.keep 
