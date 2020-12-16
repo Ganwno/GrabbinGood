@@ -330,7 +330,7 @@ var App = function App() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["ProtectedRoute"], {
     path: "/portfolio",
     component: _portfolio_portfolio_container__WEBPACK_IMPORTED_MODULE_7__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["ProtectedRoute"], {
     exact: true,
     path: "/stocks/:id",
     component: _stocks_stock_container__WEBPACK_IMPORTED_MODULE_6__["default"]
@@ -694,7 +694,9 @@ var UserNews = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       if (this.state.firstRender === false) {
-        var url = "https://cloud.iexapis.com/stable/stock/msft/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce";
+        var arrOfStocks = ['msft', 'amzn', 'dis', 'aapl', 'sbux', 'tsla', 'zm', 'fb', 'nke'];
+        var randomAsset = arrOfStocks[Math.floor(Math.random() * arrOfStocks.length)];
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(randomAsset, "/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -799,14 +801,32 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      inputVal: ""
+      inputVal: "",
+      watchlist: []
     };
     return _this;
   }
 
   _createClass(Portfolio, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
+        console.log(watchlists);
+
+        _this2.setState({
+          watchlist: Object.values(watchlists.watchlists)
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      if (this.state.watchlist.length < 1) {
+        return null;
+      }
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "portfolio"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -824,10 +844,8 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-content"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        ownStocks: this.props.arrOfUsersStocks
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        user: this.props.user
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
+        ownStocks: this.state.watchlist
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
     }
   }]);
 
@@ -1156,47 +1174,77 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(UserChart);
 
   function UserChart(props) {
+    var _this;
+
     _classCallCheck(this, UserChart);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      data2: []
+    };
+    return _this;
   } //    let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`
   // fetch(url).then(response => response.json())
   //     .then((result) => { 
 
 
   _createClass(UserChart, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var newData = [];
+      var obj = {};
+      this.props.ownStocks.forEach(function (stock) {
+        // console.log(this.props.ownStocks)
+        var stockSym = stock.stock_symbol;
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stockSym, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5");
+        var promise = fetch(url).then(function (response) {
+          return response.json();
+        });
+        newData.push(promise);
+      });
+      Promise.all(newData).then(function (arr) {
+        var reducer = function reducer(accumulator, currentValue) {
+          return accumulator + currentValue;
+        };
+
+        var arrOfStockSym = _this2.props.ownStocks;
+        var i;
+
+        for (i = 0; i < arr.length - 1; i++) {
+          arr[i].forEach(function (obj) {
+            obj.high = obj.high * arrOfStockSym[i].num_stocks;
+          });
+        }
+
+        var output = [];
+        var flattened = arr.flat();
+        flattened.forEach(function (item) {
+          var existing = output.filter(function (v, i) {
+            return v.label == item.label;
+          });
+
+          if (existing.length) {
+            var existingIndex = output.indexOf(existing[0]);
+            output[existingIndex].high = output[existingIndex].high.concat(item.high);
+          } else {
+            if (typeof item.high == 'number') item.high = [item.high];
+            output.push(item);
+          }
+        });
+        output.forEach(function (obj) {
+          obj.high = obj.high.reduce(reducer);
+        });
+
+        _this2.setState({
+          data2: output
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      // if (this.props.ownStocks.length < 1) {}
-      console.log(this.props.ownStocks);
-      var data = [{
-        name: '9:00 AM',
-        uv: 200,
-        pv: 2400,
-        amt: 2400
-      }, {
-        name: '9:05 AM',
-        uv: 200
-      }, {
-        name: '9:10 AM',
-        uv: 200
-      }, {
-        name: '9:15 AM',
-        uv: 200
-      }, {
-        name: '9:20 AM',
-        uv: 200
-      }, {
-        name: '9:25 AM',
-        uv: 200
-      }, {
-        name: '9:30 AM',
-        uv: 200
-      }, {
-        name: '9:35 AM',
-        uv: 200
-      }]; // const data = this.props.ownStocks;
-
       function CustomToolTip(_ref) {
         var payload = _ref.payload,
             label = _ref.label,
@@ -1213,52 +1261,56 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
         return null;
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "user-portion-chart"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
-        className: "stock-name-for-chart"
-      }, "$0.00"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "percent-change"
-      }, "+$0.00 (+0.00%) Today"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
-        connectNulls: true,
-        width: 740,
-        height: 300,
-        data: data,
-        dot: false,
-        className: "chart",
-        margin: {
-          top: 5,
-          right: 20,
-          bottom: 5,
-          left: 0
-        }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Line"], {
-        type: "monotone",
-        dataKey: "uv",
-        stroke: "#EE4E34"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
-        dataKey: "name",
-        hide: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["YAxis"], {
-        hide: true,
-        domain: [0, 500]
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Tooltip"], {
-        wrapperStyle: {
-          left: -35
-        },
-        allowEscapeViewBox: {
-          x: true,
-          y: true
-        },
-        position: {
-          y: -30
-        },
-        cursor: {
-          stroke: 'grey'
-        },
-        isAnimationActive: false,
-        content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(CustomToolTip, null)
-      })));
+      if (this.state.data2.length < 1) {
+        return null;
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "user-portion-chart"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
+          className: "stock-name-for-chart"
+        }, "$0.00"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "percent-change"
+        }, "+$0.00 (+0.00%) Today"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+          connectNulls: true,
+          width: 740,
+          height: 300,
+          data: this.state.data2,
+          dot: false,
+          className: "chart",
+          margin: {
+            top: 5,
+            right: 20,
+            bottom: 5,
+            left: 0
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Line"], {
+          type: "monotone",
+          dataKey: "high",
+          stroke: "#EE4E34"
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
+          dataKey: "label",
+          hide: true
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["YAxis"], {
+          hide: true,
+          domain: ['dataMin', 'dataMax']
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Tooltip"], {
+          wrapperStyle: {
+            left: -35
+          },
+          allowEscapeViewBox: {
+            x: true,
+            y: true
+          },
+          position: {
+            y: -30
+          },
+          cursor: {
+            stroke: 'grey'
+          },
+          isAnimationActive: false,
+          content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(CustomToolTip, null)
+        })));
+      }
     }
   }]);
 

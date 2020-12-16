@@ -11,12 +11,26 @@ class Portfolio extends React.Component {
     constructor(props) {
         super(props);
     this.state = {
-        inputVal: ""
+        inputVal: "",
+        watchlist: []
     } 
+    }
+
+    componentDidMount() {
+        this.props.fetchWatchlists(this.props.user).then(watchlists => {
+            console.log(watchlists)
+            this.setState({
+            watchlist: Object.values(watchlists.watchlists)
+            })
+        })
     }
      
 
     render() {
+        if (this.state.watchlist.length < 1){
+        return null;
+        }
+
         return(
             <div className = "portfolio">
                 <div className = "nav-bar">
@@ -30,9 +44,9 @@ class Portfolio extends React.Component {
                 </div>
                 <div className="page-content">
                 <br/>
-                <UserChart ownStocks={this.props.arrOfUsersStocks}/>
+                <UserChart ownStocks={this.state.watchlist}/>
                 <UserNews/>
-                <WatchlistContainer user={this.props.user} />
+                {/* <WatchlistContainer watchlist={this.state.watchlist} /> */}
                 </div>
                 <br/>
             </div>

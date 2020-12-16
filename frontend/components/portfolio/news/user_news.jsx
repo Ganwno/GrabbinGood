@@ -9,10 +9,11 @@ class UserNews extends React.Component {
         }
     }
 
-
     render() {
         if (this.state.firstRender === false) {
-            let url = `https://cloud.iexapis.com/stable/stock/msft/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce`;
+            let arrOfStocks = ['msft', 'amzn', 'dis', 'aapl', 'sbux', 'tsla', 'zm', 'fb', 'nke'];
+            let randomAsset = arrOfStocks[Math.floor(Math.random() * arrOfStocks.length)];
+            let url = `https://cloud.iexapis.com/stable/stock/${randomAsset}/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce`;
             fetch(url).then(response => response.json())
                 .then(result => this.setState({ arrNews: result, firstRender: true  }))
         }
