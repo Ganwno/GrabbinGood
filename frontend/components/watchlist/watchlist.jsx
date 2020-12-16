@@ -6,13 +6,13 @@ class Watchlist extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            watchlists: []
+            stockPrice: []
         }
         this.doesUserHaveStocks = this.doesUserHaveStocks.bind(this)
     }
 
     doesUserHaveStocks() {
-        if (this.state.watchlists.length < 1) {
+        if (this.props.watchlist.length < 1) {
             return false
         }
         else {
@@ -20,17 +20,50 @@ class Watchlist extends React.Component {
         }
     }
 
-//Object.values(watchlists.watchlists)
+
+
+    componentDidMount() {
+        let arr = []
+        let arrOfStockSym = []
+        this.props.watchlist.forEach(watchlist => {
+            let stockSym = watchlist.stock_symbol.toLowerCase();
+            arrOfStockSym.push(stockSym)
+            let url = `https://cloud.iexapis.com/stable/stock/${stockSym}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartLast=5`
+            let promise = fetch(url).then(response => response.json())
+            arr.push(promise)
+        })  
+        Promise.all(arr).then(arrOfObj => {
+        let newArr = []
+            arrOfObj.forEach(arr => {
+                let i;
+                for (i = arr.length - 1; i > 0; i--) {
+                    if (arr[i].high) {
+                        newArr.push(arr[i].high)
+                        break;
+                    }
+                }
+            })
+            this.setState({
+                stockPrice: newArr
+            })
+        })
+    }
+
+    mapped() {
+        let i;
+        this.props.watchlist.map((watchlist, idx) => (
+            <div>
+                {watchlist.stock_symbol} {this.state.stockPrice[idx]}
+            </div>
+        ))
+    }
 
 
 
     render(){
-        if (Object.keys(this.state.watchlists).length < 1) {
-            this.props.fetchWatchlists(this.props.user).then(watchlists => {
-                this.setState({
-                    watchlists: Object.values(watchlists.watchlists)
-                })
-            })
+        console.log(this.state.stockPrice);
+        if (this.state.stockPrice < 1) {
+            return null;
         }
         return(
             <div>
@@ -38,10 +71,10 @@ class Watchlist extends React.Component {
                 Stocks
                 </div>
                 {this.doesUserHaveStocks() ? 
-                    this.state.watchlists.map((watchlist, idx) => (
+                    this.props.watchlist.map((watchlist, idx) => (
                         <div key = {idx}>
                             {watchlist.stock_symbol}
-                            {watchlist.num_stocks}
+                            {this.state.stockPrice[idx]}
                         </div>
                     ))
                 : <div>User Has No Stocks!</div>

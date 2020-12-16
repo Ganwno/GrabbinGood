@@ -845,7 +845,9 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
         className: "page-content"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
         ownStocks: this.state.watchlist
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        watchlist: this.state.watchlist
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
     }
   }]);
 
@@ -1180,8 +1182,13 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      data2: []
+      data2: [],
+      difference: '',
+      percentChange: ''
     };
+    _this.handleMouseMove = _this.handleMouseMove.bind(_assertThisInitialized(_this));
+    _this.strokeColor = _this.strokeColor.bind(_assertThisInitialized(_this));
+    _this.handleMouseOff = _this.handleMouseOff.bind(_assertThisInitialized(_this));
     return _this;
   } //    let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`
   // fetch(url).then(response => response.json())
@@ -1189,6 +1196,87 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
 
 
   _createClass(UserChart, [{
+    key: "strokeColor",
+    value: function strokeColor() {
+      if (this.state.lastPrice - this.state.firstPrice >= 0) {
+        return '#5EC933';
+      } else {
+        return '#EE4E34';
+      }
+    }
+  }, {
+    key: "handleMouseMove",
+    value: function handleMouseMove(e) {
+      if (e.activePayload) {
+        var currentPrice = e.activePayload[0].value;
+
+        if (currentPrice === null) {
+          return null;
+        }
+
+        var difference = currentPrice - this.state.firstPrice;
+        var percentDecminal = difference / currentPrice;
+        var percentChange = percentDecminal * 100;
+
+        if (percentChange < 0) {
+          percentChange = percentChange.toFixed(2) + "%";
+        } else {
+          percentChange = "+" + "".concat(percentChange.toFixed(2)) + "%";
+        }
+
+        if (difference >= 0) {
+          difference = "+$" + "".concat(difference.toFixed(2));
+        } else {
+          difference = "".concat(difference.toFixed(2));
+        }
+
+        this.setState({
+          val: currentPrice.toFixed(2),
+          percentChange: percentChange,
+          difference: difference
+        });
+      }
+    }
+  }, {
+    key: "handleMouseOff",
+    value: function handleMouseOff() {
+      var newVal = this.state.lastPrice;
+
+      if (this.state.lastPrice === null) {
+        var result = this.state.data2.filter(function (obj) {
+          if (obj.high != null) {
+            return obj;
+          }
+        });
+        newVal = result.slice(-1)[0].high.toFixed(2);
+      } else {
+        newVal = this.state.lastPrice.toFixed(2);
+      }
+
+      var newLastPrice = newVal;
+      var difference = newLastPrice - this.state.firstPrice;
+      var percentChange = difference / this.state.firstPrice * 100;
+
+      if (percentChange < 0) {
+        percentChange = percentChange.toFixed(2) + "%";
+      } else {
+        percentChange = "+" + "".concat(percentChange.toFixed(2)) + "%";
+      }
+
+      if (difference >= 0) {
+        difference = "+$" + "".concat(difference.toFixed(2));
+      } else {
+        difference = "".concat(difference.toFixed(2));
+      }
+
+      console.log(difference);
+      this.setState({
+        val: newVal,
+        percentChange: percentChange,
+        difference: difference
+      });
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
@@ -1235,16 +1323,40 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
         });
         output.forEach(function (obj) {
           obj.high = obj.high.reduce(reducer);
-        });
+        }); // console.log(output)
+
+        var difference = output[output.length - 1].high - output[0].high;
+        var percentChange = difference / output[0].high * 100;
+
+        if (percentChange < 0) {
+          percentChange = percentChange.toFixed(2) + "%";
+        } else {
+          percentChange = "+" + "".concat(percentChange.toFixed(2)) + "%";
+        }
+
+        if (difference >= 0) {
+          difference = "+$" + "".concat(difference.toFixed(2));
+        } else {
+          difference = "".concat(difference.toFixed(2));
+        }
+
+        console.log(percentChange, difference);
 
         _this2.setState({
-          data2: output
+          data2: output,
+          lastPrice: output[output.length - 1].high,
+          firstPrice: output[0].high,
+          difference: difference,
+          percentChange: percentChange,
+          val: output[output.length - 1].high.toFixed(2)
         });
       });
     }
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       function CustomToolTip(_ref) {
         var payload = _ref.payload,
             label = _ref.label,
@@ -1268,14 +1380,18 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
           className: "user-portion-chart"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
           className: "stock-name-for-chart"
-        }, "$0.00"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        }, "$", this.state.val), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "percent-change"
-        }, "+$0.00 (+0.00%) Today"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+        }, this.state.difference, " (", this.state.percentChange, ") Today"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
+          onMouseMove: this.handleMouseMove,
           connectNulls: true,
           width: 740,
           height: 300,
           data: this.state.data2,
           dot: false,
+          onMouseLeave: function onMouseLeave() {
+            return _this3.handleMouseOff();
+          },
           className: "chart",
           margin: {
             top: 5,
@@ -1286,7 +1402,8 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["Line"], {
           type: "monotone",
           dataKey: "high",
-          stroke: "#EE4E34"
+          stroke: this.strokeColor(),
+          dot: false
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["XAxis"], {
           dataKey: "label",
           hide: true
@@ -2525,7 +2642,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      watchlists: []
+      stockPrice: []
     };
     _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this));
     return _this;
@@ -2534,30 +2651,71 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
   _createClass(Watchlist, [{
     key: "doesUserHaveStocks",
     value: function doesUserHaveStocks() {
-      if (this.state.watchlists.length < 1) {
+      if (this.props.watchlist.length < 1) {
         return false;
       } else {
         return true;
       }
-    } //Object.values(watchlists.watchlists)
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
 
+      var arr = [];
+      var arrOfStockSym = [];
+      this.props.watchlist.forEach(function (watchlist) {
+        var stockSym = watchlist.stock_symbol.toLowerCase();
+        arrOfStockSym.push(stockSym);
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stockSym, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartLast=5");
+        var promise = fetch(url).then(function (response) {
+          return response.json();
+        });
+        arr.push(promise);
+      });
+      Promise.all(arr).then(function (arrOfObj) {
+        var newArr = [];
+        arrOfObj.forEach(function (arr) {
+          var i;
+
+          for (i = arr.length - 1; i > 0; i--) {
+            if (arr[i].high) {
+              newArr.push(arr[i].high);
+              break;
+            }
+          }
+        });
+
+        _this2.setState({
+          stockPrice: newArr
+        });
+      });
+    }
+  }, {
+    key: "mapped",
+    value: function mapped() {
+      var _this3 = this;
+
+      var i;
+      this.props.watchlist.map(function (watchlist, idx) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, watchlist.stock_symbol, " ", _this3.state.stockPrice[idx]);
+      });
+    }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this4 = this;
 
-      if (Object.keys(this.state.watchlists).length < 1) {
-        this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-          _this2.setState({
-            watchlists: Object.values(watchlists.watchlists)
-          });
-        });
+      console.log(this.state.stockPrice);
+
+      if (this.state.stockPrice < 1) {
+        return null;
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? this.state.watchlists.map(function (watchlist, idx) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? this.props.watchlist.map(function (watchlist, idx) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: idx
-        }, watchlist.stock_symbol, watchlist.num_stocks);
+        }, watchlist.stock_symbol, _this4.state.stockPrice[idx]);
       }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"));
     }
   }]);
