@@ -46,7 +46,7 @@ class StockDetail extends React.Component {
                 <br/>
                 <div className = 'page-content'>
                 <h1 className = 'stock-name'>{this.props.stock.company_name}</h1>
-                <StockChart stock={this.props.stock}/>  
+                <StockChart stock={this.props.stock} financial={this.props.updateCurrentFinanceInfo}/>  
                 <AboutSectionContainer stock={this.props.stock}/> 
                 <br/>
                 <NewsSection stock = {this.props.stock}/> 

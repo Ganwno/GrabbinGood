@@ -102,12 +102,11 @@ class StockChart extends React.Component {
         // refresh issue fixed
         if (this.state.symbol !== this.props.stock.stock_symbol){
             let stock = this.props.stock.stock_symbol.toLowerCase();
-            let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`
-            fetch(url).then(response => response.json())
+            this.props.financial(stock)
                 .then((result) => { 
-
-                let difference = result[result.length - 1].high - result[0].high;
-                    let percentChange = (difference / result[0].high) * 100
+                    console.log(result.currentAsset[result.currentAsset.length - 1].high - result.currentAsset[0].high)
+                let difference = result.currentAsset[result.currentAsset.length - 1].high - result.currentAsset[0].high;
+                    let percentChange = (difference / result.currentAsset[0].high) * 100
                 if (percentChange < 0) {
                         percentChange = percentChange.toFixed(2) + "%"
                     }
@@ -121,11 +120,11 @@ class StockChart extends React.Component {
                     difference = `${difference.toFixed(2)}`
                 }
 
-                this.setState({data: result, symbol: this.props.stock.stock_symbol, 
-                lastPrice: result[result.length-1].high, 
-                firstPrice: result[0].high, 
-                val: result[result.length-1].high.toFixed(2),
-                previousClose: result[result.length - 1].close,
+                this.setState({data: result.currentAsset, symbol: this.props.stock.stock_symbol, 
+                lastPrice: result.currentAsset[result.currentAsset.length-1].high, 
+                firstPrice: result.currentAsset[0].high, 
+                val: result.currentAsset[result.currentAsset.length-1].high.toFixed(2),
+                previousClose: result.currentAsset[result.currentAsset.length - 1].close,
                 difference: difference,
                 percentChange: percentChange
                 })

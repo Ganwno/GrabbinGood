@@ -13,7 +13,7 @@ const receiveCurrentAssetInfo = (asset) => {
 const receiveCompanyInfo = (asset) => {
     return {
         type: 'COMPANY_INFO',
-        info: asset
+        generalInfo: asset
     }
 }
 

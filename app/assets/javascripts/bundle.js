@@ -114,7 +114,7 @@ var receiveCurrentAssetInfo = function receiveCurrentAssetInfo(asset) {
 var receiveCompanyInfo = function receiveCompanyInfo(asset) {
   return {
     type: 'COMPANY_INFO',
-    info: asset
+    generalInfo: asset
   };
 };
 
@@ -1882,25 +1882,27 @@ var AboutSection = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this2 = this;
 
-      if (this.props.stock.stock_symbol !== this.state.symbol) {
-        var symbol = this.props.stock.stock_symbol;
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_0df25c5085a9428590bbb49600f9487c");
-        fetch(url).then(function (response) {
-          return response.json();
-        }).then(function (result) {
-          return _this2.setState({
-            symbol: result.symbol,
-            description: result.description,
-            employees: result.employees,
-            city: result.city,
-            state: result.state,
-            CEO: result.CEO
-          });
+      var symbol = this.props.stock.stock_symbol;
+      this.props.updateInfo(symbol).then(function (result) {
+        return _this2.setState({
+          symbol: result.generalInfo.symbol,
+          description: result.generalInfo.description,
+          employees: result.generalInfo.employees,
+          city: result.generalInfo.city,
+          state: result.generalInfo.state,
+          CEO: result.generalInfo.CEO
         });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.props.stock.stock_symbol !== this.state.symbol) {
+        return null;
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "About"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -1937,9 +1939,6 @@ var mDTP = function mDTP(dispatch) {
   return {
     updateInfo: function updateInfo(sym) {
       return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_2__["updateCurrentCompanyInfo"])(sym));
-    },
-    updateFinancial: function updateFinancial(sym) {
-      return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_2__["updateCurrentFinanceInfo"])(sym));
     }
   };
 };
@@ -2269,12 +2268,10 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       // refresh issue fixed
       if (this.state.symbol !== this.props.stock.stock_symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5");
-        fetch(url).then(function (response) {
-          return response.json();
-        }).then(function (result) {
-          var difference = result[result.length - 1].high - result[0].high;
-          var percentChange = difference / result[0].high * 100;
+        this.props.financial(stock).then(function (result) {
+          console.log(result.currentAsset[result.currentAsset.length - 1].high - result.currentAsset[0].high);
+          var difference = result.currentAsset[result.currentAsset.length - 1].high - result.currentAsset[0].high;
+          var percentChange = difference / result.currentAsset[0].high * 100;
 
           if (percentChange < 0) {
             percentChange = percentChange.toFixed(2) + "%";
@@ -2289,12 +2286,12 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
           }
 
           _this2.setState({
-            data: result,
+            data: result.currentAsset,
             symbol: _this2.props.stock.stock_symbol,
-            lastPrice: result[result.length - 1].high,
-            firstPrice: result[0].high,
-            val: result[result.length - 1].high.toFixed(2),
-            previousClose: result[result.length - 1].close,
+            lastPrice: result.currentAsset[result.currentAsset.length - 1].high,
+            firstPrice: result.currentAsset[0].high,
+            val: result.currentAsset[result.currentAsset.length - 1].high.toFixed(2),
+            previousClose: result.currentAsset[result.currentAsset.length - 1].close,
             difference: difference,
             percentChange: percentChange
           });
@@ -2422,6 +2419,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_stock_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/stock_actions */ "./frontend/actions/stock_actions.js");
 /* harmony import */ var _stock_detail__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stock_detail */ "./frontend/components/stocks/stock_detail.jsx");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/external_stock_actions */ "./frontend/actions/external_stock_actions.js");
+
 
 
 
@@ -2440,6 +2439,9 @@ var mDTP = function mDTP(dispatch) {
     },
     logout: function logout() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["logout"])());
+    },
+    updateCurrentFinanceInfo: function updateCurrentFinanceInfo(sym) {
+      return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_4__["updateCurrentFinanceInfo"])(sym));
     }
   };
 };
@@ -2547,7 +2549,8 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "stock-name"
       }, this.props.stock.company_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stock_chart__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        stock: this.props.stock
+        stock: this.props.stock,
+        financial: this.props.updateCurrentFinanceInfo
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_about_section__WEBPACK_IMPORTED_MODULE_3__["default"], {
         stock: this.props.stock
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_section_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -2842,7 +2845,7 @@ var currentCompanyFinancial = function currentCompanyFinancial() {
 
   switch (action.type) {
     case _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__["CURRENT_ASSET"]:
-      return Object.assign({}, state, action.asset);
+      return Object.assign({}, state, action.currentAsset);
 
     default:
       return state;
@@ -2873,7 +2876,7 @@ var currentCompanyInfo = function currentCompanyInfo() {
 
   switch (action.type) {
     case _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__["COMPANY_INFO"]:
-      return Object.assign({}, state, action.info);
+      return Object.assign({}, state, action.generalInfo);
 
     default:
       return state;
@@ -3164,22 +3167,29 @@ var configureStore = function configureStore() {
 /*!******************************************!*\
   !*** ./frontend/util/info_stock_util.js ***!
   \******************************************/
-/*! exports provided: fetchInfoForStock, fetchCompanyInfo */
+/*! exports provided: fetchInfoForStock, fetchCompanyInfo, fetchInfoStockWatchlist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchInfoForStock", function() { return fetchInfoForStock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCompanyInfo", function() { return fetchCompanyInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchInfoStockWatchlist", function() { return fetchInfoStockWatchlist; });
 var fetchInfoForStock = function fetchInfoForStock(symbol) {
   return $.ajax({
-    url: "\"https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=pk_ad1084a6b8f141fd80e5996f98df89f6\""),
+    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5"),
     method: 'GET'
   });
 };
 var fetchCompanyInfo = function fetchCompanyInfo(symbol) {
   return $.ajax({
-    url: "\"https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_ad1084a6b8f141fd80e5996f98df89f6\""),
+    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_0df25c5085a9428590bbb49600f9487c"),
+    method: 'GET'
+  });
+};
+var fetchInfoStockWatchlist = function fetchInfoStockWatchlist(symbol) {
+  return $.ajax({
+    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartLast=5"),
     method: 'GET'
   });
 };

@@ -5,7 +5,7 @@ const currentCompanyInfo = (state = {}, action) => {
     let dupState = Object.assign({}, state);
     switch (action.type) {
         case COMPANY_INFO:
-            return Object.assign({}, state, action.info);
+            return Object.assign({}, state, action.generalInfo);
         default:
             return state;
     }

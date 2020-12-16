@@ -27,18 +27,22 @@ class AboutSection extends React.Component {
             return this.state.employees
         }
     }
+    componentDidMount() {
+        let symbol = this.props.stock.stock_symbol
+        this.props.updateInfo(symbol)
+            .then(result =>
+                this.setState({
+                    symbol: result.generalInfo.symbol, description: result.generalInfo.description,
+                    employees: result.generalInfo.employees, city: result.generalInfo.city, state: result.generalInfo.state, CEO: result.generalInfo.CEO
+                }))
+    }
 
 
 
     render() {
         if(this.props.stock.stock_symbol !== this.state.symbol) {
-            let symbol = this.props.stock.stock_symbol
-            let url = `https://cloud.iexapis.com/stable/stock/${symbol}/company?token=pk_0df25c5085a9428590bbb49600f9487c`
-            fetch(url).then(response => response.json())
-                .then(result => this.setState({ symbol: result.symbol, description: result.description, 
-                employees: result.employees, city: result.city, state: result.state, CEO: result.CEO
-                            }))
-        }
+            return null
+                }
         return(
         <div>
             <h2>About</h2>
@@ -71,8 +75,7 @@ const mSTP = (state, ownProps) => {
 
 const mDTP = (dispatch) => {
     return {
-        updateInfo: (sym) => dispatch(updateCurrentCompanyInfo(sym)),
-        updateFinancial: (sym) => dispatch(updateCurrentFinanceInfo(sym))
+        updateInfo: (sym) => dispatch(updateCurrentCompanyInfo(sym))
     }
 
 }
