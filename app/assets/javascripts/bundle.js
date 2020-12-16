@@ -90,19 +90,25 @@
 /*!****************************************************!*\
   !*** ./frontend/actions/external_stock_actions.js ***!
   \****************************************************/
-/*! exports provided: CURRENT_ASSET, COMPANY_INFO, updateCurrentFinanceInfo, updateCurrentCompanyInfo */
+/*! exports provided: CURRENT_ASSET, COMPANY_INFO, COMPANY_NEWS, USER_CHART_INFO, updateCurrentFinanceInfo, updateCurrentCompanyInfo, updateCurrentCompanyNews, updateUserChart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CURRENT_ASSET", function() { return CURRENT_ASSET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COMPANY_INFO", function() { return COMPANY_INFO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COMPANY_NEWS", function() { return COMPANY_NEWS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "USER_CHART_INFO", function() { return USER_CHART_INFO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCurrentFinanceInfo", function() { return updateCurrentFinanceInfo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCurrentCompanyInfo", function() { return updateCurrentCompanyInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCurrentCompanyNews", function() { return updateCurrentCompanyNews; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUserChart", function() { return updateUserChart; });
 /* harmony import */ var _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/info_stock_util */ "./frontend/util/info_stock_util.js");
 
 var CURRENT_ASSET = 'CURRENT_ASSET';
 var COMPANY_INFO = 'COMPANY_INFO';
+var COMPANY_NEWS = 'COMPANY_NEWS';
+var USER_CHART_INFO = 'USER_CHART_INFO';
 
 var receiveCurrentAssetInfo = function receiveCurrentAssetInfo(asset) {
   return {
@@ -118,6 +124,20 @@ var receiveCompanyInfo = function receiveCompanyInfo(asset) {
   };
 };
 
+var receiveCompanyNews = function receiveCompanyNews(news) {
+  return {
+    type: 'COMPANY_NEWS',
+    news: news
+  };
+};
+
+var receiveUserData = function receiveUserData(output) {
+  return {
+    type: 'USER_CHART_INFO',
+    output: output
+  };
+};
+
 var updateCurrentFinanceInfo = function updateCurrentFinanceInfo(symbol) {
   return function (dispatch) {
     return _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__["fetchInfoForStock"](symbol).then(function (info) {
@@ -129,6 +149,57 @@ var updateCurrentCompanyInfo = function updateCurrentCompanyInfo(symbol) {
   return function (dispatch) {
     return _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__["fetchCompanyInfo"](symbol).then(function (info) {
       return dispatch(receiveCompanyInfo(info));
+    });
+  };
+};
+var updateCurrentCompanyNews = function updateCurrentCompanyNews(symbol) {
+  return function (dispatch) {
+    return _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__["fetchCompanyNews"](symbol).then(function (news) {
+      return dispatch(receiveCompanyNews(news));
+    });
+  };
+};
+var updateUserChart = function updateUserChart(ownStocks) {
+  return function (dispatch) {
+    var arr2 = [];
+    ownStocks.forEach(function (stock) {
+      var stockSym = stock.stock_symbol;
+      var promise = _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__["fetchInfoForStock"](stockSym);
+      arr2.push(promise);
+    });
+    return Promise.all(arr2).then(function (arr) {
+      var reducer = function reducer(accumulator, currentValue) {
+        return accumulator + currentValue;
+      };
+
+      var arrOfStockSym = ownStocks;
+      var i;
+
+      for (i = 0; i < arr.length - 1; i++) {
+        arr[i].forEach(function (obj) {
+          obj.high = obj.high * arrOfStockSym[i].num_stocks;
+        });
+      }
+
+      var output = [];
+      var flattened = arr.flat();
+      flattened.forEach(function (item) {
+        var existing = output.filter(function (v, i) {
+          return v.label == item.label;
+        });
+
+        if (existing.length) {
+          var existingIndex = output.indexOf(existing[0]);
+          output[existingIndex].high = output[existingIndex].high.concat(item.high);
+        } else {
+          if (typeof item.high == 'number') item.high = [item.high];
+          output.push(item);
+        }
+      });
+      output.forEach(function (obj) {
+        obj.high = obj.high.reduce(reducer);
+      });
+      return dispatch(receiveUserData(output));
     });
   };
 };
@@ -844,7 +915,8 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-content"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        ownStocks: this.state.watchlist
+        ownStocks: this.state.watchlist,
+        chartInfo: this.props.updateUserChart
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
         watchlist: this.state.watchlist
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
@@ -872,6 +944,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _portfolio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./portfolio */ "./frontend/components/portfolio/portfolio.jsx");
 /* harmony import */ var _actions_stock_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/stock_actions */ "./frontend/actions/stock_actions.js");
 /* harmony import */ var _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/watchlist_actions */ "./frontend/actions/watchlist_actions.js");
+/* harmony import */ var _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/external_stock_actions */ "./frontend/actions/external_stock_actions.js");
+
 
 
 
@@ -896,6 +970,9 @@ var mDTP = function mDTP(dispatch) {
     },
     fetchWatchlists: function fetchWatchlists(user_id) {
       return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWatchlists"])(user_id));
+    },
+    updateUserChart: function updateUserChart(ownStocks) {
+      return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_5__["updateUserChart"])(ownStocks));
     }
   };
 };
@@ -1269,7 +1346,6 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
         difference = "".concat(difference.toFixed(2));
       }
 
-      console.log(difference);
       this.setState({
         val: newVal,
         percentChange: percentChange,
@@ -1281,52 +1357,9 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var newData = [];
-      var obj = {};
-      this.props.ownStocks.forEach(function (stock) {
-        // console.log(this.props.ownStocks)
-        var stockSym = stock.stock_symbol;
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(stockSym, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5");
-        var promise = fetch(url).then(function (response) {
-          return response.json();
-        });
-        newData.push(promise);
-      });
-      Promise.all(newData).then(function (arr) {
-        var reducer = function reducer(accumulator, currentValue) {
-          return accumulator + currentValue;
-        };
-
-        var arrOfStockSym = _this2.props.ownStocks;
-        var i;
-
-        for (i = 0; i < arr.length - 1; i++) {
-          arr[i].forEach(function (obj) {
-            obj.high = obj.high * arrOfStockSym[i].num_stocks;
-          });
-        }
-
-        var output = [];
-        var flattened = arr.flat();
-        flattened.forEach(function (item) {
-          var existing = output.filter(function (v, i) {
-            return v.label == item.label;
-          });
-
-          if (existing.length) {
-            var existingIndex = output.indexOf(existing[0]);
-            output[existingIndex].high = output[existingIndex].high.concat(item.high);
-          } else {
-            if (typeof item.high == 'number') item.high = [item.high];
-            output.push(item);
-          }
-        });
-        output.forEach(function (obj) {
-          obj.high = obj.high.reduce(reducer);
-        }); // console.log(output)
-
-        var difference = output[output.length - 1].high - output[0].high;
-        var percentChange = difference / output[0].high * 100;
+      this.props.chartInfo(this.props.ownStocks).then(function (output) {
+        var difference = output.output[output.output.length - 1].high - output.output[0].high;
+        var percentChange = difference / output.output[0].high * 100;
 
         if (percentChange < 0) {
           percentChange = percentChange.toFixed(2) + "%";
@@ -1340,15 +1373,13 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
           difference = "".concat(difference.toFixed(2));
         }
 
-        console.log(percentChange, difference);
-
         _this2.setState({
-          data2: output,
-          lastPrice: output[output.length - 1].high,
-          firstPrice: output[0].high,
+          data2: output.output,
+          lastPrice: output.output[output.output.length - 1].high,
+          firstPrice: output.output[0].high,
           difference: difference,
           percentChange: percentChange,
-          val: output[output.length - 1].high.toFixed(2)
+          val: output.output[output.output.length - 1].high.toFixed(2)
         });
       });
     }
@@ -2035,14 +2066,13 @@ var NewsSection = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      console.log(this.props);
+
       if (this.props.stock.stock_symbol !== this.state.symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(stock, "/news/last/2?token=pk_0df25c5085a9428590bbb49600f9487c");
-        fetch(url).then(function (response) {
-          return response.json();
-        }).then(function (result) {
+        this.props.retrieveNews(stock).then(function (result) {
           return _this2.setState({
-            arrNews: result,
+            arrNews: result.news,
             symbol: _this2.props.stock.stock_symbol
           });
         });
@@ -2269,7 +2299,6 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       if (this.state.symbol !== this.props.stock.stock_symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
         this.props.financial(stock).then(function (result) {
-          console.log(result.currentAsset[result.currentAsset.length - 1].high - result.currentAsset[0].high);
           var difference = result.currentAsset[result.currentAsset.length - 1].high - result.currentAsset[0].high;
           var percentChange = difference / result.currentAsset[0].high * 100;
 
@@ -2442,6 +2471,9 @@ var mDTP = function mDTP(dispatch) {
     },
     updateCurrentFinanceInfo: function updateCurrentFinanceInfo(sym) {
       return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_4__["updateCurrentFinanceInfo"])(sym));
+    },
+    updateCurrentCompanyNews: function updateCurrentCompanyNews(sym) {
+      return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_4__["updateCurrentCompanyNews"])(sym));
     }
   };
 };
@@ -2554,7 +2586,8 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_about_section__WEBPACK_IMPORTED_MODULE_3__["default"], {
         stock: this.props.stock
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_section_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        stock: this.props.stock
+        stock: this.props.stock,
+        retrieveNews: this.props.updateCurrentCompanyNews
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
     }
   }]);
@@ -2709,8 +2742,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
-      console.log(this.state.stockPrice);
-
+      // console.log(this.state.stockPrice);
       if (this.state.stockPrice < 1) {
         return null;
       }
@@ -2802,6 +2834,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
+/***/ "./frontend/reducers/company_news_reducer.js":
+/*!***************************************************!*\
+  !*** ./frontend/reducers/company_news_reducer.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/external_stock_actions */ "./frontend/actions/external_stock_actions.js");
+
+
+var currentCompanyNews = function currentCompanyNews() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var dupState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__["COMPANY_NEWS"]:
+      return Object.assign({}, state, action.news);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (currentCompanyNews);
+
+/***/ }),
+
 /***/ "./frontend/reducers/current_asset_reducer.js":
 /*!****************************************************!*\
   !*** ./frontend/reducers/current_asset_reducer.js ***!
@@ -2814,12 +2877,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _current_company_financial_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./current_company_financial_reducer */ "./frontend/reducers/current_company_financial_reducer.js");
 /* harmony import */ var _current_company_info_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./current_company_info_reducer */ "./frontend/reducers/current_company_info_reducer.js");
+/* harmony import */ var _company_news_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./company_news_reducer */ "./frontend/reducers/company_news_reducer.js");
+
 
 
 
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   company: _current_company_financial_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  info: _current_company_info_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  info: _current_company_info_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  news: _company_news_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -2901,6 +2967,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stocks_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stocks_reducer */ "./frontend/reducers/stocks_reducer.js");
 /* harmony import */ var _current_asset_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./current_asset_reducer */ "./frontend/reducers/current_asset_reducer.js");
 /* harmony import */ var _watchlist_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./watchlist_reducer */ "./frontend/reducers/watchlist_reducer.js");
+/* harmony import */ var _user_chart_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./user_chart_reducer */ "./frontend/reducers/user_chart_reducer.js");
+
 
 
 
@@ -2910,7 +2978,8 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   stocks: _stocks_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   currentAsset: _current_asset_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  watchlist: _watchlist_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
+  watchlist: _watchlist_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  userChartInfo: _user_chart_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -3071,6 +3140,37 @@ var stocksReducer = function stocksReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/user_chart_reducer.js":
+/*!*************************************************!*\
+  !*** ./frontend/reducers/user_chart_reducer.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/external_stock_actions */ "./frontend/actions/external_stock_actions.js");
+
+
+var userChartReducer = function userChartReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var dupState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_0__["USER_CHART_INFO"]:
+      return Object.assign({}, state, action.output);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (userChartReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/users_reducer.js":
 /*!********************************************!*\
   !*** ./frontend/reducers/users_reducer.js ***!
@@ -3167,7 +3267,7 @@ var configureStore = function configureStore() {
 /*!******************************************!*\
   !*** ./frontend/util/info_stock_util.js ***!
   \******************************************/
-/*! exports provided: fetchInfoForStock, fetchCompanyInfo, fetchInfoStockWatchlist */
+/*! exports provided: fetchInfoForStock, fetchCompanyInfo, fetchInfoStockWatchlist, fetchCompanyNews */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3175,6 +3275,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchInfoForStock", function() { return fetchInfoForStock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCompanyInfo", function() { return fetchCompanyInfo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchInfoStockWatchlist", function() { return fetchInfoStockWatchlist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCompanyNews", function() { return fetchCompanyNews; });
 var fetchInfoForStock = function fetchInfoForStock(symbol) {
   return $.ajax({
     url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5"),
@@ -3190,6 +3291,12 @@ var fetchCompanyInfo = function fetchCompanyInfo(symbol) {
 var fetchInfoStockWatchlist = function fetchInfoStockWatchlist(symbol) {
   return $.ajax({
     url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartLast=5"),
+    method: 'GET'
+  });
+};
+var fetchCompanyNews = function fetchCompanyNews(symbol) {
+  return $.ajax({
+    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/news/last/2?token=pk_0df25c5085a9428590bbb49600f9487c"),
     method: 'GET'
   });
 };

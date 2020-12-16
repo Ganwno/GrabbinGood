@@ -61,7 +61,7 @@ class Watchlist extends React.Component {
 
 
     render(){
-        console.log(this.state.stockPrice);
+        // console.log(this.state.stockPrice);
         if (this.state.stockPrice < 1) {
             return null;
         }

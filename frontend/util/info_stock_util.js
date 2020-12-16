@@ -18,3 +18,10 @@ export const fetchInfoStockWatchlist = (symbol) => {
         method: 'GET'
     })
 }
+
+export const fetchCompanyNews = (symbol) => {
+    return $.ajax({
+        url: `https://cloud.iexapis.com/stable/stock/${symbol}/news/last/2?token=pk_0df25c5085a9428590bbb49600f9487c`,
+        method: 'GET'
+    })
+}

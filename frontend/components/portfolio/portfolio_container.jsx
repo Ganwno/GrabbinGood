@@ -3,6 +3,7 @@ import { logout} from '../../actions/session_actions';
 import Portfolio from './portfolio';
 import {showStocks} from '../../actions/stock_actions';
 import { fetchWatchlists } from '../../actions/watchlist_actions';
+import { updateUserChart } from '../../actions/external_stock_actions';
 
 const mSTP = (state) => {
     return {
@@ -16,7 +17,8 @@ const mDTP = (dispatch) => {
     return {
     logout: () => dispatch(logout()),
     showStocks: () => dispatch(showStocks()),
-    fetchWatchlists: (user_id) => dispatch(fetchWatchlists(user_id))
+    fetchWatchlists: (user_id) => dispatch(fetchWatchlists(user_id)),
+    updateUserChart: (ownStocks) => dispatch(updateUserChart(ownStocks))
     }
 }
 

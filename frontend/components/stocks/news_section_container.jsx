@@ -11,11 +11,11 @@ class NewsSection extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         if (this.props.stock.stock_symbol !== this.state.symbol) {
             let stock = this.props.stock.stock_symbol.toLowerCase()
-            let url = `https://cloud.iexapis.com/stable/stock/${stock}/news/last/2?token=pk_0df25c5085a9428590bbb49600f9487c`;
-             fetch(url).then(response => response.json())
-                 .then(result => this.setState({ arrNews: result, symbol: this.props.stock.stock_symbol}))
+            this.props.retrieveNews(stock)
+                 .then(result => this.setState({ arrNews: result.news, symbol: this.props.stock.stock_symbol}))
         }
         //fixed infinite api call
         return (

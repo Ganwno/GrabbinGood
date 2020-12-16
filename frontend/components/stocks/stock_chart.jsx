@@ -104,7 +104,6 @@ class StockChart extends React.Component {
             let stock = this.props.stock.stock_symbol.toLowerCase();
             this.props.financial(stock)
                 .then((result) => { 
-                    console.log(result.currentAsset[result.currentAsset.length - 1].high - result.currentAsset[0].high)
                 let difference = result.currentAsset[result.currentAsset.length - 1].high - result.currentAsset[0].high;
                     let percentChange = (difference / result.currentAsset[0].high) * 100
                 if (percentChange < 0) {

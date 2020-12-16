@@ -83,7 +83,6 @@ class UserChart extends React.Component{
         else {
             difference = `${difference.toFixed(2)}`
         }
-        console.log(difference)
 
         this.setState({
             val: newVal,
@@ -96,47 +95,9 @@ class UserChart extends React.Component{
 
 
     componentDidMount(){
-        let newData = []
-        let obj = {};
-        this.props.ownStocks.forEach((stock) => {
-            // console.log(this.props.ownStocks)
-            let stockSym = stock.stock_symbol;
-        let url = `https://cloud.iexapis.com/stable/stock/${stockSym}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`
-            let promise = fetch(url).then(response => response.json())
-            newData.push(promise)
-        })
-        Promise.all(newData).then((arr) => {
-            const reducer = (accumulator, currentValue) => accumulator + currentValue;
-            let arrOfStockSym = this.props.ownStocks
-            let i;
-            for (i = 0; i < arr.length - 1; i++) {
-                arr[i].forEach((obj) => {
-                    obj.high = obj.high * arrOfStockSym[i].num_stocks
-                })
-            }
-            let output = [];
-            let flattened = arr.flat();
-
-            flattened.forEach(function (item) {
-                var existing = output.filter(function (v, i) {
-                    return v.label == item.label;
-                });
-                if (existing.length) {
-                    var existingIndex = output.indexOf(existing[0]);
-                    output[existingIndex].high = output[existingIndex].high.concat(item.high)
-                } else {
-                    if (typeof item.high == 'number')
-                        item.high = [item.high];
-                    output.push(item);
-                }
-            });
-            output.forEach((obj) => {
-                obj.high = obj.high.reduce(reducer)
-            })
-            // console.log(output)
-
-            let difference = output[output.length - 1].high - output[0].high;
-            let percentChange = (difference / output[0].high) * 100
+        this.props.chartInfo(this.props.ownStocks).then((output) => {
+            let difference = output.output[output.output.length - 1].high - output.output[0].high;
+            let percentChange = (difference / output.output[0].high) * 100
             if (percentChange < 0) {
                 percentChange = percentChange.toFixed(2) + "%"
             }
@@ -149,16 +110,15 @@ class UserChart extends React.Component{
             else {
                 difference = `${difference.toFixed(2)}`
             }
-            console.log(percentChange, difference)
 
 
             this.setState({
-                data2: output,
-                lastPrice: output[output.length -1].high,
-                firstPrice: output[0].high,
+                data2: output.output,
+                lastPrice: output.output[output.output.length -1].high,
+                firstPrice: output.output[0].high,
                 difference: difference,
                 percentChange: percentChange,
-                val: output[output.length - 1].high.toFixed(2)
+                val: output.output[output.output.length - 1].high.toFixed(2)
             })
         })
     }
