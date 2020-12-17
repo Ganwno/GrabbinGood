@@ -7,7 +7,13 @@ class Watchlist extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            stockPrice: []
+            stockPriceOfBoughtStocks: [],
+            percentChangeOfBought: [],
+            numShares: [],
+            stockPriceOfWatchedStocks: [],
+            percentChangeOfWatched: [],
+            listOfBought: [],
+            listOfWatched: []
         }
         this.doesUserHaveStocks = this.doesUserHaveStocks.bind(this)
         // this.mapped = this.mapped.bind(this)
@@ -38,6 +44,7 @@ class Watchlist extends React.Component {
             
         })  
         Promise.all(arrOwnStocks).then(arrOfObj => {
+            // console.log(arrOfObj)
         let newArr = []
         let arrFirstPrice = []
             arrOfObj.forEach(arr => {
@@ -68,12 +75,38 @@ class Watchlist extends React.Component {
                     percentChangeArr.push(`+ ${percentChange.toFixed(2)}%`) 
                 }
             }
-                console.log(newArr)
-                console.log(percentChangeArr)
+            let listOfBought = []
+            let listOfWatched = []
+            let boughtStockPrice = []
+            let boughtPercentChange = []
+            let watchedStockPrice = []
+            let watchedPercentChange = []
+            let numOfShares = []
+            this.props.watchlist.forEach((watchlist, idx) => {
+                // console.log(watchlist)
+                if (watchlist.num_stocks !== 0) {
+                    boughtStockPrice.push(newArr[idx])
+                    boughtPercentChange.push(percentChangeArr[idx])
+                    listOfBought.push(watchlist)
+                    numOfShares.push(watchlist.num_stocks)
+                }
+                else {
+                    watchedStockPrice.push(newArr[idx])
+                    watchedPercentChange.push(percentChangeArr[idx])
+                    listOfWatched.push(watchlist)
+
+                }
+            })
+            // console.log(listOfBought)
 
             this.setState({
-                stockPrice: newArr,
-                percentChange: percentChangeArr
+                stockPriceOfBoughtStocks: boughtStockPrice,
+                percentChangeOfBought: boughtPercentChange,
+                stockPriceOfWatchedStocks: watchedStockPrice,
+                percentChangeOfWatched: watchedPercentChange,
+                listOfBought: listOfBought,
+                listOfWatched: listOfWatched,
+                numShares: numOfShares
             })
         })
     }
@@ -81,23 +114,40 @@ class Watchlist extends React.Component {
 
 
     render(){
-        if (this.state.stockPrice < 1) {
+        if (this.state.stockPriceOfBoughtStocks < 1) {
             return null;
         }
         else {
+            // console.log(this.state)
         return(
             <div>
                 <div>
                 Stocks
                 </div>
                 {this.doesUserHaveStocks() ? 
-                   <div>
-                       hi
-                    </div>
+                   this.state.listOfBought.map((watchlist, idx) => (
+                        <div key={idx}>
+                            {watchlist.stock_symbol}
+                            {this.state.stockPriceOfBoughtStocks[idx]}
+                            {this.state.percentChangeOfBought[idx]}
+                           {this.state.numShares[idx]}
+                        </div>
+                   ))
                 : <div>User Has No Stocks!</div>
                 }
                 <div>
                     Lists
+                    {this.doesUserHaveStocks() ?
+                    this.state.listOfWatched.map((watchlist, idx) => (
+                        <div key={idx}>
+                            {watchlist.stock_symbol}
+                            {this.state.stockPriceOfWatchedStocks[idx]}
+                            {this.state.percentChangeOfWatched[idx]}
+                        </div>
+                    ))
+                    
+                : <div>Add to the Watchlist!</div>    
+                }
                 </div>
             </div>
         )

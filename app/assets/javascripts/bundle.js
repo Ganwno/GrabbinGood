@@ -930,12 +930,14 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
         logout: this.props.logout
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
         ownStocks: this.state.watchlist,
         chartInfo: this.props.updateUserChart
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "watchlist-whole"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
         watchlist: this.state.watchlist
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
     }
   }]);
 
@@ -1374,6 +1376,8 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.chartInfo(this.props.ownStocks).then(function (output) {
+        // console.log(this.props.ownStocks)
+        // console.log(output)
         var difference = output.output[output.output.length - 1].high - output.output[0].high;
         var percentChange = difference / output.output[0].high * 100;
 
@@ -2694,7 +2698,13 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      stockPrice: []
+      stockPriceOfBoughtStocks: [],
+      percentChangeOfBought: [],
+      numShares: [],
+      stockPriceOfWatchedStocks: [],
+      percentChangeOfWatched: [],
+      listOfBought: [],
+      listOfWatched: []
     };
     _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this)); // this.mapped = this.mapped.bind(this)
 
@@ -2729,6 +2739,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
         arrOwnStocks.push(promise);
       });
       Promise.all(arrOwnStocks).then(function (arrOfObj) {
+        // console.log(arrOfObj)
         var newArr = [];
         var arrFirstPrice = [];
         arrOfObj.forEach(function (arr) {
@@ -2764,22 +2775,58 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
           }
         }
 
-        console.log(newArr);
-        console.log(percentChangeArr);
+        var listOfBought = [];
+        var listOfWatched = [];
+        var boughtStockPrice = [];
+        var boughtPercentChange = [];
+        var watchedStockPrice = [];
+        var watchedPercentChange = [];
+        var numOfShares = [];
+
+        _this2.props.watchlist.forEach(function (watchlist, idx) {
+          // console.log(watchlist)
+          if (watchlist.num_stocks !== 0) {
+            boughtStockPrice.push(newArr[idx]);
+            boughtPercentChange.push(percentChangeArr[idx]);
+            listOfBought.push(watchlist);
+            numOfShares.push(watchlist.num_stocks);
+          } else {
+            watchedStockPrice.push(newArr[idx]);
+            watchedPercentChange.push(percentChangeArr[idx]);
+            listOfWatched.push(watchlist);
+          }
+        }); // console.log(listOfBought)
+
 
         _this2.setState({
-          stockPrice: newArr,
-          percentChange: percentChangeArr
+          stockPriceOfBoughtStocks: boughtStockPrice,
+          percentChangeOfBought: boughtPercentChange,
+          stockPriceOfWatchedStocks: watchedStockPrice,
+          percentChangeOfWatched: watchedPercentChange,
+          listOfBought: listOfBought,
+          listOfWatched: listOfWatched,
+          numShares: numOfShares
         });
       });
     }
   }, {
     key: "render",
     value: function render() {
-      if (this.state.stockPrice < 1) {
+      var _this3 = this;
+
+      if (this.state.stockPriceOfBoughtStocks < 1) {
         return null;
       } else {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "hi") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Lists"));
+        // console.log(this.state)
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? this.state.listOfBought.map(function (watchlist, idx) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: idx
+          }, watchlist.stock_symbol, _this3.state.stockPriceOfBoughtStocks[idx], _this3.state.percentChangeOfBought[idx], _this3.state.numShares[idx]);
+        }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Lists", this.doesUserHaveStocks() ? this.state.listOfWatched.map(function (watchlist, idx) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: idx
+          }, watchlist.stock_symbol, _this3.state.stockPriceOfWatchedStocks[idx], _this3.state.percentChangeOfWatched[idx]);
+        }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Add to the Watchlist!")));
       }
     }
   }]);
@@ -5676,7 +5723,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/portfolio_style.css"],"names":[],"mappings":";;AAEA;IACI,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;AAChB","sourcesContent":["\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-left: 150px;\n    padding-left: 15px;\n    padding-right: 15px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/portfolio_style.css"],"names":[],"mappings":";;AAEA;IACI,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;AAChB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,kBAAkB;IAClB,kBAAkB;IAClB,mBAAmB;GACpB,wBAAwB;AAC3B","sourcesContent":["\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-left: 150px;\n    padding-left: 15px;\n    padding-right: 15px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

@@ -14,3 +14,14 @@
     height: 40px;
 }
 
+.page-content {
+    display: flex;
+}
+
+.watchlist-whole {
+    margin-left: 150px;
+    padding-left: 15px;
+    padding-right: 15px;
+   box-shadow: 0 0 3px #ccc;
+}
+
