@@ -30,7 +30,7 @@ class SessionForm extends React.Component {
 
     renderErrors(){
         return(
-            <ul>
+            <ul className="errors">
                 {this.props.errors.map((error, idx) => (
                     <li key={idx}>
                         {error}
@@ -56,7 +56,6 @@ class SessionForm extends React.Component {
                    <h1 className="title">
                     Welcome to GrabbinGood
                     </h1>
-                    {this.renderErrors()}
                     <div className = "login-form">
                         <br/>
                         <label>Username
@@ -79,17 +78,16 @@ class SessionForm extends React.Component {
                             </p>
                         </label>
                         <br/>
+                        {this.renderErrors()}
                         <div className = "buttons">
-                        <Link to={'/portfolio'}>
+                        
                         <input type = "submit" value = {this.props.formType}
                         className = "hit-button"
                         />
-                        </Link>
 
-                        <Link to={'/portfolio'}>
+                        
                         <button className="demo-button"
                             onClick={this.demoHandleSubmit}>Demo User</button>
-                        </Link>
 
                         </div>
                         
@@ -108,7 +106,6 @@ class SessionForm extends React.Component {
                    <h1 className="title">
                     Welcome to GrabbinGood
                     </h1>
-                    {this.renderErrors()}
                     <div className = "login-form">
                         <br/>
                         <label>Username
@@ -131,6 +128,7 @@ class SessionForm extends React.Component {
                             </p>
                         </label>
                         <br/>
+                            {this.renderErrors()}
                         <div className = "buttons">
                         <input type = "submit" value = {this.props.formType}
                         className = "hit-button"

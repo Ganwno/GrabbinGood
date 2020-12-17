@@ -30,7 +30,18 @@ const Greeting = ({currentUser, logout}) => {
                 {/* <img className = "caption-image"src="/images/homepage.jpeg" alt=""></img> */}
                     <img className = "caption-image" src="https://media.giphy.com/media/mMwer72fBJfMyLVL9P/giphy.gif" />
             </div>
-            <div className = "black-bottom">
+            <div className = "white-bottom">
+                <div className= "footer">
+                <h2>The Best Robinhood Clone</h2>
+                    <p>GrabbinGood is the greatest Robinhood clone on the market. This application is profit free and </p>
+                        <p> was made in order to show off my technical capacity. There is no influx of cash being generated.
+                    </p>
+                    <p className='second-p'>In order to see more of my work, be sure to check out my socials down below.</p>
+                        <div className="greeting-sociallinks">
+                        <a href='https://github.com/Gogetaspirit/GrabbinGood'><img className="greeting-github" src='/images/github.png'></img></a>
+                        <a href='https://www.linkedin.com/in/christopher-lee-7b48b6134/'><img className="greeting-linkedin" src='/images/linkedin.svg'></img></a>
+                        </div>
+                </div>
             </div>
         </div>
     )

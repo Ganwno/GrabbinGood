@@ -10,11 +10,9 @@
     margin-top: 10px;
     height: 50px;
     margin-bottom: 2px;
-    border-style: solid;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-color: green;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.5);
     margin-bottom: 0;
     
     
@@ -98,6 +96,10 @@
     font-size: 16px;
     color: white;
  }
+
+ .second-signup-button:hover {
+   opacity: 0.8;
+ }
   
 #root {
   height: 100%;
@@ -111,9 +113,23 @@
   height: 100%;
 }
 
-.black-bottom {
-  background-color: black;
-  height: 30%
+.white-bottom {
+  background-color: white;
+  height: 30%;
+  padding-top: 25px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.footer {
+  text-align: center;
+  margin: auto;
+  width: 60%;
+}
+
+p {
+  padding-bottom: 5px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
  
 .caption-image {
@@ -124,4 +140,20 @@
 
 .words {
   font-size: 20px;
+}
+
+.greeting-github {
+  object-fit: cover;
+    height: 35px;
+    margin-right: 5px;
+}
+
+.greeting-linkedin {
+  object-fit: cover;
+    height: 35px;
+    margin-left: 5px;
+}
+
+.greeting-sociallinks {
+  padding-top: 20px;
 }
