@@ -163,9 +163,11 @@ var updateUserChart = function updateUserChart(ownStocks) {
   return function (dispatch) {
     var arr2 = [];
     ownStocks.forEach(function (stock) {
-      var stockSym = stock.stock_symbol;
-      var promise = _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__["fetchInfoForStock"](stockSym);
-      arr2.push(promise);
+      if (stock.num_stocks !== 0) {
+        var stockSym = stock.stock_symbol;
+        var promise = _util_info_stock_util__WEBPACK_IMPORTED_MODULE_0__["fetchInfoForStock"](stockSym);
+        arr2.push(promise);
+      }
     });
     return Promise.all(arr2).then(function (arr) {
       var reducer = function reducer(accumulator, currentValue) {
@@ -884,8 +886,6 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-        console.log(watchlists);
-
         _this2.setState({
           watchlist: Object.values(watchlists.watchlists)
         });
@@ -2640,6 +2640,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/watchlist_actions */ "./frontend/actions/watchlist_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2666,6 +2667,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Watchlist = /*#__PURE__*/function (_React$Component) {
   _inherits(Watchlist, _React$Component);
 
@@ -2680,7 +2682,8 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       stockPrice: []
     };
-    _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this));
+    _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this)); // this.mapped = this.mapped.bind(this)
+
     return _this;
   }
 
@@ -2698,19 +2701,22 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var arr = [];
+      // console.log(Object.values(this.props.values));
+      // console.log(this.props.values)
+      var arrOwnStocks = [];
       var arrOfStockSym = [];
       this.props.watchlist.forEach(function (watchlist) {
         var stockSym = watchlist.stock_symbol.toLowerCase();
         arrOfStockSym.push(stockSym);
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(stockSym, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartLast=5");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(stockSym, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5");
         var promise = fetch(url).then(function (response) {
           return response.json();
         });
-        arr.push(promise);
+        arrOwnStocks.push(promise);
       });
-      Promise.all(arr).then(function (arrOfObj) {
+      Promise.all(arrOwnStocks).then(function (arrOfObj) {
         var newArr = [];
+        var arrFirstPrice = [];
         arrOfObj.forEach(function (arr) {
           var i;
 
@@ -2720,38 +2726,47 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
               break;
             }
           }
+
+          var j;
+
+          for (j = 0; j < arr.length - 1; j++) {
+            if (arr[j].high) {
+              arrFirstPrice.push(arr[j].high);
+              break;
+            }
+          }
         });
+        var k;
+        var percentChangeArr = [];
+
+        for (k = 0; k < newArr.length; k++) {
+          var difference = newArr[k] - arrFirstPrice[k];
+          var percentChange = difference / arrFirstPrice[k] * 100;
+
+          if (percentChange < 0) {
+            percentChangeArr.push("".concat(percentChange.toFixed(2), "%"));
+          } else {
+            percentChangeArr.push("+ ".concat(percentChange.toFixed(2), "%"));
+          }
+        }
+
+        console.log(newArr);
+        console.log(percentChangeArr);
 
         _this2.setState({
-          stockPrice: newArr
+          stockPrice: newArr,
+          percentChange: percentChangeArr
         });
-      });
-    }
-  }, {
-    key: "mapped",
-    value: function mapped() {
-      var _this3 = this;
-
-      var i;
-      this.props.watchlist.map(function (watchlist, idx) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, watchlist.stock_symbol, " ", _this3.state.stockPrice[idx]);
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
-
-      // console.log(this.state.stockPrice);
       if (this.state.stockPrice < 1) {
         return null;
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "hi") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Lists"));
       }
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? this.props.watchlist.map(function (watchlist, idx) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: idx
-        }, watchlist.stock_symbol, _this4.state.stockPrice[idx]);
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"));
     }
   }]);
 
@@ -2760,7 +2775,8 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
 
 var mSTP = function mSTP(state) {
   return {
-    watchlist: Object.values(state.entities.watchlist)
+    watchlist: Object.values(state.entities.watchlist),
+    values: state.entities.stocks
   };
 };
 

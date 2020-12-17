@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchWatchlists } from '../../actions/watchlist_actions';
+import { Link } from 'react-router-dom';
 
 class Watchlist extends React.Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Watchlist extends React.Component {
             stockPrice: []
         }
         this.doesUserHaveStocks = this.doesUserHaveStocks.bind(this)
+        // this.mapped = this.mapped.bind(this)
     }
 
     doesUserHaveStocks() {
@@ -23,17 +25,21 @@ class Watchlist extends React.Component {
 
 
     componentDidMount() {
-        let arr = []
+        // console.log(Object.values(this.props.values));
+        // console.log(this.props.values)
+        let arrOwnStocks = []
         let arrOfStockSym = []
         this.props.watchlist.forEach(watchlist => {
             let stockSym = watchlist.stock_symbol.toLowerCase();
             arrOfStockSym.push(stockSym)
-            let url = `https://cloud.iexapis.com/stable/stock/${stockSym}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartLast=5`
+            let url = `https://cloud.iexapis.com/stable/stock/${stockSym}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`
             let promise = fetch(url).then(response => response.json())
-            arr.push(promise)
+            arrOwnStocks.push(promise)
+            
         })  
-        Promise.all(arr).then(arrOfObj => {
+        Promise.all(arrOwnStocks).then(arrOfObj => {
         let newArr = []
+        let arrFirstPrice = []
             arrOfObj.forEach(arr => {
                 let i;
                 for (i = arr.length - 1; i > 0; i--) {
@@ -42,52 +48,69 @@ class Watchlist extends React.Component {
                         break;
                     }
                 }
+                let j;
+                for (j = 0; j < arr.length-1; j++) {
+                    if (arr[j].high) {
+                        arrFirstPrice.push(arr[j].high)
+                        break;
+                    }
+                }
             })
+            let k;
+            let percentChangeArr = [];
+            for (k = 0; k < newArr.length; k++) {
+                let difference = newArr[k] - arrFirstPrice[k]
+                let percentChange = (difference / arrFirstPrice[k]) * 100
+                if (percentChange < 0) {
+                    percentChangeArr.push(`${percentChange.toFixed(2)}%`)
+                }
+                else {
+                    percentChangeArr.push(`+ ${percentChange.toFixed(2)}%`) 
+                }
+            }
+                console.log(newArr)
+                console.log(percentChangeArr)
+
             this.setState({
-                stockPrice: newArr
+                stockPrice: newArr,
+                percentChange: percentChangeArr
             })
         })
-    }
-
-    mapped() {
-        let i;
-        this.props.watchlist.map((watchlist, idx) => (
-            <div>
-                {watchlist.stock_symbol} {this.state.stockPrice[idx]}
-            </div>
-        ))
     }
 
 
 
     render(){
-        // console.log(this.state.stockPrice);
         if (this.state.stockPrice < 1) {
             return null;
         }
+        else {
         return(
             <div>
                 <div>
                 Stocks
                 </div>
                 {this.doesUserHaveStocks() ? 
-                    this.props.watchlist.map((watchlist, idx) => (
-                        <div key = {idx}>
-                            {watchlist.stock_symbol}
-                            {this.state.stockPrice[idx]}
-                        </div>
-                    ))
+                   <div>
+                       hi
+                    </div>
                 : <div>User Has No Stocks!</div>
                 }
+                <div>
+                    Lists
+                </div>
             </div>
         )
+            }
     }
 }
 
 
 const mSTP = (state) => {
     return {
-        watchlist: Object.values(state.entities.watchlist)
+        watchlist: Object.values(state.entities.watchlist),
+        values: state.entities.stocks
+
     }
 
 }

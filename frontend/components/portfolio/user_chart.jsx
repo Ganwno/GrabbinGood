@@ -159,7 +159,6 @@ class UserChart extends React.Component{
             margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
             >
             <Line type="monotone" dataKey="high" stroke={this.strokeColor()} dot={false} />
-            {/* <CartesianGrid vertical = {false} horizontalPoints={[50]}/> */}
             <XAxis dataKey="label" hide={true}/>
             <YAxis hide={true} domain={['dataMin', 'dataMax']}/>
             <Tooltip 

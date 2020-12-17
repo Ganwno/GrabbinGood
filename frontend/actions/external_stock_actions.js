@@ -51,9 +51,11 @@ export const updateCurrentCompanyNews = (symbol) => dispatch => {
 export const updateUserChart = (ownStocks) => dispatch => {
     let arr2 = [];
     ownStocks.forEach((stock) => {
+        if (stock.num_stocks !== 0) {
         let stockSym = stock.stock_symbol;
         const promise = APIUtil.fetchInfoForStock(stockSym)
         arr2.push(promise)
+        }
     })
     return Promise.all(arr2).then((arr) => {
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
