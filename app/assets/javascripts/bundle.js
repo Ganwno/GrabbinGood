@@ -177,14 +177,16 @@ var updateUserChart = function updateUserChart(ownStocks) {
       var arrOfStockSym = ownStocks;
       var i;
 
-      for (i = 0; i < arr.length - 1; i++) {
+      for (i = 0; i < arr.length; i++) {
         arr[i].forEach(function (obj) {
           obj.high = obj.high * arrOfStockSym[i].num_stocks;
         });
       }
 
       var output = [];
-      var flattened = arr.flat();
+      var flattened = arr.flat(); //experiment
+      //ends here
+
       flattened.forEach(function (item) {
         var existing = output.filter(function (v, i) {
           return v.label == item.label;
@@ -734,6 +736,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _user_news_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user_news_style.css */ "./frontend/components/portfolio/news/user_news_style.css");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -755,6 +758,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -797,26 +801,26 @@ var UserNews = /*#__PURE__*/function (_React$Component) {
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "whole-section-news"
+        className: "whole-section-news-two"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "section-name"
+        className: "section-name-two"
       }, "News"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "news-elements"
+        className: "news-elements-two"
       }, this.state.arrNews.map(function (news, idx) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
           href: news.url,
           key: idx,
-          className: "news-link"
+          className: "news-link-two"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          className: "indiv-news"
+          className: "indiv-news-two"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "subsection-news"
+          className: "subsection-news-two"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "news-source"
+          className: "news-source-two"
         }, news.source), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), news.headline), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: news.image,
           alt: "",
-          className: "img-news"
+          className: "img-news-two"
         })));
       })));
     }
@@ -826,6 +830,34 @@ var UserNews = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (UserNews);
+
+/***/ }),
+
+/***/ "./frontend/components/portfolio/news/user_news_style.css":
+/*!****************************************************************!*\
+  !*** ./frontend/components/portfolio/news/user_news_style.css ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_user_news_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js!./user_news_style.css */ "./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/news/user_news_style.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_user_news_style_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_user_news_style_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -929,11 +961,13 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__["default"], {
         logout: this.props.logout
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "page-content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        className: "page-content-two"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "userchart-two-whole"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
         ownStocks: this.state.watchlist,
         chartInfo: this.props.updateUserChart
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "watchlist-whole"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
         watchlist: this.state.watchlist
@@ -1376,7 +1410,6 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.chartInfo(this.props.ownStocks).then(function (output) {
-        // console.log(this.props.ownStocks)
         // console.log(output)
         var difference = output.output[output.output.length - 1].high - output.output[0].high;
         var percentChange = difference / output.output[0].high * 100;
@@ -1428,11 +1461,11 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
         return null;
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "user-portion-chart"
+          className: "user-portion-chart-two"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
-          className: "stock-name-for-chart"
+          className: "stock-name-for-chart-two"
         }, "$", this.state.val), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "percent-change"
+          className: "percent-change-two"
         }, this.state.difference, " (", this.state.percentChange, ") Today"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_0__["LineChart"], {
           onMouseMove: this.handleMouseMove,
           connectNulls: true,
@@ -1443,7 +1476,7 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
           onMouseLeave: function onMouseLeave() {
             return _this3.handleMouseOff();
           },
-          className: "chart",
+          className: "chart-two",
           margin: {
             top: 5,
             right: 20,
@@ -2659,6 +2692,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/watchlist_actions */ "./frontend/actions/watchlist_actions.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _watchlist_style_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./watchlist_style.css */ "./frontend/components/watchlist/watchlist_style.css");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2686,6 +2720,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Watchlist = /*#__PURE__*/function (_React$Component) {
   _inherits(Watchlist, _React$Component);
 
@@ -2706,8 +2741,9 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
       listOfBought: [],
       listOfWatched: []
     };
-    _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this)); // this.mapped = this.mapped.bind(this)
-
+    _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this));
+    _this.color = _this.color.bind(_assertThisInitialized(_this));
+    _this.colorOfBought = _this.colorOfBought.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2718,6 +2754,24 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
         return false;
       } else {
         return true;
+      }
+    }
+  }, {
+    key: "colorOfBought",
+    value: function colorOfBought(idx) {
+      if (parseInt(this.state.percentChangeOfBought[idx]) > 0) {
+        return '#3BD53F';
+      } else {
+        return '#FF6017';
+      }
+    }
+  }, {
+    key: "color",
+    value: function color(idx) {
+      if (parseInt(this.state.percentChangeOfWatched[idx]) > 0) {
+        return '#3BD53F';
+      } else {
+        return '#FF6017';
       }
     }
   }, {
@@ -2771,7 +2825,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
           if (percentChange < 0) {
             percentChangeArr.push("".concat(percentChange.toFixed(2), "%"));
           } else {
-            percentChangeArr.push("+ ".concat(percentChange.toFixed(2), "%"));
+            percentChangeArr.push("+".concat(percentChange.toFixed(2), "%"));
           }
         }
 
@@ -2786,12 +2840,12 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
         _this2.props.watchlist.forEach(function (watchlist, idx) {
           // console.log(watchlist)
           if (watchlist.num_stocks !== 0) {
-            boughtStockPrice.push(newArr[idx]);
+            boughtStockPrice.push(newArr[idx].toFixed(2));
             boughtPercentChange.push(percentChangeArr[idx]);
             listOfBought.push(watchlist);
             numOfShares.push(watchlist.num_stocks);
           } else {
-            watchedStockPrice.push(newArr[idx]);
+            watchedStockPrice.push(newArr[idx].toFixed(2));
             watchedPercentChange.push(percentChangeArr[idx]);
             listOfWatched.push(watchlist);
           }
@@ -2818,14 +2872,43 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
         return null;
       } else {
         // console.log(this.state)
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Stocks"), this.doesUserHaveStocks() ? this.state.listOfBought.map(function (watchlist, idx) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            key: idx
-          }, watchlist.stock_symbol, _this3.state.stockPriceOfBoughtStocks[idx], _this3.state.percentChangeOfBought[idx], _this3.state.numShares[idx]);
-        }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Lists", this.doesUserHaveStocks() ? this.state.listOfWatched.map(function (watchlist, idx) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            key: idx
-          }, watchlist.stock_symbol, _this3.state.stockPriceOfWatchedStocks[idx], _this3.state.percentChangeOfWatched[idx]);
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "watchlist-whole-stocks"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "watchlist-stock-title"
+        }, "Stocks"), this.doesUserHaveStocks() ? this.state.listOfBought.map(function (watchlist, idx) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+            to: "/stocks/".concat(watchlist.stock_id),
+            key: idx,
+            className: "watchlist-owned-link"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "watchlist-indiv-owned-stock"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "watchlist-stocksymprice"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, watchlist.stock_symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", _this3.state.stockPriceOfBoughtStocks[idx])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "watchlist-numsharepercent"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, _this3.state.numShares[idx], " shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: {
+              color: _this3.colorOfBought(idx)
+            }
+          }, _this3.state.percentChangeOfBought[idx]))));
+        }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "User Has No Stocks!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "watchlist-list-title"
+        }, "Lists"), this.doesUserHaveStocks() ? this.state.listOfWatched.map(function (watchlist, idx) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+            to: "/stocks/".concat(watchlist.stock_id),
+            key: idx,
+            className: "watchlist-list-link"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "watchlist-list-everything"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "watchlist-list-symprice"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, watchlist.stock_symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", _this3.state.stockPriceOfWatchedStocks[idx])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "watchlist-list-percentchange",
+            style: {
+              color: _this3.color(idx)
+            }
+          }, _this3.state.percentChangeOfWatched[idx])));
         }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Add to the Watchlist!")));
       }
     }
@@ -2850,6 +2933,34 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mSTP, mDTP)(Watchlist));
+
+/***/ }),
+
+/***/ "./frontend/components/watchlist/watchlist_style.css":
+/*!***********************************************************!*\
+  !*** ./frontend/components/watchlist/watchlist_style.css ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_watchlist_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js!./watchlist_style.css */ "./node_modules/css-loader/dist/cjs.js!./frontend/components/watchlist/watchlist_style.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_watchlist_style_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_watchlist_style_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -5705,6 +5816,31 @@ ___CSS_LOADER_EXPORT___.push([module.i, ".right-nav {\n    display: flex;\n    m
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/news/user_news_style.css":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/news/user_news_style.css ***!
+  \******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".indiv-news-two {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news-two:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news-two {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements-two {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news-two {\n    width: 75%;\n}\n\n.section-name-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link-two {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source-two {\n    font-size: 11px;\n}\n\n.whole-section-news-two {\n    width: 80%;\n}", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/news/user_news_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,WAAW;IACX,8BAA8B;IAC9B,eAAe;IACf;AACJ;;AAEA;IACI,oCAAoC;AACxC;;AAEA;KACK,iBAAiB;IAClB,WAAW;IACX,UAAU;IACV,YAAY;IACZ,kBAAkB;AACtB;;AAEA;IACI,UAAU;IACV,qBAAqB;;AAEzB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,oBAAoB;IACpB,qBAAqB;IACrB,qBAAqB;IACrB,oBAAoB;AACxB;;AAEA;IACI,YAAY;IACZ,qBAAqB;IACrB,eAAe;IACf,yCAAyC;IACzC,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,UAAU;AACd","sourcesContent":[".indiv-news-two {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news-two:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news-two {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements-two {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news-two {\n    width: 75%;\n}\n\n.section-name-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link-two {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source-two {\n    font-size: 11px;\n}\n\n.whole-section-news-two {\n    width: 80%;\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/portfolio_style.css":
 /*!*************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./frontend/components/portfolio/portfolio_style.css ***!
@@ -5723,7 +5859,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-left: 150px;\n    padding-left: 15px;\n    padding-right: 15px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/portfolio_style.css"],"names":[],"mappings":";;AAEA;IACI,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;AAChB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,kBAAkB;IAClB,kBAAkB;IAClB,mBAAmB;GACpB,wBAAwB;AAC3B","sourcesContent":["\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-left: 150px;\n    padding-left: 15px;\n    padding-right: 15px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content-two {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-left: 150px;\n    margin-top: 50px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n.userchart-two-whole {\n    margin-left: 150px;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/portfolio_style.css"],"names":[],"mappings":";;AAEA;IACI,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;AAChB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,kBAAkB;IAClB,gBAAgB;GACjB,wBAAwB;AAC3B;;AAEA;IACI,kBAAkB;AACtB","sourcesContent":["\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content-two {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-left: 150px;\n    margin-top: 50px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n.userchart-two-whole {\n    margin-left: 150px;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -5773,7 +5909,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".user-portion-chart {\n    width: 100%;\n}\n\n.stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 35px;\n\n}", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/user_style.css"],"names":[],"mappings":"AAAA;IACI,WAAW;AACf;;AAEA;IACI,eAAe;IACf,kBAAkB;IAClB,eAAe;AACnB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,yCAAyC;IACzC,eAAe;IACf,iBAAiB;IACjB,mBAAmB;;AAEvB","sourcesContent":[".user-portion-chart {\n    width: 100%;\n}\n\n.stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 35px;\n\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".user-portion-chart-two {\n    width: 100%;\n    margin-top: 50px;\n}\n\n.stock-name-for-chart-two {\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change-two {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 35px;\n\n}", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/user_style.css"],"names":[],"mappings":"AAAA;IACI,WAAW;IACX,gBAAgB;AACpB;;AAEA;IACI,eAAe;IACf,kBAAkB;IAClB,eAAe;AACnB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,yCAAyC;IACzC,eAAe;IACf,iBAAiB;IACjB,mBAAmB;;AAEvB","sourcesContent":[".user-portion-chart-two {\n    width: 100%;\n    margin-top: 50px;\n}\n\n.stock-name-for-chart-two {\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change-two {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 35px;\n\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -5899,6 +6035,31 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.i, ".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 150px;\n    width: 60%;\n}\n\n.stock-name {\n    margin-bottom: 5px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_detail_style.css"],"names":[],"mappings":"AAAA;IACI,oCAAoC;AACxC;;AAEA;IACI,aAAa;IACb,8BAA8B;IAC9B,gBAAgB;AACpB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;IACZ,UAAU;AACd;;AAEA;IACI,kBAAkB;IAClB,iBAAiB;AACrB;;AAEA;IACI,kBAAkB;IAClB,UAAU;AACd;;AAEA;IACI,kBAAkB;AACtB","sourcesContent":[".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 150px;\n    width: 60%;\n}\n\n.stock-name {\n    margin-bottom: 5px;\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./frontend/components/watchlist/watchlist_style.css":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./frontend/components/watchlist/watchlist_style.css ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".watchlist-whole-stocks {\n    font-family: 'Open Sans', sans-serif;\n    width: 250px;\n}\n\n.watchlist-stock-title {\n    border-bottom: solid 1px;\n    padding-right: 50px;\n    padding-left: 50px;\n    border-color: #E3E9ED;\n    padding-top: 10px;\n    padding-bottom: 10px;\n}\n\n.watchlist-list-title {\n    border-bottom: solid 1px;\n    border-top: solid 1px;\n    padding-right: 50px;\n    padding-left: 50px;\n    border-color: #E3E9ED;\n    padding-top: 10px;\n    padding-bottom: 10px;\n}\n\n.watchlist-indiv-owned-stock {\n    padding-left: 30px;\n    padding-right: 30px;\n    justify-content: space-between;\n    padding-top: 5px;\n    padding-bottom: 5px;\n}\n\n.watchlist-stocksymprice {\n    display: flex;\n    justify-content: space-between;\n}\n\n.watchlist-numsharepercent {\n    display: flex;\n    justify-content: space-between;\n}\n\n.watchlist-list-symprice {\n    display: flex;\n    justify-content: space-between;\n}\n\n.watchlist-list-everything {\n    padding-left: 30px;\n    padding-right: 30px;\n    padding-bottom: 5px;\n    padding-top: 5px;\n}\n\n.watchlist-list-percentchange{\n    text-align-last: right;\n}\n\n.watchlist-list-link{\n    text-decoration: none;\n    color: black;\n}\n\n.watchlist-owned-link {\n    text-decoration: none;\n    color: black;\n}\n\n.watchlist-indiv-owned-stock:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.watchlist-list-everything:hover {\n    background-color:  rgb(231, 242, 246);\n}", "",{"version":3,"sources":["webpack://./frontend/components/watchlist/watchlist_style.css"],"names":[],"mappings":"AAAA;IACI,oCAAoC;IACpC,YAAY;AAChB;;AAEA;IACI,wBAAwB;IACxB,mBAAmB;IACnB,kBAAkB;IAClB,qBAAqB;IACrB,iBAAiB;IACjB,oBAAoB;AACxB;;AAEA;IACI,wBAAwB;IACxB,qBAAqB;IACrB,mBAAmB;IACnB,kBAAkB;IAClB,qBAAqB;IACrB,iBAAiB;IACjB,oBAAoB;AACxB;;AAEA;IACI,kBAAkB;IAClB,mBAAmB;IACnB,8BAA8B;IAC9B,gBAAgB;IAChB,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,kBAAkB;IAClB,mBAAmB;IACnB,mBAAmB;IACnB,gBAAgB;AACpB;;AAEA;IACI,sBAAsB;AAC1B;;AAEA;IACI,qBAAqB;IACrB,YAAY;AAChB;;AAEA;IACI,qBAAqB;IACrB,YAAY;AAChB;;AAEA;IACI,oCAAoC;AACxC;;AAEA;IACI,qCAAqC;AACzC","sourcesContent":[".watchlist-whole-stocks {\n    font-family: 'Open Sans', sans-serif;\n    width: 250px;\n}\n\n.watchlist-stock-title {\n    border-bottom: solid 1px;\n    padding-right: 50px;\n    padding-left: 50px;\n    border-color: #E3E9ED;\n    padding-top: 10px;\n    padding-bottom: 10px;\n}\n\n.watchlist-list-title {\n    border-bottom: solid 1px;\n    border-top: solid 1px;\n    padding-right: 50px;\n    padding-left: 50px;\n    border-color: #E3E9ED;\n    padding-top: 10px;\n    padding-bottom: 10px;\n}\n\n.watchlist-indiv-owned-stock {\n    padding-left: 30px;\n    padding-right: 30px;\n    justify-content: space-between;\n    padding-top: 5px;\n    padding-bottom: 5px;\n}\n\n.watchlist-stocksymprice {\n    display: flex;\n    justify-content: space-between;\n}\n\n.watchlist-numsharepercent {\n    display: flex;\n    justify-content: space-between;\n}\n\n.watchlist-list-symprice {\n    display: flex;\n    justify-content: space-between;\n}\n\n.watchlist-list-everything {\n    padding-left: 30px;\n    padding-right: 30px;\n    padding-bottom: 5px;\n    padding-top: 5px;\n}\n\n.watchlist-list-percentchange{\n    text-align-last: right;\n}\n\n.watchlist-list-link{\n    text-decoration: none;\n    color: black;\n}\n\n.watchlist-owned-link {\n    text-decoration: none;\n    color: black;\n}\n\n.watchlist-indiv-owned-stock:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.watchlist-list-everything:hover {\n    background-color:  rgb(231, 242, 246);\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

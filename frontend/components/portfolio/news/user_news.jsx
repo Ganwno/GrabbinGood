@@ -1,4 +1,5 @@
 import React from 'react';
+import './user_news_style.css';
 class UserNews extends React.Component {
     constructor(props) {
         super(props)
@@ -19,18 +20,18 @@ class UserNews extends React.Component {
         }
 
         return (
-            <div className="whole-section-news">
-                <h2 className="section-name">News</h2>
-                <ul className="news-elements">
+            <div className="whole-section-news-two">
+                <h2 className="section-name-two">News</h2>
+                <ul className="news-elements-two">
                     {this.state.arrNews.map((news, idx) => (
-                        <a href={news.url} key={idx} className="news-link">
-                            <li className='indiv-news'>
-                                <div className='subsection-news'>
-                                    <div className="news-source">{news.source}</div>
+                        <a href={news.url} key={idx} className="news-link-two">
+                            <li className='indiv-news-two'>
+                                <div className='subsection-news-two'>
+                                    <div className="news-source-two">{news.source}</div>
                                     <br />
                                     {news.headline}
                                 </div>
-                                <img src={news.image} alt="" className='img-news' />
+                                <img src={news.image} alt="" className='img-news-two' />
                             </li>
                         </a>
                     ))}

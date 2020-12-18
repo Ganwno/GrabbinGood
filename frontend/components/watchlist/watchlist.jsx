@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchWatchlists } from '../../actions/watchlist_actions';
 import { Link } from 'react-router-dom';
+import './watchlist_style.css'
 
 class Watchlist extends React.Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class Watchlist extends React.Component {
             listOfWatched: []
         }
         this.doesUserHaveStocks = this.doesUserHaveStocks.bind(this)
-        // this.mapped = this.mapped.bind(this)
+        this.color = this.color.bind(this)
+        this.colorOfBought = this.colorOfBought.bind(this)
     }
 
     doesUserHaveStocks() {
@@ -25,6 +27,24 @@ class Watchlist extends React.Component {
         }
         else {
             return true
+        }
+    }
+
+    colorOfBought(idx){
+        if (parseInt(this.state.percentChangeOfBought[idx]) > 0) {
+            return '#3BD53F'
+        }
+        else {
+            return '#FF6017'
+        }
+    }
+
+    color(idx) {
+        if (parseInt(this.state.percentChangeOfWatched[idx]) > 0) {
+            return '#3BD53F'
+        }
+        else {
+            return '#FF6017'
         }
     }
 
@@ -72,7 +92,7 @@ class Watchlist extends React.Component {
                     percentChangeArr.push(`${percentChange.toFixed(2)}%`)
                 }
                 else {
-                    percentChangeArr.push(`+ ${percentChange.toFixed(2)}%`) 
+                    percentChangeArr.push(`+${percentChange.toFixed(2)}%`) 
                 }
             }
             let listOfBought = []
@@ -85,13 +105,13 @@ class Watchlist extends React.Component {
             this.props.watchlist.forEach((watchlist, idx) => {
                 // console.log(watchlist)
                 if (watchlist.num_stocks !== 0) {
-                    boughtStockPrice.push(newArr[idx])
+                    boughtStockPrice.push(newArr[idx].toFixed(2))
                     boughtPercentChange.push(percentChangeArr[idx])
                     listOfBought.push(watchlist)
                     numOfShares.push(watchlist.num_stocks)
                 }
                 else {
-                    watchedStockPrice.push(newArr[idx])
+                    watchedStockPrice.push(newArr[idx].toFixed(2))
                     watchedPercentChange.push(percentChangeArr[idx])
                     listOfWatched.push(watchlist)
 
@@ -120,30 +140,56 @@ class Watchlist extends React.Component {
         else {
             // console.log(this.state)
         return(
-            <div>
-                <div>
+            <div className="watchlist-whole-stocks">
+                <div className="watchlist-stock-title">
                 Stocks
                 </div>
                 {this.doesUserHaveStocks() ? 
                    this.state.listOfBought.map((watchlist, idx) => (
-                        <div key={idx}>
+                       <Link to={`/stocks/${watchlist.stock_id}`} key={idx} className="watchlist-owned-link">
+                        <div className="watchlist-indiv-owned-stock">
+                            <div className= "watchlist-stocksymprice">
+                            <div>
                             {watchlist.stock_symbol}
-                            {this.state.stockPriceOfBoughtStocks[idx]}
+                            </div>
+                            <div>
+                            ${this.state.stockPriceOfBoughtStocks[idx]}
+                            </div>
+                            </div>
+                            <div className= "watchlist-numsharepercent">
+                            <div>
+                           {this.state.numShares[idx]} shares
+                           </div>
+                           <div style={{color: this.colorOfBought(idx)}}>
                             {this.state.percentChangeOfBought[idx]}
-                           {this.state.numShares[idx]}
+                            </div>
+                            </div>
                         </div>
+                       </Link>
                    ))
                 : <div>User Has No Stocks!</div>
                 }
                 <div>
+                    <div className="watchlist-list-title">
                     Lists
+                    </div>
                     {this.doesUserHaveStocks() ?
                     this.state.listOfWatched.map((watchlist, idx) => (
-                        <div key={idx}>
+                        <Link to={`/stocks/${watchlist.stock_id}`} key={idx} className="watchlist-list-link">
+                        <div className="watchlist-list-everything">
+                            <div className="watchlist-list-symprice">
+                            <div>
                             {watchlist.stock_symbol}
-                            {this.state.stockPriceOfWatchedStocks[idx]}
+                            </div>
+                            <div>
+                            ${this.state.stockPriceOfWatchedStocks[idx]}
+                            </div>
+                            </div>
+                            <div className="watchlist-list-percentchange" style={{color: this.color(idx)}}>
                             {this.state.percentChangeOfWatched[idx]}
+                            </div>
                         </div>
+                        </Link>
                     ))
                     
                 : <div>Add to the Watchlist!</div>    

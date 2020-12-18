@@ -96,7 +96,6 @@ class UserChart extends React.Component{
 
     componentDidMount(){
         this.props.chartInfo(this.props.ownStocks).then((output) => {
-            // console.log(this.props.ownStocks)
             // console.log(output)
             let difference = output.output[output.output.length - 1].high - output.output[0].high;
             let percentChange = (difference / output.output[0].high) * 100
@@ -150,14 +149,14 @@ class UserChart extends React.Component{
         }
         else {
         return(
-    <div className = "user-portion-chart">
-        <h1 className="stock-name-for-chart">
+    <div className = "user-portion-chart-two">
+        <h1 className="stock-name-for-chart-two">
             ${this.state.val}
         </h1>
-        <div className="percent-change">{this.state.difference} ({this.state.percentChange}) Today</div>
+        <div className="percent-change-two">{this.state.difference} ({this.state.percentChange}) Today</div>
         <LineChart onMouseMove= {this.handleMouseMove}connectNulls={true} width={740} height={300} data={this.state.data2} 
         dot={false} onMouseLeave={() => this.handleMouseOff()}
-        className = "chart"
+        className = "chart-two"
             margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
             >
             <Line type="monotone" dataKey="high" stroke={this.strokeColor()} dot={false} />

@@ -1,0 +1,75 @@
+.watchlist-whole-stocks {
+    font-family: 'Open Sans', sans-serif;
+    width: 250px;
+}
+
+.watchlist-stock-title {
+    border-bottom: solid 1px;
+    padding-right: 50px;
+    padding-left: 50px;
+    border-color: #E3E9ED;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.watchlist-list-title {
+    border-bottom: solid 1px;
+    border-top: solid 1px;
+    padding-right: 50px;
+    padding-left: 50px;
+    border-color: #E3E9ED;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.watchlist-indiv-owned-stock {
+    padding-left: 30px;
+    padding-right: 30px;
+    justify-content: space-between;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.watchlist-stocksymprice {
+    display: flex;
+    justify-content: space-between;
+}
+
+.watchlist-numsharepercent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.watchlist-list-symprice {
+    display: flex;
+    justify-content: space-between;
+}
+
+.watchlist-list-everything {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.watchlist-list-percentchange{
+    text-align-last: right;
+}
+
+.watchlist-list-link{
+    text-decoration: none;
+    color: black;
+}
+
+.watchlist-owned-link {
+    text-decoration: none;
+    color: black;
+}
+
+.watchlist-indiv-owned-stock:hover {
+    background-color: rgb(231, 242, 246);
+}
+
+.watchlist-list-everything:hover {
+    background-color:  rgb(231, 242, 246);
+}

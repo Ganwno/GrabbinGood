@@ -61,7 +61,7 @@ export const updateUserChart = (ownStocks) => dispatch => {
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
         let arrOfStockSym = ownStocks
         let i;
-        for (i = 0; i < arr.length - 1; i++) {
+        for (i = 0; i < arr.length; i++) {
             arr[i].forEach((obj) => {
                 obj.high = obj.high * arrOfStockSym[i].num_stocks
             })
@@ -69,6 +69,11 @@ export const updateUserChart = (ownStocks) => dispatch => {
         let output = [];
         let flattened = arr.flat();
 
+        //experiment
+        //ends here
+        
+
+        
         flattened.forEach(function (item) {
             var existing = output.filter(function (v, i) {
                 return v.label == item.label;
