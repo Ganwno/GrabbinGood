@@ -4,6 +4,7 @@ import StockChart from './stock_chart';
 import AboutSectionContainer from './about_section';
 import NewsSection from './news_section_container';
 import AccountDropDown from '../portfolio/dropdownacc/account_drop_down';
+import BuySellWatch from './buy_sell_watch/buysellwatch'
 import './stock_detail_style.css';
 
 import {Link} from 'react-router-dom';
@@ -50,6 +51,7 @@ class StockDetail extends React.Component {
                 <AboutSectionContainer stock={this.props.stock} /> 
                 <br/>
                 <NewsSection stock={this.props.stock} retrieveNews={this.props.updateCurrentCompanyNews}/> 
+                <BuySellWatch stock ={this.props.stock}/>
                 <br/>
                 </div>
            </div>

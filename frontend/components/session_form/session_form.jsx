@@ -7,8 +7,15 @@ class SessionForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userlogininfo: {
             username: "",
             password: ""
+            },
+            usersignupinfo: {
+                username: "",
+                password: "",
+                account_balance: 100000
+            }
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.demoHandleSubmit = this.demoHandleSubmit.bind(this);
@@ -16,15 +23,33 @@ class SessionForm extends React.Component {
     }
 
     update(field) {
+        if (this.props.formType === 'Login') {
         return e => this.setState({
-            [field]: e.currentTarget.value
+            userlogininfo: { ...this.state.userlogininfo,
+            [field]: e.currentTarget.value}
         })
+        }
+        else {
+            return e => this.setState({
+                usersignupinfo: {
+                    ...this.state.usersignupinfo,
+                    [field]: e.currentTarget.value
+                }
+            })
+        }
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        const user = Object.assign({}, this.state)
+
+        if (this.props.formType === 'Login') {
+        const user = Object.assign({}, this.state.userlogininfo)
         this.props.showStocks().then(() => this.props.processForm(user))
+        }
+        else {
+            const user2 = Object.assign({}, this.state.usersignupinfo)
+            this.props.showStocks().then(() => this.props.processForm(user2))
+        }
         
     }
 
