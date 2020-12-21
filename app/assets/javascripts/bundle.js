@@ -967,7 +967,7 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
         ownStocks: this.state.watchlist,
         chartInfo: this.props.updateUserChart
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "watchlist-whole"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
         watchlist: this.state.watchlist
@@ -2117,8 +2117,6 @@ var NewsSection = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log(this.props);
-
       if (this.props.stock.stock_symbol !== this.state.symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
         this.props.retrieveNews(stock).then(function (result) {
@@ -2779,8 +2777,6 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      // console.log(Object.values(this.props.values));
-      // console.log(this.props.values)
       var arrOwnStocks = [];
       var arrOfStockSym = [];
       this.props.watchlist.forEach(function (watchlist) {
@@ -2793,7 +2789,6 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
         arrOwnStocks.push(promise);
       });
       Promise.all(arrOwnStocks).then(function (arrOfObj) {
-        // console.log(arrOfObj)
         var newArr = [];
         var arrFirstPrice = [];
         arrOfObj.forEach(function (arr) {
@@ -2838,7 +2833,6 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
         var numOfShares = [];
 
         _this2.props.watchlist.forEach(function (watchlist, idx) {
-          // console.log(watchlist)
           if (watchlist.num_stocks !== 0) {
             boughtStockPrice.push(newArr[idx].toFixed(2));
             boughtPercentChange.push(percentChangeArr[idx]);
@@ -2849,8 +2843,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
             watchedPercentChange.push(percentChangeArr[idx]);
             listOfWatched.push(watchlist);
           }
-        }); // console.log(listOfBought)
-
+        });
 
         _this2.setState({
           stockPriceOfBoughtStocks: boughtStockPrice,
@@ -2871,7 +2864,6 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
       if (this.state.stockPriceOfBoughtStocks < 1) {
         return null;
       } else {
-        // console.log(this.state)
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "watchlist-whole-stocks"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -6009,7 +6001,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_chart_style.css"],"names":[],"mappings":"AAAA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,yCAAyC;IACzC,eAAe;IACf,iBAAiB;AACrB","sourcesContent":[".stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_chart_style.css"],"names":[],"mappings":"AAAA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,yCAAyC;IACzC,eAAe;IACf,iBAAiB;IACjB,mBAAmB;AACvB","sourcesContent":[".stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

@@ -11,7 +11,6 @@ class NewsSection extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         if (this.props.stock.stock_symbol !== this.state.symbol) {
             let stock = this.props.stock.stock_symbol.toLowerCase()
             this.props.retrieveNews(stock)

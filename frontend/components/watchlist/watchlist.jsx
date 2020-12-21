@@ -51,8 +51,6 @@ class Watchlist extends React.Component {
 
 
     componentDidMount() {
-        // console.log(Object.values(this.props.values));
-        // console.log(this.props.values)
         let arrOwnStocks = []
         let arrOfStockSym = []
         this.props.watchlist.forEach(watchlist => {
@@ -64,7 +62,6 @@ class Watchlist extends React.Component {
             
         })  
         Promise.all(arrOwnStocks).then(arrOfObj => {
-            // console.log(arrOfObj)
         let newArr = []
         let arrFirstPrice = []
             arrOfObj.forEach(arr => {
@@ -103,7 +100,6 @@ class Watchlist extends React.Component {
             let watchedPercentChange = []
             let numOfShares = []
             this.props.watchlist.forEach((watchlist, idx) => {
-                // console.log(watchlist)
                 if (watchlist.num_stocks !== 0) {
                     boughtStockPrice.push(newArr[idx].toFixed(2))
                     boughtPercentChange.push(percentChangeArr[idx])
@@ -117,7 +113,6 @@ class Watchlist extends React.Component {
 
                 }
             })
-            // console.log(listOfBought)
 
             this.setState({
                 stockPriceOfBoughtStocks: boughtStockPrice,
@@ -138,7 +133,6 @@ class Watchlist extends React.Component {
             return null;
         }
         else {
-            // console.log(this.state)
         return(
             <div className="watchlist-whole-stocks">
                 <div className="watchlist-stock-title">

@@ -45,7 +45,7 @@ class Portfolio extends React.Component {
                 <br/>
                 <div className="userchart-two-whole">
                 <UserChart ownStocks={this.state.watchlist} chartInfo={this.props.updateUserChart}/>
-                {/* <UserNews/> */}
+                <UserNews/>
                 </div>
                 <div className= 'watchlist-whole'>
                 <WatchlistContainer watchlist={this.state.watchlist} />
