@@ -337,16 +337,19 @@ var showStocks = function showStocks() {
 /*!***********************************************!*\
   !*** ./frontend/actions/watchlist_actions.js ***!
   \***********************************************/
-/*! exports provided: RECEIVE_WATCHLISTS, fetchWatchlists */
+/*! exports provided: RECEIVE_WATCHLISTS, CREATE_WATCHLIST, fetchWatchlists, createWatchlist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_WATCHLISTS", function() { return RECEIVE_WATCHLISTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_WATCHLIST", function() { return CREATE_WATCHLIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWatchlists", function() { return fetchWatchlists; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createWatchlist", function() { return createWatchlist; });
 /* harmony import */ var _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/watchlist_util */ "./frontend/util/watchlist_util.js");
 
 var RECEIVE_WATCHLISTS = 'RECEIVE_WATCHLISTS';
+var CREATE_WATCHLIST = 'CREATE_WATCHLIST';
 
 var receiveWatchlists = function receiveWatchlists(watchlists) {
   return {
@@ -355,10 +358,24 @@ var receiveWatchlists = function receiveWatchlists(watchlists) {
   };
 };
 
+var createTheWatchlists = function createTheWatchlists(watchlist) {
+  return {
+    type: CREATE_WATCHLIST,
+    watchlist: watchlist
+  };
+};
+
 var fetchWatchlists = function fetchWatchlists(user_id) {
   return function (dispatch) {
     return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["showWatchlists"](user_id).then(function (watchlists) {
       return dispatch(receiveWatchlists(watchlists));
+    });
+  };
+};
+var createWatchlist = function createWatchlist(watchlist) {
+  return function (dispatch) {
+    return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["createWatchlist"](watchlist).then(function (watchlist) {
+      return dispatch(createTheWatchlists(watchlist));
     });
   };
 };
@@ -939,6 +956,8 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
+        console.log(watchlists);
+
         _this2.setState({
           watchlist: Object.values(watchlists.watchlists)
         });
@@ -2101,6 +2120,8 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/watchlist_actions */ "./frontend/actions/watchlist_actions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2127,6 +2148,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   _inherits(BuySellWatch, _React$Component);
 
@@ -2139,8 +2162,11 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      numOfShares: ""
+      stock_id: _this.props.stock.id,
+      user_id: _this.props.user,
+      num_stocks: 0
     };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2154,20 +2180,43 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       };
     }
   }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var watchlist = Object.assign({}, this.state);
+      this.props.createWatchlist(watchlist);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Buy ", this.props.stock.stock_symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Buy ", this.props.stock.stock_symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.numOfShares,
-        onChange: this.update('numOfShares')
-      })));
+        onChange: this.update('num_stocks')
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Buy"))));
     }
   }]);
 
   return BuySellWatch;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (BuySellWatch);
+var mSTP = function mSTP(state, ownProps) {
+  return {
+    filler: 'hi'
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    createWatchlist: function createWatchlist(watchlist) {
+      return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["createWatchlist"])(watchlist));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mSTP, mDTP)(BuySellWatch));
 
 /***/ }),
 
@@ -2620,7 +2669,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mSTP = function mSTP(state, ownProps) {
   return {
-    stock: state.entities.stocks[ownProps.match.params.id]
+    stock: state.entities.stocks[ownProps.match.params.id],
+    user: state.session.id
   };
 };
 
@@ -2754,7 +2804,8 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
         stock: this.props.stock,
         retrieveNews: this.props.updateCurrentCompanyNews
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_buy_sell_watch_buysellwatch__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        stock: this.props.stock
+        stock: this.props.stock,
+        user: this.props.user
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
     }
   }]);
@@ -2898,6 +2949,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
       var arrOwnStocks = [];
       var arrOfStockSym = [];
       this.props.watchlist.forEach(function (watchlist) {
+        console.log(_this2.props.watchlist);
         var stockSym = watchlist.stock_symbol.toLowerCase();
         arrOfStockSym.push(stockSym);
         var url = "https://cloud.iexapis.com/stable/stock/".concat(stockSym, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5");
@@ -3525,6 +3577,9 @@ var watchlistReducer = function watchlistReducer() {
     case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_WATCHLISTS"]:
       return Object.assign({}, state, action.watchlists);
 
+    case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["CREATE_WATCHLIST"]:
+      return Object.assign({}, state, action.watchlist);
+
     default:
       return state;
   }
@@ -3734,16 +3789,26 @@ var showStock = function showStock(id) {
 /*!*****************************************!*\
   !*** ./frontend/util/watchlist_util.js ***!
   \*****************************************/
-/*! exports provided: showWatchlists */
+/*! exports provided: showWatchlists, createWatchlist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showWatchlists", function() { return showWatchlists; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createWatchlist", function() { return createWatchlist; });
 var showWatchlists = function showWatchlists(user_id) {
   return $.ajax({
     method: "GET",
     url: "/api/users/".concat(user_id)
+  });
+};
+var createWatchlist = function createWatchlist(watchlist) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/watchlists",
+    data: {
+      watchlist: watchlist
+    }
   });
 };
 

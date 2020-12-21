@@ -51,7 +51,7 @@ class StockDetail extends React.Component {
                 <AboutSectionContainer stock={this.props.stock} /> 
                 <br/>
                 <NewsSection stock={this.props.stock} retrieveNews={this.props.updateCurrentCompanyNews}/> 
-                <BuySellWatch stock ={this.props.stock}/>
+                <BuySellWatch stock ={this.props.stock} user={this.props.user}/>
                 <br/>
                 </div>
            </div>

@@ -8,7 +8,8 @@ import {updateCurrentCompanyNews, updateCurrentFinanceInfo} from '../../actions/
 
 const mSTP = (state, ownProps) => {
     return {
-        stock: state.entities.stocks[ownProps.match.params.id]
+        stock: state.entities.stocks[ownProps.match.params.id],
+        user: state.session.id
     }
 }
 

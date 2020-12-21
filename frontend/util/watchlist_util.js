@@ -4,3 +4,11 @@ export const showWatchlists = (user_id) => {
         url: `/api/users/${user_id}`
     })
 }
+
+export const createWatchlist = (watchlist) => {
+    return $.ajax({
+        method: "POST",
+        url: `/api/watchlists`,
+        data: {watchlist}
+    })
+}
