@@ -54,7 +54,6 @@ class Watchlist extends React.Component {
         let arrOwnStocks = []
         let arrOfStockSym = []
         this.props.watchlist.forEach(watchlist => {
-            console.log(this.props.watchlist)
             let stockSym = watchlist.stock_symbol.toLowerCase();
             arrOfStockSym.push(stockSym)
             let url = `https://cloud.iexapis.com/stable/stock/${stockSym}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`

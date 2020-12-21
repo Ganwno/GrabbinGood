@@ -1,4 +1,5 @@
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import BuySellWatch from './buy_sell_watch/buysellwatch'
 import React from 'react';
 import './stock_chart_style.css'
 
@@ -171,6 +172,7 @@ class StockChart extends React.Component {
                     content = {<CustomToolTip/>}
                     />
                 </LineChart>
+                <div> <BuySellWatch stock={this.props.stock} user={this.props.user} lastPrice={this.state.lastPrice} /></div>
             </div>
         )
     }
