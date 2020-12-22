@@ -182,7 +182,7 @@ var updateUserChart = function updateUserChart(ownStocks) {
         arr[i].forEach(function (obj, idx) {
           //for loop fixes null values
           if (obj.high === null) {
-            for (j = arr[i].length - 1; j > 0; j--) {
+            for (j = idx; j > 0; j--) {
               if (arr[i][j].high !== null) {
                 obj.high = arr[i][j].high;
                 break;
