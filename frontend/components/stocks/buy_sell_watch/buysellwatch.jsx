@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {createWatchlist, fetchWatchlists} from '../../../actions/watchlist_actions'
+import {createWatchlist, fetchWatchlists, updateWatchlist} from '../../../actions/watchlist_actions'
 
 class BuySellWatch extends React.Component {
     constructor(props) {
@@ -45,7 +45,19 @@ class BuySellWatch extends React.Component {
         //this is for buy
         e.preventDefault();
         const watchlist = Object.assign({}, this.state.watchlistinfo)
-        this.props.createWatchlist(watchlist)
+        let count = 0;
+        this.state.watchlist.forEach((obj) => {
+            if ((this.props.stock.stock_symbol === obj.stock_symbol) && obj.num_stocks > 0) {
+                count += 1;
+            }
+        })
+        if (count === 1) {
+            this.props.updateWatchlist(this.props.stock.id, watchlist)
+        }
+        else {
+            this.props.createWatchlist(watchlist)
+        }
+        
     }
 
 
@@ -86,6 +98,7 @@ const mSTP = (state, ownProps) => {
 const mDTP = (dispatch) => {
     return {
         createWatchlist: (watchlist) => dispatch(createWatchlist(watchlist)),
+        updateWatchlist: (id, watchlist) => dispatch(updateWatchlist(id, watchlist)),
         fetchWatchlists: (user) => dispatch(fetchWatchlists(user))
     }
 }

@@ -176,12 +176,18 @@ var updateUserChart = function updateUserChart(ownStocks) {
 
       var arrOfStockSym = ownStocks;
       var i;
+      var j;
 
       for (i = 0; i < arr.length; i++) {
         arr[i].forEach(function (obj, idx) {
-          //conditional if high is null take the previous high might need to alter this later
+          //for loop fixes null values
           if (obj.high === null) {
-            obj.high = arr[i][idx - 1].high;
+            for (j = arr[i].length - 1; j > 0; j--) {
+              if (arr[i][j].high !== null) {
+                obj.high = arr[i][j].high;
+                break;
+              }
+            }
           } else {
             obj.high = obj.high * arrOfStockSym[i].num_stocks;
           }
@@ -337,19 +343,22 @@ var showStocks = function showStocks() {
 /*!***********************************************!*\
   !*** ./frontend/actions/watchlist_actions.js ***!
   \***********************************************/
-/*! exports provided: RECEIVE_WATCHLISTS, CREATE_WATCHLIST, fetchWatchlists, createWatchlist */
+/*! exports provided: RECEIVE_WATCHLISTS, CREATE_WATCHLIST, UPDATE_WATCHLIST, fetchWatchlists, createWatchlist, updateWatchlist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_WATCHLISTS", function() { return RECEIVE_WATCHLISTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_WATCHLIST", function() { return CREATE_WATCHLIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_WATCHLIST", function() { return UPDATE_WATCHLIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWatchlists", function() { return fetchWatchlists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createWatchlist", function() { return createWatchlist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateWatchlist", function() { return updateWatchlist; });
 /* harmony import */ var _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/watchlist_util */ "./frontend/util/watchlist_util.js");
 
 var RECEIVE_WATCHLISTS = 'RECEIVE_WATCHLISTS';
 var CREATE_WATCHLIST = 'CREATE_WATCHLIST';
+var UPDATE_WATCHLIST = 'UPDATE_WATCHLIST';
 
 var receiveWatchlists = function receiveWatchlists(watchlists) {
   return {
@@ -365,6 +374,13 @@ var createTheWatchlists = function createTheWatchlists(watchlist) {
   };
 };
 
+var updateWatchlists = function updateWatchlists(watchlist) {
+  return {
+    type: UPDATE_WATCHLIST,
+    updated: watchlist
+  };
+};
+
 var fetchWatchlists = function fetchWatchlists(user_id) {
   return function (dispatch) {
     return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["showWatchlists"](user_id).then(function (watchlists) {
@@ -376,6 +392,13 @@ var createWatchlist = function createWatchlist(watchlist) {
   return function (dispatch) {
     return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["createWatchlist"](watchlist).then(function (watchlist) {
       return dispatch(createTheWatchlists(watchlist));
+    });
+  };
+};
+var updateWatchlist = function updateWatchlist(id, watchlist) {
+  return function (dispatch) {
+    return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["updateWatchlist"](id, watchlist).then(function (watchlist) {
+      return dispatch(updateWatchlists(watchlist));
     });
   };
 };
@@ -2207,11 +2230,24 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this4 = this;
+
       //need a coditional here if user has watchlist then update if not then buy
       //this is for buy
       e.preventDefault();
       var watchlist = Object.assign({}, this.state.watchlistinfo);
-      this.props.createWatchlist(watchlist);
+      var count = 0;
+      this.state.watchlist.forEach(function (obj) {
+        if (_this4.props.stock.stock_symbol === obj.stock_symbol && obj.num_stocks > 0) {
+          count += 1;
+        }
+      });
+
+      if (count === 1) {
+        this.props.updateWatchlist(this.props.stock.id, watchlist);
+      } else {
+        this.props.createWatchlist(watchlist);
+      }
     }
   }, {
     key: "render",
@@ -2243,6 +2279,9 @@ var mDTP = function mDTP(dispatch) {
   return {
     createWatchlist: function createWatchlist(watchlist) {
       return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["createWatchlist"])(watchlist));
+    },
+    updateWatchlist: function updateWatchlist(id, watchlist) {
+      return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["updateWatchlist"])(id, watchlist));
     },
     fetchWatchlists: function fetchWatchlists(user) {
       return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["fetchWatchlists"])(user));
@@ -3617,6 +3656,9 @@ var watchlistReducer = function watchlistReducer() {
     case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["CREATE_WATCHLIST"]:
       return Object.assign({}, state, action.watchlist);
 
+    case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_WATCHLIST"]:
+      return Object.assign({}, state, action.updated);
+
     default:
       return state;
   }
@@ -3826,13 +3868,14 @@ var showStock = function showStock(id) {
 /*!*****************************************!*\
   !*** ./frontend/util/watchlist_util.js ***!
   \*****************************************/
-/*! exports provided: showWatchlists, createWatchlist */
+/*! exports provided: showWatchlists, createWatchlist, updateWatchlist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showWatchlists", function() { return showWatchlists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createWatchlist", function() { return createWatchlist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateWatchlist", function() { return updateWatchlist; });
 var showWatchlists = function showWatchlists(user_id) {
   return $.ajax({
     method: "GET",
@@ -3843,6 +3886,15 @@ var createWatchlist = function createWatchlist(watchlist) {
   return $.ajax({
     method: "POST",
     url: "/api/watchlists",
+    data: {
+      watchlist: watchlist
+    }
+  });
+};
+var updateWatchlist = function updateWatchlist(id, watchlist) {
+  return $.ajax({
+    method: "PATCH",
+    url: "/api/watchlists/".concat(id),
     data: {
       watchlist: watchlist
     }

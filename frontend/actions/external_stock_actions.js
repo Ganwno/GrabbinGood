@@ -61,11 +61,17 @@ export const updateUserChart = (ownStocks) => dispatch => {
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
         let arrOfStockSym = ownStocks
         let i;
+        let j;
         for (i = 0; i < arr.length; i++) {
             arr[i].forEach((obj, idx) => {
-                //conditional if high is null take the previous high might need to alter this later
+                //for loop fixes null values
                 if (obj.high === null) {
-                    obj.high = arr[i][idx-1].high
+                    for (j = arr[i].length - 1; j > 0; j--) {
+                        if (arr[i][j].high !== null) {
+                            obj.high = arr[i][j].high
+                            break;
+                        }
+                    }
                 }
                 else {
                 obj.high = obj.high * arrOfStockSym[i].num_stocks

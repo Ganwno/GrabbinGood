@@ -12,3 +12,11 @@ export const createWatchlist = (watchlist) => {
         data: {watchlist}
     })
 }
+
+export const updateWatchlist = (id, watchlist) => {
+    return $.ajax({
+        method: "PATCH",
+        url: `/api/watchlists/${id}`,
+        data: {watchlist}
+    })
+}

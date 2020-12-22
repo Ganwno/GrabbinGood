@@ -10,12 +10,14 @@ class Api::WatchlistsController < ApplicationController
     end
    end
 
-#    def update 
-#     user = User.find(params[:user_id])
-#     user.watchlists.each do |watchlist|
-#         if Watchlist.find_by_stock_id(params[:stock_id] !== nil && )
-#     end
-#    end
+   def update 
+    @user = User.find_by_id(params['watchlist'][:user_id])
+    result = @user.watchlists.where("stock_id = #{params['watchlist'][:stock_id]} AND user_id = #{params['watchlist'][:user_id]}")
+    result[0].num_stocks = result[0].num_stocks + (params['watchlist'][:num_stocks]).to_i
+    result[0].save!
+    render "api/users/watchlist"
+   end
+
 
    private
    def watchlist_params 
