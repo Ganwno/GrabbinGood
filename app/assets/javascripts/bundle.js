@@ -968,7 +968,8 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       inputVal: "",
-      watchlist: []
+      watchlist: [],
+      placeholder: ""
     };
     return _this;
   }
@@ -979,17 +980,17 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-        console.log(watchlists);
-
+        // console.log(watchlists)
         _this2.setState({
-          watchlist: Object.values(watchlists.watchlists)
+          watchlist: Object.values(watchlists.watchlists),
+          placeholder: "placeholder"
         });
       });
     }
   }, {
     key: "render",
     value: function render() {
-      if (this.state.watchlist.length < 1) {
+      if (this.state.placeholder === '') {
         return null;
       }
 
@@ -1504,7 +1505,7 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
       }
 
       if (this.state.data2.length < 1) {
-        return null;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Buy Stocks in order to show Users data!");
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "user-portion-chart-two"
@@ -2983,7 +2984,8 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
       stockPriceOfWatchedStocks: [],
       percentChangeOfWatched: [],
       listOfBought: [],
-      listOfWatched: []
+      listOfWatched: [],
+      placeholder: ''
     };
     _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this));
     _this.color = _this.color.bind(_assertThisInitialized(_this));
@@ -3098,7 +3100,8 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
           percentChangeOfWatched: watchedPercentChange,
           listOfBought: listOfBought,
           listOfWatched: listOfWatched,
-          numShares: numOfShares
+          numShares: numOfShares,
+          placeholder: 'placeholder'
         });
       });
     }
@@ -3107,7 +3110,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      if (this.state.stockPriceOfBoughtStocks < 1) {
+      if (this.state.placeholder === '') {
         return null;
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

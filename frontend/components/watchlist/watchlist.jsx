@@ -14,7 +14,8 @@ class Watchlist extends React.Component {
             stockPriceOfWatchedStocks: [],
             percentChangeOfWatched: [],
             listOfBought: [],
-            listOfWatched: []
+            listOfWatched: [],
+            placeholder: ''
         }
         this.doesUserHaveStocks = this.doesUserHaveStocks.bind(this)
         this.color = this.color.bind(this)
@@ -121,7 +122,8 @@ class Watchlist extends React.Component {
                 percentChangeOfWatched: watchedPercentChange,
                 listOfBought: listOfBought,
                 listOfWatched: listOfWatched,
-                numShares: numOfShares
+                numShares: numOfShares,
+                placeholder: 'placeholder'
             })
         })
     }
@@ -129,7 +131,7 @@ class Watchlist extends React.Component {
 
 
     render(){
-        if (this.state.stockPriceOfBoughtStocks < 1) {
+        if (this.state.placeholder === '') {
             return null;
         }
         else {

@@ -6,8 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.delete_all
-Stock.delete_all
+# User.delete_all
+# Stock.delete_all
+# Watchlist.delete_all
+
+User.create!({username: 'demouser', password: 'password123', account_balance: 1000000})
 
 Stock.create!({company_name: 'Amazon', stock_symbol:"AMZN", price: 3111, description: "h"})
 Stock.create!({company_name: 'Disney', stock_symbol:"DIS", price: 140.11, description: "h"})

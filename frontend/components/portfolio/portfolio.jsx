@@ -12,22 +12,24 @@ class Portfolio extends React.Component {
         super(props);
     this.state = {
         inputVal: "",
-        watchlist: []
+        watchlist: [],
+        placeholder: ""
     } 
     }
 
     componentDidMount() {
         this.props.fetchWatchlists(this.props.user).then(watchlists => {
-            console.log(watchlists)
+            // console.log(watchlists)
             this.setState({
-            watchlist: Object.values(watchlists.watchlists)
+            watchlist: Object.values(watchlists.watchlists),
+            placeholder: "placeholder"
             })
         })
     }
      
 
     render() {
-        if (this.state.watchlist.length < 1){
+        if (this.state.placeholder === ''){
         return null;
         }
 

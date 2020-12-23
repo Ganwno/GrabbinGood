@@ -144,7 +144,11 @@ class UserChart extends React.Component{
 
 
         if (this.state.data2.length < 1) {
-            return null;
+            return(
+                <div>
+                    Buy Stocks in order to show Users data!
+                </div>
+            )
         }
         else {
         return(
