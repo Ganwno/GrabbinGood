@@ -6,10 +6,12 @@ import { fetchWatchlists } from '../../actions/watchlist_actions';
 import { updateUserChart } from '../../actions/external_stock_actions';
 
 const mSTP = (state) => {
+    
     return {
         stocks: Object.values(state.entities.stocks),
         user: state.session.id,
-        arrOfUsersStocks: Object.values(state.entities.watchlist)
+        arrOfUsersStocks: Object.values(state.entities.watchlist),
+        accountBalance: Object.values(state.entities.users)[0].account_balance
     }
 }
 
@@ -18,7 +20,7 @@ const mDTP = (dispatch) => {
     logout: () => dispatch(logout()),
     showStocks: () => dispatch(showStocks()),
     fetchWatchlists: (user_id) => dispatch(fetchWatchlists(user_id)),
-    updateUserChart: (ownStocks) => dispatch(updateUserChart(ownStocks))
+    updateUserChart: (ownStocks, newAccBal) => dispatch(updateUserChart(ownStocks, newAccBal))
     }
 }
 

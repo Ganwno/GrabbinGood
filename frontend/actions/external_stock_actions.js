@@ -48,7 +48,8 @@ export const updateCurrentCompanyNews = (symbol) => dispatch => {
     .then(news => dispatch(receiveCompanyNews(news)))
 }
 
-export const updateUserChart = (ownStocks) => dispatch => {
+export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
+    console.log(ownStocks)
     let arr2 = [];
     ownStocks.forEach((stock) => {
         if (stock.num_stocks !== 0) {
@@ -80,9 +81,6 @@ export const updateUserChart = (ownStocks) => dispatch => {
         }
         let output = [];
         let flattened = arr.flat();
-
-        //experiment
-        //ends here
         
 
         
@@ -92,13 +90,14 @@ export const updateUserChart = (ownStocks) => dispatch => {
             });
             if (existing.length) {
                 var existingIndex = output.indexOf(existing[0]);
-                output[existingIndex].high = output[existingIndex].high.concat(item.high)
+                output[existingIndex].high = output[existingIndex].high.concat(item.high).concat(newAccBal)
             } else {
                 if (typeof item.high == 'number')
                     item.high = [item.high];
                 output.push(item);
             }
         });
+        // console.log(output)
         output.forEach((obj) => {
             obj.high = obj.high.reduce(reducer)
         })

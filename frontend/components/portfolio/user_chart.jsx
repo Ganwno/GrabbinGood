@@ -95,7 +95,9 @@ class UserChart extends React.Component{
 
 
     componentDidMount(){
-        this.props.chartInfo(this.props.ownStocks).then((output) => {
+        let newAccBal = parseInt(this.props.accountBalance)
+        console.log(newAccBal)
+        this.props.chartInfo(this.props.ownStocks, newAccBal).then((output) => {
             let difference = output.output[output.output.length - 1].high - output.output[0].high;
             let percentChange = (difference / output.output[0].high) * 100
             if (percentChange < 0) {

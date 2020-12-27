@@ -13,11 +13,12 @@ class BuySellWatch extends React.Component {
             },
 
             lastPrice: 0,
-            watchlist: []
+            watchlist: [],
+            buyorsell: 'Buy'
 
         }
         this.handleSubmit = this.handleSubmit.bind(this)
-        // this.sellRender = this.sellRender.bind(this)
+        this.switchToSell = this.switchToSell.bind(this)
     }
 
     componentDidMount() {
@@ -60,19 +61,12 @@ class BuySellWatch extends React.Component {
         
     }
 
-    // sellRender(){
+    switchToSell(){
+        this.setState({
+            buyorsell: 'Sell'
+        })
+    }
 
-    //     this.state.watchlist.forEach((obj) => {
-    //         if (this.props.stock.stock_symbol === obj.stock_symbol && obj.num_stocks > 0) {
-    //             console.log('yo')
-    //             return true
-    //         }
-    //         else {
-    //             console.log('its me')
-    //             return false
-    //         }
-    //     })
-    // }
 
 
 
@@ -83,8 +77,8 @@ render() {
     }
     else {
         let canSell;
-        console.log(this.props.stock)
-        console.log(this.state.watchlist)
+        // console.log(this.props.stock)
+        // console.log(this.state.watchlist)
         let i;
         for (i = 0; i < this.state.watchlist.length; i++) {
             if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol && this.state.watchlist[i].num_stocks > 0) {
@@ -98,8 +92,13 @@ render() {
     return(
         <div>
             <div>
-            Buy {this.props.stock.stock_symbol}
+            {this.state.buyorsell} {this.props.stock.stock_symbol}
             </div>
+            {canSell ?
+                <div onClick={this.switchToSell}>
+                    Sell
+                </div>
+                : null}
             <div>Shares</div>
             <div>
                 <form onSubmit={this.handleSubmit} >
@@ -110,11 +109,6 @@ render() {
                 <button>Review Order</button>
                 </form>
             </div>
-                {canSell ?
-                <div>
-                    Sell
-                </div> 
-                : null }
         </div>
     )
     }

@@ -159,8 +159,9 @@ var updateCurrentCompanyNews = function updateCurrentCompanyNews(symbol) {
     });
   };
 };
-var updateUserChart = function updateUserChart(ownStocks) {
+var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
   return function (dispatch) {
+    console.log(ownStocks);
     var arr2 = [];
     ownStocks.forEach(function (stock) {
       if (stock.num_stocks !== 0) {
@@ -195,9 +196,7 @@ var updateUserChart = function updateUserChart(ownStocks) {
       }
 
       var output = [];
-      var flattened = arr.flat(); //experiment
-      //ends here
-
+      var flattened = arr.flat();
       flattened.forEach(function (item) {
         var existing = output.filter(function (v, i) {
           return v.label == item.label;
@@ -205,12 +204,13 @@ var updateUserChart = function updateUserChart(ownStocks) {
 
         if (existing.length) {
           var existingIndex = output.indexOf(existing[0]);
-          output[existingIndex].high = output[existingIndex].high.concat(item.high);
+          output[existingIndex].high = output[existingIndex].high.concat(item.high).concat(newAccBal);
         } else {
           if (typeof item.high == 'number') item.high = [item.high];
           output.push(item);
         }
-      });
+      }); // console.log(output)
+
       output.forEach(function (obj) {
         obj.high = obj.high.reduce(reducer);
       });
@@ -1014,7 +1014,8 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
         className: "userchart-two-whole"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
         ownStocks: this.state.watchlist,
-        chartInfo: this.props.updateUserChart
+        chartInfo: this.props.updateUserChart,
+        accountBalance: this.props.accountBalance
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "watchlist-whole"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
@@ -1056,7 +1057,8 @@ var mSTP = function mSTP(state) {
   return {
     stocks: Object.values(state.entities.stocks),
     user: state.session.id,
-    arrOfUsersStocks: Object.values(state.entities.watchlist)
+    arrOfUsersStocks: Object.values(state.entities.watchlist),
+    accountBalance: Object.values(state.entities.users)[0].account_balance
   };
 };
 
@@ -1071,8 +1073,8 @@ var mDTP = function mDTP(dispatch) {
     fetchWatchlists: function fetchWatchlists(user_id) {
       return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWatchlists"])(user_id));
     },
-    updateUserChart: function updateUserChart(ownStocks) {
-      return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_5__["updateUserChart"])(ownStocks));
+    updateUserChart: function updateUserChart(ownStocks, newAccBal) {
+      return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_5__["updateUserChart"])(ownStocks, newAccBal));
     }
   };
 };
@@ -1457,7 +1459,9 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.props.chartInfo(this.props.ownStocks).then(function (output) {
+      var newAccBal = parseInt(this.props.accountBalance);
+      console.log(newAccBal);
+      this.props.chartInfo(this.props.ownStocks, newAccBal).then(function (output) {
         var difference = output.output[output.output.length - 1].high - output.output[0].high;
         var percentChange = difference / output.output[0].high * 100;
 
@@ -2196,10 +2200,11 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         num_stocks: 0
       },
       lastPrice: 0,
-      watchlist: []
+      watchlist: [],
+      buyorsell: 'Buy'
     };
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this)); // this.sellRender = this.sellRender.bind(this)
-
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.switchToSell = _this.switchToSell.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2248,28 +2253,23 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       } else {
         this.props.createWatchlist(watchlist);
       }
-    } // sellRender(){
-    //     this.state.watchlist.forEach((obj) => {
-    //         if (this.props.stock.stock_symbol === obj.stock_symbol && obj.num_stocks > 0) {
-    //             console.log('yo')
-    //             return true
-    //         }
-    //         else {
-    //             console.log('its me')
-    //             return false
-    //         }
-    //     })
-    // }
-
+    }
+  }, {
+    key: "switchToSell",
+    value: function switchToSell() {
+      this.setState({
+        buyorsell: 'Sell'
+      });
+    }
   }, {
     key: "render",
     value: function render() {
       if (this.state.lastPrice === 0) {
         return null;
       } else {
-        var canSell;
-        console.log(this.props.stock);
-        console.log(this.state.watchlist);
+        var canSell; // console.log(this.props.stock)
+        // console.log(this.state.watchlist)
+
         var i;
 
         for (i = 0; i < this.state.watchlist.length; i++) {
@@ -2281,13 +2281,15 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           }
         }
 
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Buy ", this.props.stock.stock_symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.buyorsell, " ", this.props.stock.stock_symbol), canSell ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          onClick: this.switchToSell
+        }, "Sell") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
           onSubmit: this.handleSubmit
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
           value: this.state.numOfShares,
           onChange: this.update('num_stocks')
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Review Order"))), canSell ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Sell") : null);
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Review Order"))));
       }
     }
   }]);
