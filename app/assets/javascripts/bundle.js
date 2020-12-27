@@ -2198,7 +2198,8 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       lastPrice: 0,
       watchlist: []
     };
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this)); // this.sellRender = this.sellRender.bind(this)
+
     return _this;
   }
 
@@ -2208,8 +2209,6 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-        console.log(Object.values(watchlists.watchlists));
-
         _this2.setState({
           lastPrice: _this2.props.lastPrice,
           watchlist: Object.values(watchlists.watchlists)
@@ -2249,21 +2248,47 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       } else {
         this.props.createWatchlist(watchlist);
       }
-    }
+    } // sellRender(){
+    //     this.state.watchlist.forEach((obj) => {
+    //         if (this.props.stock.stock_symbol === obj.stock_symbol && obj.num_stocks > 0) {
+    //             console.log('yo')
+    //             return true
+    //         }
+    //         else {
+    //             console.log('its me')
+    //             return false
+    //         }
+    //     })
+    // }
+
   }, {
     key: "render",
     value: function render() {
       if (this.state.lastPrice === 0) {
         return null;
-      }
+      } else {
+        var canSell;
+        console.log(this.props.stock);
+        console.log(this.state.watchlist);
+        var i;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Buy ", this.props.stock.stock_symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        value: this.state.numOfShares,
-        onChange: this.update('num_stocks')
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Review Order"))));
+        for (i = 0; i < this.state.watchlist.length; i++) {
+          if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol && this.state.watchlist[i].num_stocks > 0) {
+            canSell = true;
+            break;
+          } else {
+            canSell = false;
+          }
+        }
+
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Buy ", this.props.stock.stock_symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+          onSubmit: this.handleSubmit
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "text",
+          value: this.state.numOfShares,
+          onChange: this.update('num_stocks')
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Review Order"))), canSell ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Sell") : null);
+      }
     }
   }]);
 

@@ -17,11 +17,11 @@ class BuySellWatch extends React.Component {
 
         }
         this.handleSubmit = this.handleSubmit.bind(this)
+        // this.sellRender = this.sellRender.bind(this)
     }
 
     componentDidMount() {
         this.props.fetchWatchlists(this.props.user).then((watchlists) => {
-            console.log(Object.values(watchlists.watchlists))
             this.setState({
                 lastPrice: this.props.lastPrice,
                 watchlist: Object.values(watchlists.watchlists)
@@ -60,6 +60,20 @@ class BuySellWatch extends React.Component {
         
     }
 
+    // sellRender(){
+
+    //     this.state.watchlist.forEach((obj) => {
+    //         if (this.props.stock.stock_symbol === obj.stock_symbol && obj.num_stocks > 0) {
+    //             console.log('yo')
+    //             return true
+    //         }
+    //         else {
+    //             console.log('its me')
+    //             return false
+    //         }
+    //     })
+    // }
+
 
 
 
@@ -67,6 +81,20 @@ render() {
     if (this.state.lastPrice === 0) {
         return null
     }
+    else {
+        let canSell;
+        console.log(this.props.stock)
+        console.log(this.state.watchlist)
+        let i;
+        for (i = 0; i < this.state.watchlist.length; i++) {
+            if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol && this.state.watchlist[i].num_stocks > 0) {
+                canSell = true;
+                break;
+            }
+            else {
+                canSell = false;
+            }
+        }
     return(
         <div>
             <div>
@@ -82,8 +110,14 @@ render() {
                 <button>Review Order</button>
                 </form>
             </div>
+                {canSell ?
+                <div>
+                    Sell
+                </div> 
+                : null }
         </div>
     )
+    }
 }
 
 }
