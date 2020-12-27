@@ -97,7 +97,6 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
                 output.push(item);
             }
         });
-        // console.log(output)
         output.forEach((obj) => {
             obj.high = obj.high.reduce(reducer)
         })

@@ -209,8 +209,7 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
           if (typeof item.high == 'number') item.high = [item.high];
           output.push(item);
         }
-      }); // console.log(output)
-
+      });
       output.forEach(function (obj) {
         obj.high = obj.high.reduce(reducer);
       });
@@ -1460,7 +1459,6 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var newAccBal = parseInt(this.props.accountBalance);
-      console.log(newAccBal);
       this.props.chartInfo(this.props.ownStocks, newAccBal).then(function (output) {
         var difference = output.output[output.output.length - 1].high - output.output[0].high;
         var percentChange = difference / output.output[0].high * 100;
