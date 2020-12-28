@@ -9,7 +9,8 @@ import {updateCurrentCompanyNews, updateCurrentFinanceInfo} from '../../actions/
 const mSTP = (state, ownProps) => {
     return {
         stock: state.entities.stocks[ownProps.match.params.id],
-        user: state.session.id
+        user: state.session.id,
+        accBal: parseFloat(Object.values(state.entities.users)[0].account_balance).toFixed(2)
     }
 }
 

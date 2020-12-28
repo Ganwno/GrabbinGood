@@ -49,7 +49,6 @@ export const updateCurrentCompanyNews = (symbol) => dispatch => {
 }
 
 export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
-    console.log(ownStocks)
     let arr2 = [];
     ownStocks.forEach((stock) => {
         if (stock.num_stocks !== 0) {
@@ -81,9 +80,10 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
         }
         let output = [];
         let flattened = arr.flat();
-        
 
-        
+        console.log(flattened)
+        console.log(output)
+        console.log(arr)
         flattened.forEach(function (item) {
             var existing = output.filter(function (v, i) {
                 return v.label == item.label;
@@ -91,7 +91,12 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
             if (existing.length) {
                 var existingIndex = output.indexOf(existing[0]);
                 output[existingIndex].high = output[existingIndex].high.concat(item.high).concat(newAccBal)
-            } else {
+            } 
+            else if (arr.length === 1) {
+                item.high = [item.high].concat(newAccBal)
+                output.push(item)
+            }
+            else {
                 if (typeof item.high == 'number')
                     item.high = [item.high];
                 output.push(item);

@@ -172,7 +172,7 @@ class StockChart extends React.Component {
                     content = {<CustomToolTip/>}
                     />
                 </LineChart>
-                <div> <BuySellWatch stock={this.props.stock} user={this.props.user} lastPrice={this.state.lastPrice} /></div>
+                <div> <BuySellWatch stock={this.props.stock} user={this.props.user} lastPrice={this.state.lastPrice} accBal={this.props.accBal}/></div>
             </div>
         )
     }

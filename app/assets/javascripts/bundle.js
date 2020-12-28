@@ -161,7 +161,6 @@ var updateCurrentCompanyNews = function updateCurrentCompanyNews(symbol) {
 };
 var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
   return function (dispatch) {
-    console.log(ownStocks);
     var arr2 = [];
     ownStocks.forEach(function (stock) {
       if (stock.num_stocks !== 0) {
@@ -197,6 +196,9 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
 
       var output = [];
       var flattened = arr.flat();
+      console.log(flattened);
+      console.log(output);
+      console.log(arr);
       flattened.forEach(function (item) {
         var existing = output.filter(function (v, i) {
           return v.label == item.label;
@@ -205,6 +207,9 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
         if (existing.length) {
           var existingIndex = output.indexOf(existing[0]);
           output[existingIndex].high = output[existingIndex].high.concat(item.high).concat(newAccBal);
+        } else if (arr.length === 1) {
+          item.high = [item.high].concat(newAccBal);
+          output.push(item);
         } else {
           if (typeof item.high == 'number') item.high = [item.high];
           output.push(item);
@@ -342,7 +347,7 @@ var showStocks = function showStocks() {
 /*!***********************************************!*\
   !*** ./frontend/actions/watchlist_actions.js ***!
   \***********************************************/
-/*! exports provided: RECEIVE_WATCHLISTS, CREATE_WATCHLIST, UPDATE_WATCHLIST, fetchWatchlists, createWatchlist, updateWatchlist */
+/*! exports provided: RECEIVE_WATCHLISTS, CREATE_WATCHLIST, UPDATE_WATCHLIST, SELL_WATCHLIST, fetchWatchlists, createWatchlist, updateWatchlist, sellWatchlist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -350,14 +355,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_WATCHLISTS", function() { return RECEIVE_WATCHLISTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_WATCHLIST", function() { return CREATE_WATCHLIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_WATCHLIST", function() { return UPDATE_WATCHLIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SELL_WATCHLIST", function() { return SELL_WATCHLIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWatchlists", function() { return fetchWatchlists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createWatchlist", function() { return createWatchlist; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateWatchlist", function() { return updateWatchlist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sellWatchlist", function() { return sellWatchlist; });
 /* harmony import */ var _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/watchlist_util */ "./frontend/util/watchlist_util.js");
 
 var RECEIVE_WATCHLISTS = 'RECEIVE_WATCHLISTS';
 var CREATE_WATCHLIST = 'CREATE_WATCHLIST';
 var UPDATE_WATCHLIST = 'UPDATE_WATCHLIST';
+var SELL_WATCHLIST = 'SELL_WATCHLIST';
 
 var receiveWatchlists = function receiveWatchlists(watchlists) {
   return {
@@ -380,6 +388,13 @@ var updateWatchlists = function updateWatchlists(watchlist) {
   };
 };
 
+var sellWatchlists = function sellWatchlists(watchlist) {
+  return {
+    type: SELL_WATCHLIST,
+    sell: watchlist
+  };
+};
+
 var fetchWatchlists = function fetchWatchlists(user_id) {
   return function (dispatch) {
     return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["showWatchlists"](user_id).then(function (watchlists) {
@@ -398,6 +413,13 @@ var updateWatchlist = function updateWatchlist(id, watchlist) {
   return function (dispatch) {
     return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["updateWatchlist"](id, watchlist).then(function (watchlist) {
       return dispatch(updateWatchlists(watchlist));
+    });
+  };
+};
+var sellWatchlist = function sellWatchlist(id, watchlist, lastPrice) {
+  return function (dispatch) {
+    return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["sellWatchlist"](id, watchlist, lastPrice).then(function (watchlist) {
+      return dispatch(sellWatchlists(watchlist));
     });
   };
 };
@@ -2197,12 +2219,15 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         user_id: _this.props.user,
         num_stocks: 0
       },
+      numOfShares: '',
       lastPrice: 0,
       watchlist: [],
-      buyorsell: 'Buy'
+      buyingPowerNumShare: "$".concat(_this.props.accBal, " Buying Power Available"),
+      buttonLabel: 'Review Order'
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.switchToSell = _this.switchToSell.bind(_assertThisInitialized(_this));
+    _this.switchToBuy = _this.switchToBuy.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2237,26 +2262,56 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
 
       //need a coditional here if user has watchlist then update if not then buy
       //this is for buy
+      // console.log(this.state.buyingPowerNumShare)
       e.preventDefault();
-      var watchlist = Object.assign({}, this.state.watchlistinfo);
-      var count = 0;
-      this.state.watchlist.forEach(function (obj) {
-        if (_this4.props.stock.stock_symbol === obj.stock_symbol && obj.num_stocks > 0) {
-          count += 1;
-        }
-      });
 
-      if (count === 1) {
-        this.props.updateWatchlist(this.props.stock.id, watchlist);
+      if (this.state.buyingPowerNumShare === "$".concat(this.props.accBal, " Buying Power Available")) {
+        var watchlist = Object.assign({}, this.state.watchlistinfo);
+        var count = 0;
+        this.state.watchlist.forEach(function (obj) {
+          if (_this4.props.stock.stock_symbol === obj.stock_symbol && obj.num_stocks > 0) {
+            count += 1;
+          }
+        });
+
+        if (count === 1) {
+          this.props.updateWatchlist(this.props.stock.id, watchlist); // this.setState({
+          //     watchlistinfo: {...this.state.watchlistinfo, num_stocks: 0}
+          // })
+        } else {
+          this.props.createWatchlist(watchlist); // this.setState({
+          //     watchlistinfo: { ...this.state.watchlistinfo, num_stocks: 0 }
+          // })
+        }
       } else {
-        this.props.createWatchlist(watchlist);
+        console.log(this.state.lastPrice);
+
+        var _watchlist = Object.assign({}, this.state.watchlistinfo);
+
+        this.props.sellWatchlist(this.props.stock.id, _watchlist, this.state.lastPrice);
       }
     }
   }, {
     key: "switchToSell",
     value: function switchToSell() {
+      var i;
+
+      for (i = 0; i < this.state.watchlist.length; i++) {
+        if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol) {
+          this.setState({
+            buyingPowerNumShare: "".concat(this.state.watchlist[i].num_stocks, " Shares Available"),
+            buttonLabel: 'Review Sell Order'
+          });
+          break;
+        }
+      }
+    }
+  }, {
+    key: "switchToBuy",
+    value: function switchToBuy() {
       this.setState({
-        buyorsell: 'Sell'
+        buyingPowerNumShare: "$".concat(this.props.accBal, " Buying Power Available"),
+        buttonLabel: 'Review Order'
       });
     }
   }, {
@@ -2279,15 +2334,17 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           }
         }
 
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.buyorsell, " ", this.props.stock.stock_symbol), canSell ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          onClick: this.switchToBuy
+        }, "Buy ", this.props.stock.stock_symbol), canSell ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           onClick: this.switchToSell
-        }, "Sell") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        }, "Sell ", this.props.stock.stock_symbol) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
           onSubmit: this.handleSubmit
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
-          value: this.state.numOfShares,
+          value: this.state.watchlistinfo.num_stocks,
           onChange: this.update('num_stocks')
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Review Order"))));
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, this.state.buttonLabel)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.buyingPowerNumShare)));
       }
     }
   }]);
@@ -2311,6 +2368,9 @@ var mDTP = function mDTP(dispatch) {
     },
     fetchWatchlists: function fetchWatchlists(user) {
       return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["fetchWatchlists"])(user));
+    },
+    sellWatchlist: function sellWatchlist(id, watchlist, lastPrice) {
+      return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["sellWatchlist"])(id, watchlist, lastPrice));
     }
   };
 };
@@ -2712,7 +2772,8 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_buy_sell_watch_buysellwatch__WEBPACK_IMPORTED_MODULE_1__["default"], {
         stock: this.props.stock,
         user: this.props.user,
-        lastPrice: this.state.lastPrice
+        lastPrice: this.state.lastPrice,
+        accBal: this.props.accBal
       })));
     }
   }]);
@@ -2775,7 +2836,8 @@ __webpack_require__.r(__webpack_exports__);
 var mSTP = function mSTP(state, ownProps) {
   return {
     stock: state.entities.stocks[ownProps.match.params.id],
-    user: state.session.id
+    user: state.session.id,
+    accBal: parseFloat(Object.values(state.entities.users)[0].account_balance).toFixed(2)
   };
 };
 
@@ -2903,7 +2965,8 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
       }, this.props.stock.company_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stock_chart__WEBPACK_IMPORTED_MODULE_2__["default"], {
         stock: this.props.stock,
         financial: this.props.updateCurrentFinanceInfo,
-        user: this.props.user
+        user: this.props.user,
+        accBal: this.props.accBal
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_about_section__WEBPACK_IMPORTED_MODULE_3__["default"], {
         stock: this.props.stock
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_section_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -3687,6 +3750,9 @@ var watchlistReducer = function watchlistReducer() {
     case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_WATCHLIST"]:
       return Object.assign({}, state, action.updated);
 
+    case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["SELL_WATCHLIST"]:
+      return Object.assign({}, state, action.sell);
+
     default:
       return state;
   }
@@ -3896,7 +3962,7 @@ var showStock = function showStock(id) {
 /*!*****************************************!*\
   !*** ./frontend/util/watchlist_util.js ***!
   \*****************************************/
-/*! exports provided: showWatchlists, createWatchlist, updateWatchlist */
+/*! exports provided: showWatchlists, createWatchlist, updateWatchlist, sellWatchlist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3904,6 +3970,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showWatchlists", function() { return showWatchlists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createWatchlist", function() { return createWatchlist; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateWatchlist", function() { return updateWatchlist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sellWatchlist", function() { return sellWatchlist; });
 var showWatchlists = function showWatchlists(user_id) {
   return $.ajax({
     method: "GET",
@@ -3925,6 +3992,16 @@ var updateWatchlist = function updateWatchlist(id, watchlist) {
     url: "/api/watchlists/".concat(id),
     data: {
       watchlist: watchlist
+    }
+  });
+};
+var sellWatchlist = function sellWatchlist(id, watchlist, lastPrice) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/watchlists/".concat(id),
+    data: {
+      watchlist: watchlist,
+      lastPrice: lastPrice
     }
   });
 };

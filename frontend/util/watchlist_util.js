@@ -20,3 +20,11 @@ export const updateWatchlist = (id, watchlist) => {
         data: {watchlist}
     })
 }
+
+export const sellWatchlist = (id, watchlist, lastPrice) => {
+    return $.ajax({
+        method: "DELETE",
+        url: `/api/watchlists/${id}`,
+        data: {watchlist, lastPrice}
+    })
+}
