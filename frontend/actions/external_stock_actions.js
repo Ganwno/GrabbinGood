@@ -62,6 +62,12 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
         let arrOfStockSym = ownStocks
         let i;
         let j;
+        // console.log(arr)
+        // console.log(arrOfStockSym)
+        let newArrOfStockSym = arrOfStockSym.filter((watchlist) => {
+            return watchlist.num_stocks !== 0
+        })
+        // console.log(newArrOfStockSym)
         for (i = 0; i < arr.length; i++) {
             arr[i].forEach((obj, idx) => {
                 //for loop fixes null values
@@ -74,25 +80,25 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
                     }
                 }
                 else {
-                obj.high = obj.high * arrOfStockSym[i].num_stocks
+                obj.high = obj.high * newArrOfStockSym[i].num_stocks
                 }
             })
         }
         let output = [];
         let flattened = arr.flat();
 
-        console.log(flattened)
-        console.log(output)
-        console.log(arr)
+        // console.log(flattened)
+        // console.log(arr)
         flattened.forEach(function (item) {
             var existing = output.filter(function (v, i) {
                 return v.label == item.label;
             });
             if (existing.length) {
                 var existingIndex = output.indexOf(existing[0]);
-                output[existingIndex].high = output[existingIndex].high.concat(item.high).concat(newAccBal)
+                output[existingIndex].high = output[existingIndex].high.concat(item.high)
             } 
             else if (arr.length === 1) {
+                console.log('whats going on')
                 item.high = [item.high].concat(newAccBal)
                 output.push(item)
             }
@@ -102,9 +108,14 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
                 output.push(item);
             }
         });
+         output.forEach((obj) => {
+            obj.high = obj.high.concat(newAccBal)
+        })
+
         output.forEach((obj) => {
             obj.high = obj.high.reduce(reducer)
         })
+        // console.log(output)
         return dispatch(receiveUserData(output))
     })
 }

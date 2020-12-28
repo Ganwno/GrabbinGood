@@ -23,6 +23,7 @@ class BuySellWatch extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.switchToSell = this.switchToSell.bind(this)
         this.switchToBuy = this.switchToBuy.bind(this)
+        this.addToList = this.addToList.bind(this)
     }
 
     componentDidMount() {
@@ -100,6 +101,11 @@ class BuySellWatch extends React.Component {
         })
     }
 
+    addToList(){
+        let watchlist = Object.assign({}, {stock_id: this.props.stock.id, user_id: this.props.user, num_stocks: 0})
+        this.props.createWatchlist(watchlist)
+    }
+
 
 
 
@@ -113,6 +119,8 @@ render() {
         // console.log(this.props.stock)
         // console.log(this.state.watchlist)
         let i;
+        let j;
+        let watch = true;
         for (i = 0; i < this.state.watchlist.length; i++) {
             if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol && this.state.watchlist[i].num_stocks > 0) {
                 canSell = true;
@@ -122,6 +130,13 @@ render() {
                 canSell = false;
             }
         }
+        for (j = 0; j < this.state.watchlist.length; j++) {
+            if (this.props.stock.stock_symbol === this.state.watchlist[j].stock_symbol) {
+                watch = false;
+                break;
+            }
+        }
+
     return(
         <div>
             <div onClick={this.switchToBuy}>
@@ -142,6 +157,12 @@ render() {
                 <button>{this.state.buttonLabel}</button>
                 </form>
                 <div>{this.state.buyingPowerNumShare}</div>
+                {
+                    watch ?
+                        <button onClick={this.addToList}>Add to Lists</button>
+                        :
+                        null
+                }
             </div>
         </div>
     )

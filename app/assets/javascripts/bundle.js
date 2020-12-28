@@ -176,7 +176,12 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
 
       var arrOfStockSym = ownStocks;
       var i;
-      var j;
+      var j; // console.log(arr)
+      // console.log(arrOfStockSym)
+
+      var newArrOfStockSym = arrOfStockSym.filter(function (watchlist) {
+        return watchlist.num_stocks !== 0;
+      }); // console.log(newArrOfStockSym)
 
       for (i = 0; i < arr.length; i++) {
         arr[i].forEach(function (obj, idx) {
@@ -189,16 +194,15 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
               }
             }
           } else {
-            obj.high = obj.high * arrOfStockSym[i].num_stocks;
+            obj.high = obj.high * newArrOfStockSym[i].num_stocks;
           }
         });
       }
 
       var output = [];
-      var flattened = arr.flat();
-      console.log(flattened);
-      console.log(output);
-      console.log(arr);
+      var flattened = arr.flat(); // console.log(flattened)
+      // console.log(arr)
+
       flattened.forEach(function (item) {
         var existing = output.filter(function (v, i) {
           return v.label == item.label;
@@ -206,8 +210,9 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
 
         if (existing.length) {
           var existingIndex = output.indexOf(existing[0]);
-          output[existingIndex].high = output[existingIndex].high.concat(item.high).concat(newAccBal);
+          output[existingIndex].high = output[existingIndex].high.concat(item.high);
         } else if (arr.length === 1) {
+          console.log('whats going on');
           item.high = [item.high].concat(newAccBal);
           output.push(item);
         } else {
@@ -216,8 +221,12 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
         }
       });
       output.forEach(function (obj) {
-        obj.high = obj.high.reduce(reducer);
+        obj.high = obj.high.concat(newAccBal);
       });
+      output.forEach(function (obj) {
+        obj.high = obj.high.reduce(reducer);
+      }); // console.log(output)
+
       return dispatch(receiveUserData(output));
     });
   };
@@ -2228,6 +2237,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.switchToSell = _this.switchToSell.bind(_assertThisInitialized(_this));
     _this.switchToBuy = _this.switchToBuy.bind(_assertThisInitialized(_this));
+    _this.addToList = _this.addToList.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2315,6 +2325,16 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "addToList",
+    value: function addToList() {
+      var watchlist = Object.assign({}, {
+        stock_id: this.props.stock.id,
+        user_id: this.props.user,
+        num_stocks: 0
+      });
+      this.props.createWatchlist(watchlist);
+    }
+  }, {
     key: "render",
     value: function render() {
       if (this.state.lastPrice === 0) {
@@ -2324,6 +2344,8 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         // console.log(this.state.watchlist)
 
         var i;
+        var j;
+        var watch = true;
 
         for (i = 0; i < this.state.watchlist.length; i++) {
           if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol && this.state.watchlist[i].num_stocks > 0) {
@@ -2331,6 +2353,13 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
             break;
           } else {
             canSell = false;
+          }
+        }
+
+        for (j = 0; j < this.state.watchlist.length; j++) {
+          if (this.props.stock.stock_symbol === this.state.watchlist[j].stock_symbol) {
+            watch = false;
+            break;
           }
         }
 
@@ -2344,7 +2373,9 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           type: "text",
           value: this.state.watchlistinfo.num_stocks,
           onChange: this.update('num_stocks')
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, this.state.buttonLabel)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.buyingPowerNumShare)));
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, this.state.buttonLabel)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.buyingPowerNumShare), watch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: this.addToList
+        }, "Add to Lists") : null));
       }
     }
   }]);
