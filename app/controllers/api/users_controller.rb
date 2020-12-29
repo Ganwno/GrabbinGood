@@ -9,9 +9,9 @@ class Api::UsersController < ApplicationController
         end
     end
 
-    def show 
+      def show 
         @user = User.find(params[:id])
-        render "api/users/watchlist"
+        render "api/users/show"
     end
 
     private

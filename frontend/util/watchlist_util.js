@@ -1,23 +1,23 @@
 export const showWatchlists = (user_id) => {
     return $.ajax({
         method: "GET",
-        url: `/api/users/${user_id}`
+        url: `/api/watchlists/${user_id}`
     })
 }
 
-export const createWatchlist = (watchlist) => {
+export const createWatchlist = (watchlist, lastPrice) => {
     return $.ajax({
         method: "POST",
         url: `/api/watchlists`,
-        data: {watchlist}
+        data: {watchlist, lastPrice}
     })
 }
 
-export const updateWatchlist = (id, watchlist) => {
+export const updateWatchlist = (id, watchlist, lastPrice) => {
     return $.ajax({
         method: "PATCH",
         url: `/api/watchlists/${id}`,
-        data: {watchlist}
+        data: {watchlist, lastPrice}
     })
 }
 

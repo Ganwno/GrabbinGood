@@ -37,13 +37,13 @@ export const fetchWatchlists = (user_id) => (dispatch) => {
     .then(watchlists => dispatch(receiveWatchlists(watchlists)))
 }
 
-export const createWatchlist = (watchlist) => (dispatch) => {
-    return APIUtil.createWatchlist(watchlist)
+export const createWatchlist = (watchlist, lastPrice) => (dispatch) => {
+    return APIUtil.createWatchlist(watchlist, lastPrice)
     .then(watchlist => dispatch(createTheWatchlists(watchlist)))
 }
 
-export const updateWatchlist = (id, watchlist) => (dispatch) => {
-    return APIUtil.updateWatchlist(id, watchlist).then(watchlist => dispatch(updateWatchlists(watchlist)))
+export const updateWatchlist = (id, watchlist, lastPrice) => (dispatch) => {
+    return APIUtil.updateWatchlist(id, watchlist, lastPrice).then(watchlist => dispatch(updateWatchlists(watchlist)))
 }
 
 export const sellWatchlist = (id, watchlist, lastPrice) => (dispatch) => {

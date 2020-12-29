@@ -238,7 +238,7 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_ERRORS, login, logout, signup */
+/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_ERRORS, USER_ACC_INFO, login, logout, signup, fetchUserAccBal */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -246,14 +246,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_CURRENT_USER", function() { return RECEIVE_CURRENT_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT_CURRENT_USER", function() { return LOGOUT_CURRENT_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ERRORS", function() { return RECEIVE_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "USER_ACC_INFO", function() { return USER_ACC_INFO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signup", function() { return signup; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserAccBal", function() { return fetchUserAccBal; });
 /* harmony import */ var _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/session_api_util */ "./frontend/util/session_api_util.js");
 
 var RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 var LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 var RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+var USER_ACC_INFO = 'USER_ACC_INFO';
 
 var receiveCurrentUser = function receiveCurrentUser(currentUser) {
   return {
@@ -272,6 +275,13 @@ var receiveErrors = function receiveErrors(errors) {
   return {
     type: RECEIVE_ERRORS,
     errors: errors
+  };
+};
+
+var receiveUserInfo = function receiveUserInfo(user) {
+  return {
+    type: USER_ACC_INFO,
+    info: user
   };
 };
 
@@ -297,6 +307,13 @@ var signup = function signup(user) {
       return dispatch(receiveCurrentUser(user));
     }, function (error) {
       return dispatch(receiveErrors(error.responseJSON));
+    });
+  };
+};
+var fetchUserAccBal = function fetchUserAccBal(id) {
+  return function (dispatch) {
+    return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["userInfo"](id).then(function (user) {
+      return dispatch(receiveUserInfo(user));
     });
   };
 };
@@ -411,16 +428,16 @@ var fetchWatchlists = function fetchWatchlists(user_id) {
     });
   };
 };
-var createWatchlist = function createWatchlist(watchlist) {
+var createWatchlist = function createWatchlist(watchlist, lastPrice) {
   return function (dispatch) {
-    return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["createWatchlist"](watchlist).then(function (watchlist) {
+    return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["createWatchlist"](watchlist, lastPrice).then(function (watchlist) {
       return dispatch(createTheWatchlists(watchlist));
     });
   };
 };
-var updateWatchlist = function updateWatchlist(id, watchlist) {
+var updateWatchlist = function updateWatchlist(id, watchlist, lastPrice) {
   return function (dispatch) {
-    return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["updateWatchlist"](id, watchlist).then(function (watchlist) {
+    return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["updateWatchlist"](id, watchlist, lastPrice).then(function (watchlist) {
       return dispatch(updateWatchlists(watchlist));
     });
   };
@@ -1010,7 +1027,7 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-        // console.log(watchlists)
+        // this.props.fetchUserAccBal(this.props.user)
         _this2.setState({
           watchlist: Object.values(watchlists.watchlists),
           placeholder: "placeholder"
@@ -1088,7 +1105,8 @@ var mSTP = function mSTP(state) {
     stocks: Object.values(state.entities.stocks),
     user: state.session.id,
     arrOfUsersStocks: Object.values(state.entities.watchlist),
-    accountBalance: Object.values(state.entities.users)[0].account_balance
+    accountBalance: Object.values(state.entities.users)[0].account_balance,
+    accBal: state.entities.users.accountBalance
   };
 };
 
@@ -1105,6 +1123,9 @@ var mDTP = function mDTP(dispatch) {
     },
     updateUserChart: function updateUserChart(ownStocks, newAccBal) {
       return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_5__["updateUserChart"])(ownStocks, newAccBal));
+    },
+    fetchUserAccBal: function fetchUserAccBal(user_id) {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["fetchUserAccBal"])(user_id));
     }
   };
 };
@@ -2285,11 +2306,11 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         });
 
         if (count === 1) {
-          this.props.updateWatchlist(this.props.stock.id, watchlist); // this.setState({
+          this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice); // this.setState({
           //     watchlistinfo: {...this.state.watchlistinfo, num_stocks: 0}
           // })
         } else {
-          this.props.createWatchlist(watchlist); // this.setState({
+          this.props.createWatchlist(watchlist, this.props.lastPrice); // this.setState({
           //     watchlistinfo: { ...this.state.watchlistinfo, num_stocks: 0 }
           // })
         }
@@ -2298,7 +2319,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
 
         var _watchlist = Object.assign({}, this.state.watchlistinfo);
 
-        this.props.sellWatchlist(this.props.stock.id, _watchlist, this.state.lastPrice);
+        this.props.sellWatchlist(this.props.stock.id, _watchlist, this.props.lastPrice);
       }
     }
   }, {
@@ -2391,11 +2412,11 @@ var mSTP = function mSTP(state, ownProps) {
 
 var mDTP = function mDTP(dispatch) {
   return {
-    createWatchlist: function createWatchlist(watchlist) {
-      return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["createWatchlist"])(watchlist));
+    createWatchlist: function createWatchlist(watchlist, lastPrice) {
+      return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["createWatchlist"])(watchlist, lastPrice));
     },
-    updateWatchlist: function updateWatchlist(id, watchlist) {
-      return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["updateWatchlist"])(id, watchlist));
+    updateWatchlist: function updateWatchlist(id, watchlist, lastPrice) {
+      return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["updateWatchlist"])(id, watchlist, lastPrice));
     },
     fetchWatchlists: function fetchWatchlists(user) {
       return dispatch(Object(_actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__["fetchWatchlists"])(user));
@@ -3744,6 +3765,9 @@ var usersReducer = function usersReducer() {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return Object.assign({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
 
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["USER_ACC_INFO"]:
+      return Object.assign({}, state, action.info);
+
     default:
       return state;
   }
@@ -3928,7 +3952,7 @@ var ProtectedRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withR
 /*!*******************************************!*\
   !*** ./frontend/util/session_api_util.js ***!
   \*******************************************/
-/*! exports provided: signup, login, logout */
+/*! exports provided: signup, login, logout, userInfo */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3936,6 +3960,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signup", function() { return signup; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userInfo", function() { return userInfo; });
 var signup = function signup(user) {
   return $.ajax({
     method: "POST",
@@ -3958,6 +3983,12 @@ var logout = function logout() {
   return $.ajax({
     method: "DELETE",
     url: "/api/session"
+  });
+};
+var userInfo = function userInfo(user_id) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users/".concat(user_id)
   });
 };
 
@@ -4005,24 +4036,26 @@ __webpack_require__.r(__webpack_exports__);
 var showWatchlists = function showWatchlists(user_id) {
   return $.ajax({
     method: "GET",
-    url: "/api/users/".concat(user_id)
+    url: "/api/watchlists/".concat(user_id)
   });
 };
-var createWatchlist = function createWatchlist(watchlist) {
+var createWatchlist = function createWatchlist(watchlist, lastPrice) {
   return $.ajax({
     method: "POST",
     url: "/api/watchlists",
     data: {
-      watchlist: watchlist
+      watchlist: watchlist,
+      lastPrice: lastPrice
     }
   });
 };
-var updateWatchlist = function updateWatchlist(id, watchlist) {
+var updateWatchlist = function updateWatchlist(id, watchlist, lastPrice) {
   return $.ajax({
     method: "PATCH",
     url: "/api/watchlists/".concat(id),
     data: {
-      watchlist: watchlist
+      watchlist: watchlist,
+      lastPrice: lastPrice
     }
   });
 };

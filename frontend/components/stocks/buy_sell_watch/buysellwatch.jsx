@@ -60,13 +60,13 @@ class BuySellWatch extends React.Component {
                 }
             })
             if (count === 1) {
-                this.props.updateWatchlist(this.props.stock.id, watchlist)
+                this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice)
                 // this.setState({
                 //     watchlistinfo: {...this.state.watchlistinfo, num_stocks: 0}
                 // })
             }
             else {
-                this.props.createWatchlist(watchlist)
+                this.props.createWatchlist(watchlist, this.props.lastPrice)
                 // this.setState({
                 //     watchlistinfo: { ...this.state.watchlistinfo, num_stocks: 0 }
                 // })
@@ -76,7 +76,7 @@ class BuySellWatch extends React.Component {
         else {
             console.log(this.state.lastPrice)
             const watchlist = Object.assign({}, this.state.watchlistinfo)
-            this.props.sellWatchlist(this.props.stock.id, watchlist, this.state.lastPrice)
+            this.props.sellWatchlist(this.props.stock.id, watchlist, this.props.lastPrice)
         }
         
     }
@@ -180,8 +180,8 @@ const mSTP = (state, ownProps) => {
 
 const mDTP = (dispatch) => {
     return {
-        createWatchlist: (watchlist) => dispatch(createWatchlist(watchlist)),
-        updateWatchlist: (id, watchlist) => dispatch(updateWatchlist(id, watchlist)),
+        createWatchlist: (watchlist, lastPrice) => dispatch(createWatchlist(watchlist, lastPrice)),
+        updateWatchlist: (id, watchlist, lastPrice) => dispatch(updateWatchlist(id, watchlist, lastPrice)),
         fetchWatchlists: (user) => dispatch(fetchWatchlists(user)),
         sellWatchlist: (id, watchlist, lastPrice) => dispatch(sellWatchlist(id, watchlist, lastPrice))
     }

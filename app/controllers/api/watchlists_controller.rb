@@ -3,6 +3,8 @@ class Api::WatchlistsController < ApplicationController
    def create
     @watchlist = Watchlist.new(watchlist_params)
     @user = @watchlist.user
+    @user.account_balance = @user.account_balance - (params["lastPrice"].to_i * params["watchlist"][:num_stocks].to_i)
+    @user.save!
     if @watchlist.save
         render "api/users/watchlist"
     else
@@ -14,6 +16,8 @@ class Api::WatchlistsController < ApplicationController
     @user = User.find_by_id(params['watchlist'][:user_id])
     result = @user.watchlists.where("stock_id = #{params['watchlist'][:stock_id]} AND user_id = #{params['watchlist'][:user_id]}")
     result[0].num_stocks = result[0].num_stocks + (params['watchlist'][:num_stocks]).to_i
+    @user.account_balance = @user.account_balance - (params['lastPrice'].to_i * params['watchlist'][:num_stocks].to_i)
+    @user.save!
     result[0].save!
     render "api/users/watchlist"
    end
@@ -26,11 +30,16 @@ class Api::WatchlistsController < ApplicationController
     @user.save!
     if result[0].num_stocks == 0
         result[0].destroy
-    end
+        render json: {}
+    else
     result[0].save!
     render "api/users/watchlist"
+    end
+   end
 
-
+   def show 
+    @user = User.find(params[:id])
+    render "api/users/watchlist"
    end
 
 
