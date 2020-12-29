@@ -97,11 +97,11 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
                 var existingIndex = output.indexOf(existing[0]);
                 output[existingIndex].high = output[existingIndex].high.concat(item.high)
             } 
-            else if (arr.length === 1) {
-                console.log('whats going on')
-                item.high = [item.high].concat(newAccBal)
-                output.push(item)
-            }
+            // else if (arr.length === 1) {
+            //     // console.log('whats going on')
+            //     item.high = [item.high].concat(newAccBal)
+            //     output.push(item)
+            // }
             else {
                 if (typeof item.high == 'number')
                     item.high = [item.high];
@@ -111,7 +111,7 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
          output.forEach((obj) => {
             obj.high = obj.high.concat(newAccBal)
         })
-
+       
         output.forEach((obj) => {
             obj.high = obj.high.reduce(reducer)
         })

@@ -15,7 +15,8 @@ class Watchlist extends React.Component {
             percentChangeOfWatched: [],
             listOfBought: [],
             listOfWatched: [],
-            placeholder: ''
+            placeholder: '',
+            arrOfObj: ''
         }
         this.doesUserHaveStocks = this.doesUserHaveStocks.bind(this)
         this.color = this.color.bind(this)
@@ -54,6 +55,7 @@ class Watchlist extends React.Component {
     componentDidMount() {
         let arrOwnStocks = []
         let arrOfStockSym = []
+        // console.log(this.props.watchlist)
         this.props.watchlist.forEach(watchlist => {
             let stockSym = watchlist.stock_symbol.toLowerCase();
             arrOfStockSym.push(stockSym)
@@ -63,6 +65,7 @@ class Watchlist extends React.Component {
             
         })  
         Promise.all(arrOwnStocks).then(arrOfObj => {
+            // console.log(arrOfObj)
         let newArr = []
         let arrFirstPrice = []
             arrOfObj.forEach(arr => {
@@ -123,7 +126,8 @@ class Watchlist extends React.Component {
                 listOfBought: listOfBought,
                 listOfWatched: listOfWatched,
                 numShares: numOfShares,
-                placeholder: 'placeholder'
+                placeholder: 'placeholder',
+                arrOfObj: arrOfObj.length
             })
         })
     }
@@ -131,8 +135,12 @@ class Watchlist extends React.Component {
 
 
     render(){
-        if (this.state.placeholder === '') {
-            return null;
+        // if (this.state.placeholder === '') {
+        //     return null;
+        // }
+        // console.log(this.props.watchlist)
+        if (this.props.watchlist.length !== this.state.arrOfObj) {
+            return null
         }
         else {
         return(

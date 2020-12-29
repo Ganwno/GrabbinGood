@@ -211,14 +211,15 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
         if (existing.length) {
           var existingIndex = output.indexOf(existing[0]);
           output[existingIndex].high = output[existingIndex].high.concat(item.high);
-        } else if (arr.length === 1) {
-          console.log('whats going on');
-          item.high = [item.high].concat(newAccBal);
-          output.push(item);
-        } else {
-          if (typeof item.high == 'number') item.high = [item.high];
-          output.push(item);
-        }
+        } // else if (arr.length === 1) {
+        //     // console.log('whats going on')
+        //     item.high = [item.high].concat(newAccBal)
+        //     output.push(item)
+        // }
+        else {
+            if (typeof item.high == 'number') item.high = [item.high];
+            output.push(item);
+          }
       });
       output.forEach(function (obj) {
         obj.high = obj.high.concat(newAccBal);
@@ -1028,9 +1029,9 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-        _this2.props.fetchUserAccBal(_this2.props.user).then(function (user) {
-          console.log(user);
+        console.log(watchlists);
 
+        _this2.props.fetchUserAccBal(_this2.props.user).then(function (user) {
           _this2.setState({
             watchlist: Object.values(watchlists.watchlists),
             accountBalance: user.info.account_balance,
@@ -3129,7 +3130,8 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
       percentChangeOfWatched: [],
       listOfBought: [],
       listOfWatched: [],
-      placeholder: ''
+      placeholder: '',
+      arrOfObj: ''
     };
     _this.doesUserHaveStocks = _this.doesUserHaveStocks.bind(_assertThisInitialized(_this));
     _this.color = _this.color.bind(_assertThisInitialized(_this));
@@ -3170,7 +3172,8 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var arrOwnStocks = [];
-      var arrOfStockSym = [];
+      var arrOfStockSym = []; // console.log(this.props.watchlist)
+
       this.props.watchlist.forEach(function (watchlist) {
         var stockSym = watchlist.stock_symbol.toLowerCase();
         arrOfStockSym.push(stockSym);
@@ -3181,6 +3184,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
         arrOwnStocks.push(promise);
       });
       Promise.all(arrOwnStocks).then(function (arrOfObj) {
+        // console.log(arrOfObj)
         var newArr = [];
         var arrFirstPrice = [];
         arrOfObj.forEach(function (arr) {
@@ -3245,7 +3249,8 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
           listOfBought: listOfBought,
           listOfWatched: listOfWatched,
           numShares: numOfShares,
-          placeholder: 'placeholder'
+          placeholder: 'placeholder',
+          arrOfObj: arrOfObj.length
         });
       });
     }
@@ -3254,7 +3259,11 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      if (this.state.placeholder === '') {
+      // if (this.state.placeholder === '') {
+      //     return null;
+      // }
+      // console.log(this.props.watchlist)
+      if (this.props.watchlist.length !== this.state.arrOfObj) {
         return null;
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
