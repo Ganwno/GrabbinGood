@@ -56,6 +56,7 @@ class Watchlist extends React.Component {
         let arrOwnStocks = []
         let arrOfStockSym = []
         // console.log(this.props.watchlist)
+        // console.log(this.state.watchlist)
         this.props.watchlist.forEach(watchlist => {
             let stockSym = watchlist.stock_symbol.toLowerCase();
             arrOfStockSym.push(stockSym)
@@ -131,6 +132,13 @@ class Watchlist extends React.Component {
             })
         })
     }
+
+    // componentWillReceiveProps(nextProps){
+    //     console.log(nextProps)
+    //     this.setState({
+    //         watchlist: nextProps.watchlist
+    //     })
+    // }
 
 
 
@@ -208,7 +216,6 @@ class Watchlist extends React.Component {
 
 const mSTP = (state) => {
     return {
-        watchlist: Object.values(state.entities.watchlist),
         values: state.entities.stocks
 
     }

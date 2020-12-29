@@ -1043,9 +1043,12 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.state.placeholder);
+
       if (this.state.placeholder === '') {
         return null;
       } else {
+        console.log(this.state.watchlist);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "portfolio"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2320,8 +2323,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           // })
         }
       } else {
-        console.log(this.state.lastPrice);
-
+        // console.log(this.state.lastPrice)
         var _watchlist = Object.assign({}, this.state.watchlistinfo);
 
         this.props.sellWatchlist(this.props.stock.id, _watchlist, this.props.lastPrice);
@@ -3173,6 +3175,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
 
       var arrOwnStocks = [];
       var arrOfStockSym = []; // console.log(this.props.watchlist)
+      // console.log(this.state.watchlist)
 
       this.props.watchlist.forEach(function (watchlist) {
         var stockSym = watchlist.stock_symbol.toLowerCase();
@@ -3253,7 +3256,13 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
           arrOfObj: arrOfObj.length
         });
       });
-    }
+    } // componentWillReceiveProps(nextProps){
+    //     console.log(nextProps)
+    //     this.setState({
+    //         watchlist: nextProps.watchlist
+    //     })
+    // }
+
   }, {
     key: "render",
     value: function render() {
@@ -3313,7 +3322,6 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
 
 var mSTP = function mSTP(state) {
   return {
-    watchlist: Object.values(state.entities.watchlist),
     values: state.entities.stocks
   };
 };

@@ -34,10 +34,12 @@ class Portfolio extends React.Component {
      
 
     render() {
+        console.log(this.state.placeholder)
         if (this.state.placeholder === ''){
         return null;
         }
         else {
+            console.log(this.state.watchlist)
         return(
             <div className = "portfolio">
                 <div className = "nav-bar">

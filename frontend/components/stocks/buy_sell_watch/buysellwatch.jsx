@@ -74,7 +74,7 @@ class BuySellWatch extends React.Component {
 
         }
         else {
-            console.log(this.state.lastPrice)
+            // console.log(this.state.lastPrice)
             const watchlist = Object.assign({}, this.state.watchlistinfo)
             this.props.sellWatchlist(this.props.stock.id, watchlist, this.props.lastPrice)
         }
