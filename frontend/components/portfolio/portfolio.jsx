@@ -13,17 +13,22 @@ class Portfolio extends React.Component {
     this.state = {
         inputVal: "",
         watchlist: [],
+        accountbalance: 0,
         placeholder: ""
     } 
     }
 
     componentDidMount() {
         this.props.fetchWatchlists(this.props.user).then(watchlists => {
-            // this.props.fetchUserAccBal(this.props.user)
-            this.setState({
-            watchlist: Object.values(watchlists.watchlists),
-            placeholder: "placeholder"
+            this.props.fetchUserAccBal(this.props.user).then(user => {
+                console.log(user)
+                this.setState({
+                    watchlist: Object.values(watchlists.watchlists),
+                    accountBalance: user.info.account_balance,
+                    placeholder: "placeholder"
+                })
             })
+            
         })
     }
      
@@ -32,7 +37,7 @@ class Portfolio extends React.Component {
         if (this.state.placeholder === ''){
         return null;
         }
-
+        else {
         return(
             <div className = "portfolio">
                 <div className = "nav-bar">
@@ -47,7 +52,7 @@ class Portfolio extends React.Component {
                 <div className="page-content-two">
                 <br/>
                 <div className="userchart-two-whole">
-                <UserChart ownStocks={this.state.watchlist} chartInfo={this.props.updateUserChart} accountBalance={this.props.accountBalance}/>
+                <UserChart ownStocks={this.state.watchlist} chartInfo={this.props.updateUserChart} accountBalance={this.state.accountBalance}/>
                 <UserNews/>
                 </div>
                 <div className= 'watchlist-whole'>
@@ -57,6 +62,7 @@ class Portfolio extends React.Component {
                 <br/>
             </div>
         )
+        }
     }
 
 }

@@ -1016,6 +1016,7 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       inputVal: "",
       watchlist: [],
+      accountbalance: 0,
       placeholder: ""
     };
     return _this;
@@ -1027,10 +1028,14 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-        // this.props.fetchUserAccBal(this.props.user)
-        _this2.setState({
-          watchlist: Object.values(watchlists.watchlists),
-          placeholder: "placeholder"
+        _this2.props.fetchUserAccBal(_this2.props.user).then(function (user) {
+          console.log(user);
+
+          _this2.setState({
+            watchlist: Object.values(watchlists.watchlists),
+            accountBalance: user.info.account_balance,
+            placeholder: "placeholder"
+          });
         });
       });
     }
@@ -1039,35 +1044,35 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       if (this.state.placeholder === '') {
         return null;
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "portfolio"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "nav-bar"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "left-nav"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: '/'
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: "/images/logo.jpeg",
+          alt: "",
+          className: "logo-image"
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          logout: this.props.logout
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "page-content-two"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "userchart-two-whole"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          ownStocks: this.state.watchlist,
+          chartInfo: this.props.updateUserChart,
+          accountBalance: this.state.accountBalance
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "watchlist-whole"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          watchlist: this.state.watchlist
+        }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
       }
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "portfolio"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-bar"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "left-nav"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: '/'
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "/images/logo.jpeg",
-        alt: "",
-        className: "logo-image"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        logout: this.props.logout
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "page-content-two"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "userchart-two-whole"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_chart__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        ownStocks: this.state.watchlist,
-        chartInfo: this.props.updateUserChart,
-        accountBalance: this.props.accountBalance
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "watchlist-whole"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        watchlist: this.state.watchlist
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
     }
   }]);
 
@@ -1105,8 +1110,7 @@ var mSTP = function mSTP(state) {
     stocks: Object.values(state.entities.stocks),
     user: state.session.id,
     arrOfUsersStocks: Object.values(state.entities.watchlist),
-    accountBalance: Object.values(state.entities.users)[0].account_balance,
-    accBal: state.entities.users.accountBalance
+    accBal: state.entities.users.account_balance
   };
 };
 
