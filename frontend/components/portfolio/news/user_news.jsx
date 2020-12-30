@@ -24,7 +24,7 @@ class UserNews extends React.Component {
                 <h2 className="section-name-two">News</h2>
                 <ul className="news-elements-two">
                     {this.state.arrNews.map((news, idx) => (
-                        <a href={news.url} key={idx} className="news-link-two">
+                        <a href={news.url} key={idx} className="news-link-two" target="_blank">
                             <li className='indiv-news-two'>
                                 <div className='subsection-news-two'>
                                     <div className="news-source-two">{news.source}</div>
