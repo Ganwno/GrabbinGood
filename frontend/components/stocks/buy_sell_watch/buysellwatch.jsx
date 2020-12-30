@@ -25,6 +25,7 @@ class BuySellWatch extends React.Component {
         this.switchToSell = this.switchToSell.bind(this)
         this.switchToBuy = this.switchToBuy.bind(this)
         this.addToList = this.addToList.bind(this)
+        this.removeFromList = this.removeFromList.bind(this)
     }
 
     componentDidMount() {
@@ -73,18 +74,22 @@ class BuySellWatch extends React.Component {
                 })
             }
             else {
-                this.props.createWatchlist(watchlist, this.props.lastPrice)
+                 //need to fix so it only creates watchlist once then updates
                 let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
                 let newAccountBal = (this.state.accBal - difference).toFixed(2)
-                this.setState({
-                    accBal: newAccountBal,
-                    buyingPowerNumShare: `$${newAccountBal} Buying Power Available`
+                this.props.createWatchlist(watchlist, this.props.lastPrice).then(() =>{
+                    this.props.fetchWatchlists(this.props.user).then((watchlists) => {
+                        this.setState({
+                            watchlist: Object.values(watchlists.watchlists),
+                            accBal: newAccountBal,
+                            buyingPowerNumShare: `$${newAccountBal} Buying Power Available`
+                        })
+                    })
                 })
             }
 
         }
         else {
-            // console.log(this.state.lastPrice)
             const watchlist = Object.assign({}, this.state.watchlistinfo)
             this.props.sellWatchlist(this.props.stock.id, watchlist, this.props.lastPrice)
             let newNumOfShares = this.state.numOfShares - this.state.watchlistinfo.num_stocks
@@ -119,7 +124,24 @@ class BuySellWatch extends React.Component {
 
     addToList(){
         let watchlist = Object.assign({}, {stock_id: this.props.stock.id, user_id: this.props.user, num_stocks: 0})
-        this.props.createWatchlist(watchlist)
+        this.props.createWatchlist(watchlist).then(() => {
+            this.props.fetchWatchlists(this.props.user).then((watchlists) => {
+                this.setState({
+                    watchlist: Object.values(watchlists.watchlists)
+                })
+            })
+        })
+    }
+
+    removeFromList(){
+        let watchlist = Object.assign({}, this.state.watchlistinfo)
+        this.props.sellWatchlist(this.props.stock.id, watchlist).then(() => {
+            this.props.fetchWatchlists(this.props.user).then((watchlists) => {
+                this.setState({
+                    watchlist: Object.values(watchlists.watchlists)
+                })
+            })
+        })
     }
 
 
@@ -136,7 +158,9 @@ render() {
         // console.log(this.state.watchlist)
         let i;
         let j;
+        let k;
         let watch = true;
+        let addtoit = true;
         for (i = 0; i < this.state.watchlist.length; i++) {
             if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol && this.state.watchlist[i].num_stocks > 0) {
                 canSell = true;
@@ -147,8 +171,15 @@ render() {
             }
         }
         for (j = 0; j < this.state.watchlist.length; j++) {
-            if (this.props.stock.stock_symbol === this.state.watchlist[j].stock_symbol) {
+            if (this.props.stock.stock_symbol === this.state.watchlist[j].stock_symbol && this.state.watchlist[j].num_stocks === 0) {
                 watch = false;
+                break;
+            }
+        }
+
+        for (k = 0; k < this.state.watchlist.length; k++) {
+            if (this.props.stock.stock_symbol === this.state.watchlist[k].stock_symbol) {
+                addtoit = false;
                 break;
             }
         }
@@ -175,9 +206,15 @@ render() {
                 <div>{this.state.buyingPowerNumShare}</div>
                 {
                     watch ?
-                        <button onClick={this.addToList}>Add to Lists</button>
-                        :
                         null
+                        :
+                        <button onClick={this.removeFromList}>Remove from List</button>
+                }
+                {
+                    addtoit ? 
+                    <button onClick={this.addToList}>Add to List</button>
+                    :
+                    null
                 }
             </div>
         </div>

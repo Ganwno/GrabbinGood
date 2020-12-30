@@ -2269,6 +2269,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
     _this.switchToSell = _this.switchToSell.bind(_assertThisInitialized(_this));
     _this.switchToBuy = _this.switchToBuy.bind(_assertThisInitialized(_this));
     _this.addToList = _this.addToList.bind(_assertThisInitialized(_this));
+    _this.removeFromList = _this.removeFromList.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2326,19 +2327,22 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
             buyingPowerNumShare: "$".concat(newAccountBal, " Buying Power Available")
           });
         } else {
-          this.props.createWatchlist(watchlist, this.props.lastPrice);
-
+          //need to fix so it only creates watchlist once then updates
           var _difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks;
 
           var _newAccountBal = (this.state.accBal - _difference).toFixed(2);
 
-          this.setState({
-            accBal: _newAccountBal,
-            buyingPowerNumShare: "$".concat(_newAccountBal, " Buying Power Available")
+          this.props.createWatchlist(watchlist, this.props.lastPrice).then(function () {
+            _this4.props.fetchWatchlists(_this4.props.user).then(function (watchlists) {
+              _this4.setState({
+                watchlist: Object.values(watchlists.watchlists),
+                accBal: _newAccountBal,
+                buyingPowerNumShare: "$".concat(_newAccountBal, " Buying Power Available")
+              });
+            });
           });
         }
       } else {
-        // console.log(this.state.lastPrice)
         var _watchlist = Object.assign({}, this.state.watchlistinfo);
 
         this.props.sellWatchlist(this.props.stock.id, _watchlist, this.props.lastPrice);
@@ -2376,12 +2380,34 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "addToList",
     value: function addToList() {
+      var _this5 = this;
+
       var watchlist = Object.assign({}, {
         stock_id: this.props.stock.id,
         user_id: this.props.user,
         num_stocks: 0
       });
-      this.props.createWatchlist(watchlist);
+      this.props.createWatchlist(watchlist).then(function () {
+        _this5.props.fetchWatchlists(_this5.props.user).then(function (watchlists) {
+          _this5.setState({
+            watchlist: Object.values(watchlists.watchlists)
+          });
+        });
+      });
+    }
+  }, {
+    key: "removeFromList",
+    value: function removeFromList() {
+      var _this6 = this;
+
+      var watchlist = Object.assign({}, this.state.watchlistinfo);
+      this.props.sellWatchlist(this.props.stock.id, watchlist).then(function () {
+        _this6.props.fetchWatchlists(_this6.props.user).then(function (watchlists) {
+          _this6.setState({
+            watchlist: Object.values(watchlists.watchlists)
+          });
+        });
+      });
     }
   }, {
     key: "render",
@@ -2394,7 +2420,9 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
 
         var i;
         var j;
+        var k;
         var watch = true;
+        var addtoit = true;
 
         for (i = 0; i < this.state.watchlist.length; i++) {
           if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol && this.state.watchlist[i].num_stocks > 0) {
@@ -2406,8 +2434,15 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         }
 
         for (j = 0; j < this.state.watchlist.length; j++) {
-          if (this.props.stock.stock_symbol === this.state.watchlist[j].stock_symbol) {
+          if (this.props.stock.stock_symbol === this.state.watchlist[j].stock_symbol && this.state.watchlist[j].num_stocks === 0) {
             watch = false;
+            break;
+          }
+        }
+
+        for (k = 0; k < this.state.watchlist.length; k++) {
+          if (this.props.stock.stock_symbol === this.state.watchlist[k].stock_symbol) {
+            addtoit = false;
             break;
           }
         }
@@ -2422,9 +2457,11 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           type: "text",
           value: this.state.watchlistinfo.num_stocks,
           onChange: this.update('num_stocks')
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, this.state.buttonLabel)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.buyingPowerNumShare), watch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, this.state.buttonLabel)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.buyingPowerNumShare), watch ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: this.removeFromList
+        }, "Remove from List"), addtoit ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: this.addToList
-        }, "Add to Lists") : null));
+        }, "Add to List") : null));
       }
     }
   }]);
