@@ -2,15 +2,16 @@
 import {connect} from 'react-redux';
 import {showStocks} from '../../actions/stock_actions';
 import StockDetail from './stock_detail'
-import {logout} from '../../actions/session_actions';
+import {logout, fetchUserAccBal} from '../../actions/session_actions';
 import {updateCurrentCompanyNews, updateCurrentFinanceInfo} from '../../actions/external_stock_actions'
 
 
 const mSTP = (state, ownProps) => {
+    console.log(Object.values(state.entities.users))
     return {
         stock: state.entities.stocks[ownProps.match.params.id],
         user: state.session.id,
-        accBal: parseFloat(Object.values(state.entities.users)[0].account_balance).toFixed(2)
+        accBal: parseFloat(state.entities.users.account_balance).toFixed(2)
     }
 }
 
@@ -20,7 +21,8 @@ const mDTP = (dispatch) => {
         showStocks: () => dispatch(showStocks()),
         logout: () => dispatch(logout()),
         updateCurrentFinanceInfo: (sym) => dispatch(updateCurrentFinanceInfo(sym)),
-        updateCurrentCompanyNews: (sym) => dispatch(updateCurrentCompanyNews(sym))
+        updateCurrentCompanyNews: (sym) => dispatch(updateCurrentCompanyNews(sym)),
+        fetchUserAccBal: (user_id) => dispatch(fetchUserAccBal(user_id))
     }
 }
 

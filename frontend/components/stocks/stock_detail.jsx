@@ -23,6 +23,7 @@ class StockDetail extends React.Component {
     componentDidMount(){
         
         this.props.showStocks()
+        this.props.fetchUserAccBal(this.props.user)
         
     }
 

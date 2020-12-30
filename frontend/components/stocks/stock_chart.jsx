@@ -145,6 +145,10 @@ class StockChart extends React.Component {
                 );
 
             }
+            //remove else if this fails
+            else {
+                return null
+            }
 
             return null;
         }

@@ -12,11 +12,12 @@ class BuySellWatch extends React.Component {
             num_stocks: 0
             },
 
-            numOfShares: '',
+            numOfShares: 0,
             lastPrice: 0,
             watchlist: [],
             buyingPowerNumShare: `$${this.props.accBal} Buying Power Available`,
-            buttonLabel: 'Review Order'
+            buttonLabel: 'Review Order',
+            accBal: this.props.accBal
 
 
         }
@@ -51,25 +52,34 @@ class BuySellWatch extends React.Component {
 
         // console.log(this.state.buyingPowerNumShare)
         e.preventDefault();
-        if (this.state.buyingPowerNumShare === `$${this.props.accBal} Buying Power Available`) {
+        if (this.state.buttonLabel === "Review Order") {
             const watchlist = Object.assign({}, this.state.watchlistinfo)
             let count = 0;
             this.state.watchlist.forEach((obj) => {
-                if ((this.props.stock.stock_symbol === obj.stock_symbol) && obj.num_stocks > 0) {
+                if ((this.props.stock.stock_symbol === obj.stock_symbol)) {
                 count += 1;
                 }
             })
+            // console.log(this.state.watchlist)
+            // console.log(this.props.stock)
+            // console.log(count)
             if (count === 1) {
                 this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice)
-                // this.setState({
-                //     watchlistinfo: {...this.state.watchlistinfo, num_stocks: 0}
-                // })
+                let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
+                let newAccountBal = (this.state.accBal - difference).toFixed(2)
+                this.setState({
+                    accBal: newAccountBal,
+                    buyingPowerNumShare: `$${newAccountBal} Buying Power Available`
+                })
             }
             else {
                 this.props.createWatchlist(watchlist, this.props.lastPrice)
-                // this.setState({
-                //     watchlistinfo: { ...this.state.watchlistinfo, num_stocks: 0 }
-                // })
+                let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
+                let newAccountBal = (this.state.accBal - difference).toFixed(2)
+                this.setState({
+                    accBal: newAccountBal,
+                    buyingPowerNumShare: `$${newAccountBal} Buying Power Available`
+                })
             }
 
         }
@@ -77,6 +87,11 @@ class BuySellWatch extends React.Component {
             // console.log(this.state.lastPrice)
             const watchlist = Object.assign({}, this.state.watchlistinfo)
             this.props.sellWatchlist(this.props.stock.id, watchlist, this.props.lastPrice)
+            let newNumOfShares = this.state.numOfShares - this.state.watchlistinfo.num_stocks
+            this.setState({
+                numOfShares: newNumOfShares,
+                buyingPowerNumShare: `${newNumOfShares} Shares Available`
+            })
         }
         
     }
@@ -87,7 +102,8 @@ class BuySellWatch extends React.Component {
             if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol) {
                 this.setState({
                     buyingPowerNumShare: `${this.state.watchlist[i].num_stocks} Shares Available`,
-                    buttonLabel: 'Review Sell Order'
+                    buttonLabel: 'Review Sell Order',
+                    numOfShares: this.state.watchlist[i].num_stocks
                 })
                 break;
             }

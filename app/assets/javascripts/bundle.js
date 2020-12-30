@@ -2258,11 +2258,12 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         user_id: _this.props.user,
         num_stocks: 0
       },
-      numOfShares: '',
+      numOfShares: 0,
       lastPrice: 0,
       watchlist: [],
       buyingPowerNumShare: "$".concat(_this.props.accBal, " Buying Power Available"),
-      buttonLabel: 'Review Order'
+      buttonLabel: 'Review Order',
+      accBal: _this.props.accBal
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.switchToSell = _this.switchToSell.bind(_assertThisInitialized(_this));
@@ -2305,29 +2306,47 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       // console.log(this.state.buyingPowerNumShare)
       e.preventDefault();
 
-      if (this.state.buyingPowerNumShare === "$".concat(this.props.accBal, " Buying Power Available")) {
+      if (this.state.buttonLabel === "Review Order") {
         var watchlist = Object.assign({}, this.state.watchlistinfo);
         var count = 0;
         this.state.watchlist.forEach(function (obj) {
-          if (_this4.props.stock.stock_symbol === obj.stock_symbol && obj.num_stocks > 0) {
+          if (_this4.props.stock.stock_symbol === obj.stock_symbol) {
             count += 1;
           }
-        });
+        }); // console.log(this.state.watchlist)
+        // console.log(this.props.stock)
+        // console.log(count)
 
         if (count === 1) {
-          this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice); // this.setState({
-          //     watchlistinfo: {...this.state.watchlistinfo, num_stocks: 0}
-          // })
+          this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice);
+          var difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks;
+          var newAccountBal = (this.state.accBal - difference).toFixed(2);
+          this.setState({
+            accBal: newAccountBal,
+            buyingPowerNumShare: "$".concat(newAccountBal, " Buying Power Available")
+          });
         } else {
-          this.props.createWatchlist(watchlist, this.props.lastPrice); // this.setState({
-          //     watchlistinfo: { ...this.state.watchlistinfo, num_stocks: 0 }
-          // })
+          this.props.createWatchlist(watchlist, this.props.lastPrice);
+
+          var _difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks;
+
+          var _newAccountBal = (this.state.accBal - _difference).toFixed(2);
+
+          this.setState({
+            accBal: _newAccountBal,
+            buyingPowerNumShare: "$".concat(_newAccountBal, " Buying Power Available")
+          });
         }
       } else {
         // console.log(this.state.lastPrice)
         var _watchlist = Object.assign({}, this.state.watchlistinfo);
 
         this.props.sellWatchlist(this.props.stock.id, _watchlist, this.props.lastPrice);
+        var newNumOfShares = this.state.numOfShares - this.state.watchlistinfo.num_stocks;
+        this.setState({
+          numOfShares: newNumOfShares,
+          buyingPowerNumShare: "".concat(newNumOfShares, " Shares Available")
+        });
       }
     }
   }, {
@@ -2339,7 +2358,8 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol) {
           this.setState({
             buyingPowerNumShare: "".concat(this.state.watchlist[i].num_stocks, " Shares Available"),
-            buttonLabel: 'Review Sell Order'
+            buttonLabel: 'Review Sell Order',
+            numOfShares: this.state.watchlist[i].num_stocks
           });
           break;
         }
@@ -2772,7 +2792,10 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
           }
 
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, "".concat(label)));
-        }
+        } //remove else if this fails
+        else {
+            return null;
+          }
 
         return null;
       }
@@ -2895,10 +2918,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mSTP = function mSTP(state, ownProps) {
+  console.log(Object.values(state.entities.users));
   return {
     stock: state.entities.stocks[ownProps.match.params.id],
     user: state.session.id,
-    accBal: parseFloat(Object.values(state.entities.users)[0].account_balance).toFixed(2)
+    accBal: parseFloat(state.entities.users.account_balance).toFixed(2)
   };
 };
 
@@ -2915,6 +2939,9 @@ var mDTP = function mDTP(dispatch) {
     },
     updateCurrentCompanyNews: function updateCurrentCompanyNews(sym) {
       return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_4__["updateCurrentCompanyNews"])(sym));
+    },
+    fetchUserAccBal: function fetchUserAccBal(user_id) {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["fetchUserAccBal"])(user_id));
     }
   };
 };
@@ -2996,6 +3023,7 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.showStocks();
+      this.props.fetchUserAccBal(this.props.user);
     }
   }, {
     key: "render",
