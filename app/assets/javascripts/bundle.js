@@ -897,7 +897,7 @@ var UserNews = /*#__PURE__*/function (_React$Component) {
       if (this.state.firstRender === false) {
         var arrOfStocks = ['msft', 'amzn', 'dis', 'aapl', 'sbux', 'tsla', 'zm', 'fb', 'nke'];
         var randomAsset = arrOfStocks[Math.floor(Math.random() * arrOfStocks.length)];
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(randomAsset, "/news/last/2?token=pk_7f907de6dd184f68962cd03c99b625ce");
+        var url = "https://cloud.iexapis.com/stable/stock/".concat(randomAsset, "/news/last/6?token=pk_7f907de6dd184f68962cd03c99b625ce");
         fetch(url).then(function (response) {
           return response.json();
         }).then(function (result) {
@@ -4051,7 +4051,7 @@ var fetchInfoStockWatchlist = function fetchInfoStockWatchlist(symbol) {
 };
 var fetchCompanyNews = function fetchCompanyNews(symbol) {
   return $.ajax({
-    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/news/last/2?token=pk_0df25c5085a9428590bbb49600f9487c"),
+    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/news/last/6?token=pk_0df25c5085a9428590bbb49600f9487c"),
     method: 'GET'
   });
 };
