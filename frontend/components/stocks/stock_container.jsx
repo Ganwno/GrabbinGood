@@ -7,7 +7,6 @@ import {updateCurrentCompanyNews, updateCurrentFinanceInfo} from '../../actions/
 
 
 const mSTP = (state, ownProps) => {
-    console.log(Object.values(state.entities.users))
     return {
         stock: state.entities.stocks[ownProps.match.params.id],
         user: state.session.id,

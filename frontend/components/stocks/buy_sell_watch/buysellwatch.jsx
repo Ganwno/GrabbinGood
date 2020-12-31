@@ -68,6 +68,9 @@ class BuySellWatch extends React.Component {
                 this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice)
                 let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
                 let newAccountBal = (this.state.accBal - difference).toFixed(2)
+                if (newAccountBal < 0){
+                    newAccountBal = this.state.accBal
+                }
                 this.setState({
                     accBal: newAccountBal,
                     buyingPowerNumShare: `$${newAccountBal} Buying Power Available`
@@ -77,6 +80,9 @@ class BuySellWatch extends React.Component {
                  //need to fix so it only creates watchlist once then updates
                 let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
                 let newAccountBal = (this.state.accBal - difference).toFixed(2)
+                if (newAccountBal < 0) {
+                    newAccountBal = this.state.accBal
+                }
                 this.props.createWatchlist(watchlist, this.props.lastPrice).then(() =>{
                     this.props.fetchWatchlists(this.props.user).then((watchlists) => {
                         this.setState({
@@ -93,10 +99,14 @@ class BuySellWatch extends React.Component {
             const watchlist = Object.assign({}, this.state.watchlistinfo)
             this.props.sellWatchlist(this.props.stock.id, watchlist, this.props.lastPrice)
             let newNumOfShares = this.state.numOfShares - this.state.watchlistinfo.num_stocks
+            if (newNumOfShares < 0) {
+                newNumOfShares = this.state.numOfShares
+            }
             this.setState({
                 numOfShares: newNumOfShares,
                 buyingPowerNumShare: `${newNumOfShares} Shares Available`
             })
+        
         }
         
     }
@@ -145,7 +155,17 @@ class BuySellWatch extends React.Component {
     }
 
 
-
+    renderErrors() {
+        return (
+            <ul className="errors">
+                {this.props.errors.map((error, idx) => (
+                    <li key={idx}>
+                        {error}
+                    </li>
+                ))}
+            </ul>
+        )
+    }
 
 
 render() {
@@ -216,6 +236,7 @@ render() {
                     :
                     null
                 }
+                {this.renderErrors()}
             </div>
         </div>
     )
@@ -226,7 +247,7 @@ render() {
 
 const mSTP = (state, ownProps) => {
     return {
-        blank: 'hi'
+        errors: state.errors.watchlist
     }
 }
 

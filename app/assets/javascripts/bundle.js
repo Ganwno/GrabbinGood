@@ -374,7 +374,7 @@ var showStocks = function showStocks() {
 /*!***********************************************!*\
   !*** ./frontend/actions/watchlist_actions.js ***!
   \***********************************************/
-/*! exports provided: RECEIVE_WATCHLISTS, CREATE_WATCHLIST, UPDATE_WATCHLIST, SELL_WATCHLIST, fetchWatchlists, createWatchlist, updateWatchlist, sellWatchlist */
+/*! exports provided: RECEIVE_WATCHLISTS, CREATE_WATCHLIST, UPDATE_WATCHLIST, SELL_WATCHLIST, RECEIVE_WATCHLIST_ERRORS, fetchWatchlists, createWatchlist, updateWatchlist, sellWatchlist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -383,6 +383,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_WATCHLIST", function() { return CREATE_WATCHLIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_WATCHLIST", function() { return UPDATE_WATCHLIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SELL_WATCHLIST", function() { return SELL_WATCHLIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_WATCHLIST_ERRORS", function() { return RECEIVE_WATCHLIST_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWatchlists", function() { return fetchWatchlists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createWatchlist", function() { return createWatchlist; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateWatchlist", function() { return updateWatchlist; });
@@ -393,6 +394,7 @@ var RECEIVE_WATCHLISTS = 'RECEIVE_WATCHLISTS';
 var CREATE_WATCHLIST = 'CREATE_WATCHLIST';
 var UPDATE_WATCHLIST = 'UPDATE_WATCHLIST';
 var SELL_WATCHLIST = 'SELL_WATCHLIST';
+var RECEIVE_WATCHLIST_ERRORS = 'RECEIVE_WATCHLIST_ERRORS';
 
 var receiveWatchlists = function receiveWatchlists(watchlists) {
   return {
@@ -422,6 +424,13 @@ var sellWatchlists = function sellWatchlists(watchlist) {
   };
 };
 
+var watchlistErrors = function watchlistErrors(errors) {
+  return {
+    type: RECEIVE_WATCHLIST_ERRORS,
+    errors: errors
+  };
+};
+
 var fetchWatchlists = function fetchWatchlists(user_id) {
   return function (dispatch) {
     return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["showWatchlists"](user_id).then(function (watchlists) {
@@ -433,6 +442,8 @@ var createWatchlist = function createWatchlist(watchlist, lastPrice) {
   return function (dispatch) {
     return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["createWatchlist"](watchlist, lastPrice).then(function (watchlist) {
       return dispatch(createTheWatchlists(watchlist));
+    }, function (error) {
+      return dispatch(watchlistErrors(error.responseJSON));
     });
   };
 };
@@ -440,6 +451,8 @@ var updateWatchlist = function updateWatchlist(id, watchlist, lastPrice) {
   return function (dispatch) {
     return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["updateWatchlist"](id, watchlist, lastPrice).then(function (watchlist) {
       return dispatch(updateWatchlists(watchlist));
+    }, function (error) {
+      return dispatch(watchlistErrors(error.responseJSON));
     });
   };
 };
@@ -447,6 +460,8 @@ var sellWatchlist = function sellWatchlist(id, watchlist, lastPrice) {
   return function (dispatch) {
     return _util_watchlist_util__WEBPACK_IMPORTED_MODULE_0__["sellWatchlist"](id, watchlist, lastPrice).then(function (watchlist) {
       return dispatch(sellWatchlists(watchlist));
+    }, function (error) {
+      return dispatch(watchlistErrors(error.responseJSON));
     });
   };
 };
@@ -2322,6 +2337,11 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice);
           var difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks;
           var newAccountBal = (this.state.accBal - difference).toFixed(2);
+
+          if (newAccountBal < 0) {
+            newAccountBal = this.state.accBal;
+          }
+
           this.setState({
             accBal: newAccountBal,
             buyingPowerNumShare: "$".concat(newAccountBal, " Buying Power Available")
@@ -2331,6 +2351,10 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           var _difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks;
 
           var _newAccountBal = (this.state.accBal - _difference).toFixed(2);
+
+          if (_newAccountBal < 0) {
+            _newAccountBal = this.state.accBal;
+          }
 
           this.props.createWatchlist(watchlist, this.props.lastPrice).then(function () {
             _this4.props.fetchWatchlists(_this4.props.user).then(function (watchlists) {
@@ -2347,6 +2371,11 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
 
         this.props.sellWatchlist(this.props.stock.id, _watchlist, this.props.lastPrice);
         var newNumOfShares = this.state.numOfShares - this.state.watchlistinfo.num_stocks;
+
+        if (newNumOfShares < 0) {
+          newNumOfShares = this.state.numOfShares;
+        }
+
         this.setState({
           numOfShares: newNumOfShares,
           buyingPowerNumShare: "".concat(newNumOfShares, " Shares Available")
@@ -2410,6 +2439,17 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "renderErrors",
+    value: function renderErrors() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "errors"
+      }, this.props.errors.map(function (error, idx) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: idx
+        }, error);
+      }));
+    }
+  }, {
     key: "render",
     value: function render() {
       if (this.state.lastPrice === 0) {
@@ -2461,7 +2501,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           onClick: this.removeFromList
         }, "Remove from List"), addtoit ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: this.addToList
-        }, "Add to List") : null));
+        }, "Add to List") : null, this.renderErrors()));
       }
     }
   }]);
@@ -2471,7 +2511,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
 
 var mSTP = function mSTP(state, ownProps) {
   return {
-    blank: 'hi'
+    errors: state.errors.watchlist
   };
 };
 
@@ -2955,7 +2995,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mSTP = function mSTP(state, ownProps) {
-  console.log(Object.values(state.entities.users));
   return {
     stock: state.entities.stocks[ownProps.match.params.id],
     user: state.session.id,
@@ -3654,10 +3693,13 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_errors_reducer */ "./frontend/reducers/session_errors_reducer.js");
+/* harmony import */ var _watchlist_errors_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./watchlist_errors_reducer */ "./frontend/reducers/watchlist_errors_reducer.js");
+
 
 
 var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  watchlist: _watchlist_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (errorsReducer);
 
@@ -3862,6 +3904,45 @@ var usersReducer = function usersReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (usersReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/watchlist_errors_reducer.js":
+/*!*******************************************************!*\
+  !*** ./frontend/reducers/watchlist_errors_reducer.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/watchlist_actions */ "./frontend/actions/watchlist_actions.js");
+
+
+var watchlistErrorsReducer = function watchlistErrorsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_WATCHLIST_ERRORS"]:
+      return Object.assign([], state, action.errors);
+
+    case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["CREATE_WATCHLIST"]:
+      return [];
+
+    case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_WATCHLIST"]:
+      return [];
+
+    case _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_0__["SELL_WATCHLIST"]:
+      return [];
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (watchlistErrorsReducer);
 
 /***/ }),
 
