@@ -1,10 +1,11 @@
 .search-bar {
     background-color: white;
     height: 30px;
-    width: 469px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: white;
+    width: inherit;
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+     box-shadow: 0 0 20px rgb(221, 206, 206);
 }
 
 .search-bar:focus {
@@ -12,23 +13,23 @@
 }
 
 .search-section {
-    border: thin;
+    margin-top: 2px;
     position: absolute;
     z-index: 1;
     margin-left: 70px;
-    box-shadow: 0 1px 6px gray;
     width: 475px;
     font-family: 'Open Sans', sans-serif;
 }
 
 .suggestions {
     width: inherit;
-    border-width: 2px;
+    /* border-width: 2px;
     border-style: solid;
-    border: transparent;
-    box-shadow: 0 1px 6px gray;
+    border: transparent; */
+    /* box-shadow: 0 1px 6px gray; */
     background-color: white;
     font-size: 15px;
+    box-shadow: 0 0 20px rgb(221, 206, 206);
 }
 
 .suggestions > div:hover{

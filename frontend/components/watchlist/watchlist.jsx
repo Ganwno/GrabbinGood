@@ -161,7 +161,7 @@ class Watchlist extends React.Component {
                        <Link to={`/stocks/${watchlist.stock_id}`} key={idx} className="watchlist-owned-link">
                         <div className="watchlist-indiv-owned-stock">
                             <div className= "watchlist-stocksymprice">
-                            <div>
+                            <div className="watchlist-indiv-stocksymbol">
                             {watchlist.stock_symbol}
                             </div>
                             <div>
@@ -190,7 +190,7 @@ class Watchlist extends React.Component {
                         <Link to={`/stocks/${watchlist.stock_id}`} key={idx} className="watchlist-list-link">
                         <div className="watchlist-list-everything">
                             <div className="watchlist-list-symprice">
-                            <div>
+                            <div className="watchlist-list-indiv-stocksymbol">
                             {watchlist.stock_symbol}
                             </div>
                             <div>

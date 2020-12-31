@@ -28,3 +28,8 @@
     margin-left: 150px;
 }
 
+.watchlist-whole {
+    position: fixed;
+    left: 80%;
+}
+
