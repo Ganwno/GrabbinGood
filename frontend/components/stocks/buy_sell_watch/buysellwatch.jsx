@@ -30,10 +30,27 @@ class BuySellWatch extends React.Component {
 
     componentDidMount() {
         this.props.fetchWatchlists(this.props.user).then((watchlists) => {
+            // console.log(this.props.lastPrice)
+            let arrWatchlist = Object.values(watchlists.watchlists);
+            let i;
+            let result;
+            for (i = 0; i < arrWatchlist.length; i++) {
+                if (this.props.stock.stock_symbol === arrWatchlist[i].stock_symbol) {
+                    result = arrWatchlist[i].num_stocks
+                    break;
+                }
+            }
+            // console.log(result)
             this.setState({
+                numOfShares: result,
                 lastPrice: this.props.lastPrice,
                 watchlist: Object.values(watchlists.watchlists)
             })
+
+            // this.setState({
+            //     lastPrice: this.props.lastPrice,
+            //     watchlist: Object.values(watchlists.watchlists)
+            // })
         })
         //have to switch thunk action depending on whether or not the watchlist is in the database. If user
         //already has stock then you want to update.
@@ -71,11 +88,18 @@ class BuySellWatch extends React.Component {
                 if (newAccountBal < 0){
                     newAccountBal = this.state.accBal
                 }
+                let newNum = parseInt(this.state.watchlistinfo.num_stocks)
+                newNum = this.state.numOfShares + newNum
+                
+                
                 this.setState({
                     accBal: newAccountBal,
-                    buyingPowerNumShare: `$${newAccountBal} Buying Power Available`
+                    buyingPowerNumShare: `$${newAccountBal} Buying Power Available`,
+                    numOfShares: newNum
                 })
             }
+
+            
             else {
                  //need to fix so it only creates watchlist once then updates
                 let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
@@ -85,10 +109,22 @@ class BuySellWatch extends React.Component {
                 }
                 this.props.createWatchlist(watchlist, this.props.lastPrice).then(() =>{
                     this.props.fetchWatchlists(this.props.user).then((watchlists) => {
+
+                        let i;
+                        let num_stocks = 0;
+                        let arrayOfRes = Object.values(watchlists.watchlists)
+                        for (i = 0; i < arrayOfRes.length; i++) {
+                            if (this.props.stock.stock_symbol === arrayOfRes[i].stock_symbol) {
+                                num_stocks = arrayOfRes[i].num_stocks
+                                break;
+                            }
+                        }
+
                         this.setState({
                             watchlist: Object.values(watchlists.watchlists),
                             accBal: newAccountBal,
-                            buyingPowerNumShare: `$${newAccountBal} Buying Power Available`
+                            buyingPowerNumShare: `$${newAccountBal} Buying Power Available`,
+                            numOfShares: num_stocks
                         })
                     })
                 })
@@ -112,22 +148,26 @@ class BuySellWatch extends React.Component {
     }
 
     switchToSell(){
-        let i;
-        for (i = 0; i < this.state.watchlist.length; i++) {
-            if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol) {
-                this.setState({
-                    buyingPowerNumShare: `${this.state.watchlist[i].num_stocks} Shares Available`,
-                    buttonLabel: 'Review Sell Order',
-                    numOfShares: this.state.watchlist[i].num_stocks
-                })
-                break;
-            }
-        }
+        // let i;
+        // for (i = 0; i < this.state.watchlist.length; i++) {
+        //     if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol) {
+        //         this.setState({
+        //             buyingPowerNumShare: `${this.state.watchlist[i].num_stocks} Shares Available`,
+        //             buttonLabel: 'Review Sell Order',
+        //             numOfShares: this.state.watchlist[i].num_stocks
+        //         })
+        //         break;
+        //     }
+        // }
+        this.setState({
+            buyingPowerNumShare: `${this.state.numOfShares} Shares Available`,
+            buttonLabel: 'Review Sell Order'
+        })
     }
 
     switchToBuy(){
         this.setState({
-            buyingPowerNumShare: `$${this.props.accBal} Buying Power Available`,
+            buyingPowerNumShare: `$${this.state.accBal} Buying Power Available`,
             buttonLabel: 'Review Order'
         })
     }

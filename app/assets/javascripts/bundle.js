@@ -1045,8 +1045,6 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-        console.log(watchlists);
-
         _this2.props.fetchUserAccBal(_this2.props.user).then(function (user) {
           _this2.setState({
             watchlist: Object.values(watchlists.watchlists),
@@ -1059,8 +1057,6 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.state.placeholder);
-
       if (this.state.placeholder === '') {
         return null;
       } else {
@@ -1296,6 +1292,7 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.stocks.length < 1) {
         //fixes refresh issue
+        //rando comment
         this.props.showStocks().then(function () {
           var searchKey = _this2.state.inputVal.toLowerCase();
 
@@ -2294,10 +2291,28 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
+        // console.log(this.props.lastPrice)
+        var arrWatchlist = Object.values(watchlists.watchlists);
+        var i;
+        var result;
+
+        for (i = 0; i < arrWatchlist.length; i++) {
+          if (_this2.props.stock.stock_symbol === arrWatchlist[i].stock_symbol) {
+            result = arrWatchlist[i].num_stocks;
+            break;
+          }
+        } // console.log(result)
+
+
         _this2.setState({
+          numOfShares: result,
           lastPrice: _this2.props.lastPrice,
           watchlist: Object.values(watchlists.watchlists)
-        });
+        }); // this.setState({
+        //     lastPrice: this.props.lastPrice,
+        //     watchlist: Object.values(watchlists.watchlists)
+        // })
+
       }); //have to switch thunk action depending on whether or not the watchlist is in the database. If user
       //already has stock then you want to update.
     }
@@ -2342,9 +2357,12 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
             newAccountBal = this.state.accBal;
           }
 
+          var newNum = parseInt(this.state.watchlistinfo.num_stocks);
+          newNum = this.state.numOfShares + newNum;
           this.setState({
             accBal: newAccountBal,
-            buyingPowerNumShare: "$".concat(newAccountBal, " Buying Power Available")
+            buyingPowerNumShare: "$".concat(newAccountBal, " Buying Power Available"),
+            numOfShares: newNum
           });
         } else {
           //need to fix so it only creates watchlist once then updates
@@ -2358,10 +2376,22 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
 
           this.props.createWatchlist(watchlist, this.props.lastPrice).then(function () {
             _this4.props.fetchWatchlists(_this4.props.user).then(function (watchlists) {
+              var i;
+              var num_stocks = 0;
+              var arrayOfRes = Object.values(watchlists.watchlists);
+
+              for (i = 0; i < arrayOfRes.length; i++) {
+                if (_this4.props.stock.stock_symbol === arrayOfRes[i].stock_symbol) {
+                  num_stocks = arrayOfRes[i].num_stocks;
+                  break;
+                }
+              }
+
               _this4.setState({
                 watchlist: Object.values(watchlists.watchlists),
                 accBal: _newAccountBal,
-                buyingPowerNumShare: "$".concat(_newAccountBal, " Buying Power Available")
+                buyingPowerNumShare: "$".concat(_newAccountBal, " Buying Power Available"),
+                numOfShares: num_stocks
               });
             });
           });
@@ -2385,24 +2415,27 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "switchToSell",
     value: function switchToSell() {
-      var i;
-
-      for (i = 0; i < this.state.watchlist.length; i++) {
-        if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol) {
-          this.setState({
-            buyingPowerNumShare: "".concat(this.state.watchlist[i].num_stocks, " Shares Available"),
-            buttonLabel: 'Review Sell Order',
-            numOfShares: this.state.watchlist[i].num_stocks
-          });
-          break;
-        }
-      }
+      // let i;
+      // for (i = 0; i < this.state.watchlist.length; i++) {
+      //     if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol) {
+      //         this.setState({
+      //             buyingPowerNumShare: `${this.state.watchlist[i].num_stocks} Shares Available`,
+      //             buttonLabel: 'Review Sell Order',
+      //             numOfShares: this.state.watchlist[i].num_stocks
+      //         })
+      //         break;
+      //     }
+      // }
+      this.setState({
+        buyingPowerNumShare: "".concat(this.state.numOfShares, " Shares Available"),
+        buttonLabel: 'Review Sell Order'
+      });
     }
   }, {
     key: "switchToBuy",
     value: function switchToBuy() {
       this.setState({
-        buyingPowerNumShare: "$".concat(this.props.accBal, " Buying Power Available"),
+        buyingPowerNumShare: "$".concat(this.state.accBal, " Buying Power Available"),
         buttonLabel: 'Review Order'
       });
     }

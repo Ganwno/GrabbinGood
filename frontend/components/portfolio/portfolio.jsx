@@ -20,7 +20,6 @@ class Portfolio extends React.Component {
 
     componentDidMount() {
         this.props.fetchWatchlists(this.props.user).then(watchlists => {
-            console.log(watchlists)
             this.props.fetchUserAccBal(this.props.user).then(user => {
                 this.setState({
                     watchlist: Object.values(watchlists.watchlists),
@@ -34,7 +33,6 @@ class Portfolio extends React.Component {
      
 
     render() {
-        console.log(this.state.placeholder)
         if (this.state.placeholder === ''){
         return null;
         }
