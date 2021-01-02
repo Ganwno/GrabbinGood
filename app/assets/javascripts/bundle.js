@@ -2220,6 +2220,34 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./frontend/components/stocks/buy_sell_watch/buysell_style.css":
+/*!*********************************************************************!*\
+  !*** ./frontend/components/stocks/buy_sell_watch/buysell_style.css ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_buysell_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js!./buysell_style.css */ "./node_modules/css-loader/dist/cjs.js!./frontend/components/stocks/buy_sell_watch/buysell_style.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_buysell_style_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_buysell_style_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./frontend/components/stocks/buy_sell_watch/buysellwatch.jsx":
 /*!********************************************************************!*\
   !*** ./frontend/components/stocks/buy_sell_watch/buysellwatch.jsx ***!
@@ -2233,6 +2261,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_watchlist_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/watchlist_actions */ "./frontend/actions/watchlist_actions.js");
+/* harmony import */ var _buysell_style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./buysell_style.css */ "./frontend/components/stocks/buy_sell_watch/buysell_style.css");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -2260,6 +2289,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -2532,11 +2562,15 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           }
         }
 
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "buysellwatch-form"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "buyorsellstock"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           onClick: this.switchToBuy
         }, "Buy ", this.props.stock.stock_symbol), canSell ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           onClick: this.switchToSell
-        }, "Sell ", this.props.stock.stock_symbol) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        }, "Sell ", this.props.stock.stock_symbol) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
           onSubmit: this.handleSubmit
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
@@ -2546,7 +2580,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           onClick: this.removeFromList
         }, "Remove from List"), addtoit ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: this.addToList
-        }, "Add to List") : null, this.renderErrors()));
+        }, "Add to List") : null, this.renderErrors());
       }
     }
   }]);
@@ -2577,7 +2611,7 @@ var mDTP = function mDTP(dispatch) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mSTP, mDTP)(BuySellWatch));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mSTP, mDTP)(BuySellWatch)); //removed div around form
 
 /***/ }),
 
@@ -2922,7 +2956,9 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
         return null;
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+        className: "stock-detail-and-buywatch"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
         className: "stock-name-for-chart"
       }, "$", this.state.val), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
         className: "percent-change"
@@ -2975,7 +3011,9 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
         },
         isAnimationActive: false,
         content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CustomToolTip, null)
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_buy_sell_watch_buysellwatch__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+        className: "whole-buysellwatch"
+      }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_buy_sell_watch_buysellwatch__WEBPACK_IMPORTED_MODULE_1__["default"], {
         stock: this.props.stock,
         user: this.props.user,
         lastPrice: this.state.lastPrice,
@@ -6617,6 +6655,31 @@ ___CSS_LOADER_EXPORT___.push([module.i, ".descript {\n    width: 700px;\n    fon
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./frontend/components/stocks/buy_sell_watch/buysell_style.css":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./frontend/components/stocks/buy_sell_watch/buysell_style.css ***!
+  \***********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    padding-bottom: 12px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/buy_sell_watch/buysell_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,6BAA6B;IAC7B,iBAAiB;IACjB,oBAAoB;AACxB","sourcesContent":[".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    padding-bottom: 12px;\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./frontend/components/stocks/news_section_style.css":
 /*!*************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./frontend/components/stocks/news_section_style.css ***!
@@ -6635,7 +6698,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".indiv-news {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news {\n    width: 75%;\n}\n\n.section-name {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source {\n    font-size: 11px;\n}\n\n.whole-section-news {\n    width: 80%;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/news_section_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,WAAW;IACX,8BAA8B;IAC9B,eAAe;IACf;AACJ;;AAEA;IACI,oCAAoC;AACxC;;AAEA;KACK,iBAAiB;IAClB,WAAW;IACX,UAAU;IACV,YAAY;IACZ,kBAAkB;AACtB;;AAEA;IACI,UAAU;IACV,qBAAqB;;AAEzB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,oBAAoB;IACpB,qBAAqB;IACrB,qBAAqB;IACrB,oBAAoB;AACxB;;AAEA;IACI,YAAY;IACZ,qBAAqB;IACrB,eAAe;IACf,yCAAyC;IACzC,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,UAAU;AACd","sourcesContent":[".indiv-news {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news {\n    width: 75%;\n}\n\n.section-name {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source {\n    font-size: 11px;\n}\n\n.whole-section-news {\n    width: 80%;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".indiv-news {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news {\n    width: 75%;\n}\n\n.section-name {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source {\n    font-size: 11px;\n}\n\n.whole-section-news {\n    width: 80%;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/news_section_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,WAAW;IACX,8BAA8B;IAC9B,eAAe;IACf;AACJ;;AAEA;IACI,oCAAoC;AACxC;;AAEA;KACK,iBAAiB;IAClB,WAAW;IACX,UAAU;IACV,YAAY;IACZ,kBAAkB;AACtB;;AAEA;IACI,UAAU;IACV,qBAAqB;;AAEzB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,qDAAqD;IACrD,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,oBAAoB;IACpB,qBAAqB;IACrB,qBAAqB;IACrB,oBAAoB;AACxB;;AAEA;IACI,YAAY;IACZ,qBAAqB;IACrB,eAAe;IACf,yCAAyC;IACzC,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,UAAU;AACd","sourcesContent":[".indiv-news {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news {\n    width: 75%;\n}\n\n.section-name {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source {\n    font-size: 11px;\n}\n\n.whole-section-news {\n    width: 80%;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -6660,7 +6723,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".stock-name-for-chart {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    font-size: 15px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_chart_style.css"],"names":[],"mappings":"AAAA;IACI,qDAAqD;IACrD,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,qDAAqD;IACrD,eAAe;IACf,iBAAiB;IACjB,mBAAmB;AACvB","sourcesContent":[".stock-name-for-chart {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    font-size: 15px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".stock-name-for-chart {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    font-size: 15px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}\n\n.stock-detail-and-buywatch {\n    display: flex;\n}\n\n.whole-buysellwatch {\n    margin-left: 30px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_chart_style.css"],"names":[],"mappings":"AAAA;IACI,qDAAqD;IACrD,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,qDAAqD;IACrD,eAAe;IACf,iBAAiB;IACjB,mBAAmB;AACvB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,iBAAiB;AACrB","sourcesContent":[".stock-name-for-chart {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    font-size: 15px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}\n\n.stock-detail-and-buywatch {\n    display: flex;\n}\n\n.whole-buysellwatch {\n    margin-left: 30px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

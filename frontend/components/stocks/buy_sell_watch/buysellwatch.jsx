@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {createWatchlist, fetchWatchlists, updateWatchlist, sellWatchlist} from '../../../actions/watchlist_actions'
+import './buysell_style.css'
 
 class BuySellWatch extends React.Component {
     constructor(props) {
@@ -245,7 +246,8 @@ render() {
         }
 
     return(
-        <div>
+        <div className="buysellwatch-form">
+            <div className="buyorsellstock">
             <div onClick={this.switchToBuy}>
             Buy {this.props.stock.stock_symbol}
             </div>
@@ -254,8 +256,9 @@ render() {
                     Sell {this.props.stock.stock_symbol}
                 </div>
                 : null}
+            </div>
             <div>Shares</div>
-            <div>
+    
                 <form onSubmit={this.handleSubmit} >
                 <input type="text" value={this.state.watchlistinfo.num_stocks}
                     onChange={this.update('num_stocks')}
@@ -277,7 +280,7 @@ render() {
                     null
                 }
                 {this.renderErrors()}
-            </div>
+            
         </div>
     )
     }
@@ -302,3 +305,5 @@ const mDTP = (dispatch) => {
 }
 
 export default connect(mSTP, mDTP)(BuySellWatch)
+
+//removed div around form

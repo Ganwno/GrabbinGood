@@ -156,7 +156,8 @@ class StockChart extends React.Component {
         
 
         return(
-            <div>
+            <div className="stock-detail-and-buywatch">
+                <div>
                 <h1 className = "stock-name-for-chart">
                     ${this.state.val}
                 </h1>
@@ -176,7 +177,8 @@ class StockChart extends React.Component {
                     content = {<CustomToolTip/>}
                     />
                 </LineChart>
-                <div> <BuySellWatch stock={this.props.stock} user={this.props.user} lastPrice={this.state.lastPrice} accBal={this.props.accBal}/></div>
+                </div>
+                <div className="whole-buysellwatch"> <BuySellWatch stock={this.props.stock} user={this.props.user} lastPrice={this.state.lastPrice} accBal={this.props.accBal}/></div>
             </div>
         )
     }
