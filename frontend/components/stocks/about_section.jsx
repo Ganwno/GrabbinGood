@@ -44,7 +44,7 @@ class AboutSection extends React.Component {
             return null
                 }
         return(
-        <div>
+        <div className='about-page-full'>
             <h2>About</h2>
         <p className = 'descript'>{this.state.description}</p>
         <div className = 'company-stats'>

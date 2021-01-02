@@ -19,6 +19,11 @@ class UserChart extends React.Component{
 // fetch(url).then(response => response.json())
 //     .then((result) => { 
 
+     numberWithCommas(x) {
+    let result = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return result;
+    }
+
     strokeColor(){
         if (this.state.lastPrice - this.state.firstPrice >= 0) {
             return '#5EC933'
@@ -51,7 +56,10 @@ class UserChart extends React.Component{
                 difference = `${difference.toFixed(2)}`
             }
 
-            this.setState({ val: currentPrice.toFixed(2), percentChange: percentChange, difference: difference })
+           let result = this.numberWithCommas(currentPrice.toFixed(2))
+
+
+            this.setState({ val: result, percentChange: percentChange, difference: difference })
         }
     }
 
@@ -84,8 +92,10 @@ class UserChart extends React.Component{
             difference = `${difference.toFixed(2)}`
         }
 
+        let numberComma = this.numberWithCommas(newVal)
+
         this.setState({
-            val: newVal,
+            val: numberComma,
             percentChange: percentChange,
             difference: difference
         })
@@ -112,6 +122,8 @@ class UserChart extends React.Component{
                 difference = `${difference.toFixed(2)}`
             }
 
+            let result = this.numberWithCommas(output.output[output.output.length - 1].high.toFixed(2))
+
 
             this.setState({
                 data2: output.output,
@@ -119,7 +131,7 @@ class UserChart extends React.Component{
                 firstPrice: output.output[0].high,
                 difference: difference,
                 percentChange: percentChange,
-                val: output.output[output.output.length - 1].high.toFixed(2)
+                val: result
             })
         })
     }

@@ -1447,6 +1447,12 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
 
 
   _createClass(UserChart, [{
+    key: "numberWithCommas",
+    value: function numberWithCommas(x) {
+      var result = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return result;
+    }
+  }, {
     key: "strokeColor",
     value: function strokeColor() {
       if (this.state.lastPrice - this.state.firstPrice >= 0) {
@@ -1481,8 +1487,9 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
           difference = "".concat(difference.toFixed(2));
         }
 
+        var result = this.numberWithCommas(currentPrice.toFixed(2));
         this.setState({
-          val: currentPrice.toFixed(2),
+          val: result,
           percentChange: percentChange,
           difference: difference
         });
@@ -1520,8 +1527,9 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
         difference = "".concat(difference.toFixed(2));
       }
 
+      var numberComma = this.numberWithCommas(newVal);
       this.setState({
-        val: newVal,
+        val: numberComma,
         percentChange: percentChange,
         difference: difference
       });
@@ -1548,13 +1556,15 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
           difference = "".concat(difference.toFixed(2));
         }
 
+        var result = _this2.numberWithCommas(output.output[output.output.length - 1].high.toFixed(2));
+
         _this2.setState({
           data2: output.output,
           lastPrice: output.output[output.output.length - 1].high,
           firstPrice: output.output[0].high,
           difference: difference,
           percentChange: percentChange,
-          val: output.output[output.output.length - 1].high.toFixed(2)
+          val: result
         });
       });
     }
@@ -2138,7 +2148,9 @@ var AboutSection = /*#__PURE__*/function (_React$Component) {
         return null;
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "About"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "about-page-full"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "About"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "descript"
       }, this.state.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "company-stats"
@@ -6548,7 +6560,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".user-portion-chart-two {\n    width: 100%;\n    margin-top: 50px;\n}\n\n.stock-name-for-chart-two {\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change-two {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 35px;\n\n}", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/user_style.css"],"names":[],"mappings":"AAAA;IACI,WAAW;IACX,gBAAgB;AACpB;;AAEA;IACI,eAAe;IACf,kBAAkB;IAClB,eAAe;AACnB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,yCAAyC;IACzC,eAAe;IACf,iBAAiB;IACjB,mBAAmB;;AAEvB","sourcesContent":[".user-portion-chart-two {\n    width: 100%;\n    margin-top: 50px;\n}\n\n.stock-name-for-chart-two {\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change-two {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 35px;\n\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".user-portion-chart-two {\n    width: 100%;\n    margin-top: 50px;\n}\n\n.stock-name-for-chart-two {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change-two {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    font-size: 15px;\n    font-weight: bold;\n    margin-bottom: 35px;\n\n}", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/user_style.css"],"names":[],"mappings":"AAAA;IACI,WAAW;IACX,gBAAgB;AACpB;;AAEA;IACI,qDAAqD;IACrD,eAAe;IACf,kBAAkB;IAClB,eAAe;AACnB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,qDAAqD;IACrD,eAAe;IACf,iBAAiB;IACjB,mBAAmB;;AAEvB","sourcesContent":[".user-portion-chart-two {\n    width: 100%;\n    margin-top: 50px;\n}\n\n.stock-name-for-chart-two {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-top: 0px;\n    margin-bottom: 2px;\n    margin-top: 5px;\n}\n\n.chart-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change-two {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    font-size: 15px;\n    font-weight: bold;\n    margin-bottom: 35px;\n\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -6598,7 +6610,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".descript {\n    width: 700px;\n    font-size: 15px;\n}\n\n.company-stats {\n    display: flex;\n   font-size: 14px;\n}\n\n.ceo {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.employees {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.headquarters {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.ceo-name {\n    font-size: 12px;\n}\n\n.employees-names {\n    font-size: 12px;\n}\n\n.headquarters-name {\n    font-size: 12px;\n}\n", "",{"version":3,"sources":["webpack://./frontend/components/stocks/about_section_style.css"],"names":[],"mappings":"AAAA;IACI,YAAY;IACZ,eAAe;AACnB;;AAEA;IACI,aAAa;GACd,eAAe;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB","sourcesContent":[".descript {\n    width: 700px;\n    font-size: 15px;\n}\n\n.company-stats {\n    display: flex;\n   font-size: 14px;\n}\n\n.ceo {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.employees {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.headquarters {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.ceo-name {\n    font-size: 12px;\n}\n\n.employees-names {\n    font-size: 12px;\n}\n\n.headquarters-name {\n    font-size: 12px;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".descript {\n    width: 700px;\n    font-size: 15px;\n}\n\n.company-stats {\n    display: flex;\n   font-size: 14px;\n}\n\n.ceo {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.employees {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.headquarters {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.ceo-name {\n    font-size: 12px;\n}\n\n.employees-names {\n    font-size: 12px;\n}\n\n.headquarters-name {\n    font-size: 12px;\n}\n\n.about-page-full {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n}\n", "",{"version":3,"sources":["webpack://./frontend/components/stocks/about_section_style.css"],"names":[],"mappings":"AAAA;IACI,YAAY;IACZ,eAAe;AACnB;;AAEA;IACI,aAAa;GACd,eAAe;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,aAAa;KACZ,aAAa;AAClB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,qDAAqD;AACzD","sourcesContent":[".descript {\n    width: 700px;\n    font-size: 15px;\n}\n\n.company-stats {\n    display: flex;\n   font-size: 14px;\n}\n\n.ceo {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.employees {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.headquarters {\n    flex-basis: 0;\n     flex: 1 1 0px;\n}\n\n.ceo-name {\n    font-size: 12px;\n}\n\n.employees-names {\n    font-size: 12px;\n}\n\n.headquarters-name {\n    font-size: 12px;\n}\n\n.about-page-full {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -6648,7 +6660,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_chart_style.css"],"names":[],"mappings":"AAAA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,yCAAyC;IACzC,eAAe;IACf,iBAAiB;IACjB,mBAAmB;AACvB","sourcesContent":[".stock-name-for-chart {\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: 13px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".stock-name-for-chart {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    font-size: 15px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_chart_style.css"],"names":[],"mappings":"AAAA;IACI,qDAAqD;IACrD,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,mBAAmB;IACnB,qBAAqB;IACrB,qBAAqB;AACzB;;AAEA;IACI,qDAAqD;IACrD,eAAe;IACf,iBAAiB;IACjB,mBAAmB;AACvB","sourcesContent":[".stock-name-for-chart {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-top: 0px;\n    margin-bottom: 2px;\n}\n\n.chart {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left:#E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n}\n\n.percent-change {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    font-size: 15px;\n    font-weight: bold;\n    margin-bottom: 25px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -6673,7 +6685,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 150px;\n    width: 60%;\n}\n\n.stock-name {\n    margin-bottom: 5px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_detail_style.css"],"names":[],"mappings":"AAAA;IACI,oCAAoC;AACxC;;AAEA;IACI,aAAa;IACb,8BAA8B;IAC9B,gBAAgB;AACpB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;IACZ,UAAU;AACd;;AAEA;IACI,kBAAkB;IAClB,iBAAiB;AACrB;;AAEA;IACI,kBAAkB;IAClB,UAAU;AACd;;AAEA;IACI,kBAAkB;AACtB","sourcesContent":[".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 150px;\n    width: 60%;\n}\n\n.stock-name {\n    margin-bottom: 5px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 150px;\n    width: 60%;\n}\n\n.stock-name {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-bottom: 5px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/stock_detail_style.css"],"names":[],"mappings":"AAAA;IACI,oCAAoC;AACxC;;AAEA;IACI,aAAa;IACb,8BAA8B;IAC9B,gBAAgB;AACpB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;IACZ,UAAU;AACd;;AAEA;IACI,kBAAkB;IAClB,iBAAiB;AACrB;;AAEA;IACI,kBAAkB;IAClB,UAAU;AACd;;AAEA;IACI,qDAAqD;IACrD,kBAAkB;AACtB","sourcesContent":[".stock-detail-page {\n    font-family: 'Open Sans', sans-serif;\n}\n\n.nav-bar {\n    display: flex;\n    justify-content: space-between;\n    margin-top: 10px;\n}\n\n.left-nav {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n    z-index: 2;\n}\n\n.logo-image {\n    margin-right: 10px;\n    margin-left: 20px;\n}\n\n.page-content {\n    margin-left: 150px;\n    width: 60%;\n}\n\n.stock-name {\n    font-family: Georgia, 'Times New Roman', Times, serif;\n    margin-bottom: 5px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
