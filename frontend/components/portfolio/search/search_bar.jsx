@@ -25,6 +25,7 @@ class SearchBar extends React.Component {
         let matchedInputs = [];
         if (this.props.stocks.length < 1) {
             //fixes refresh issue
+            //rando comment
             this.props.showStocks().then(() => {
                 const searchKey = this.state.inputVal.toLowerCase();
                 if (searchKey && searchKey.length > 0) {
