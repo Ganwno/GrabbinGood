@@ -69,6 +69,12 @@
    filter: brightness();
    display: flex;
    justify-content: center;
+   border-bottom: black;
+   border-width: 2px;
+   border-style: solid;
+   border-left: none;
+   border-right: none;
+   border-top: none;
  
  }
 

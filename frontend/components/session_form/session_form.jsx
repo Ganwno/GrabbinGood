@@ -83,7 +83,7 @@ class SessionForm extends React.Component {
                     </h1>
                     <div className = "login-form">
                         <br/>
-                        <label>Username
+                        <label className="username-pass-for-form">Username
                             
                             <p>
                             <input type = "text" value = {this.state.username}
@@ -93,7 +93,7 @@ class SessionForm extends React.Component {
                             </p>
                         </label>
                         <br/>
-                        <label>Password
+                        <label className="username-pass-for-form">Password
                             <br/>
                             <p>
                             <input type = "password" value={this.state.password}
@@ -133,7 +133,7 @@ class SessionForm extends React.Component {
                     </h1>
                     <div className = "login-form">
                         <br/>
-                        <label>Username
+                            <label className="username-pass-for-form" >Username
                             
                             <p>
                             <input type = "text" value = {this.state.username}
@@ -143,7 +143,7 @@ class SessionForm extends React.Component {
                             </p>
                         </label>
                         <br/>
-                        <label>Password
+                            <label className="username-pass-for-form" >Password
                             <br/>
                             <p>
                             <input type = "password" value={this.state.password}
