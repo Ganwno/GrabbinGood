@@ -139,3 +139,20 @@
     cursor: pointer;
 }
 
+.watchlist-add-remove-button {
+    margin: 0 auto;
+    display: block;
+    margin-top: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 55px;
+    padding-right: 55px;
+    background-color:transparent;
+     border-radius: 8px;
+     border: 1px solid;
+}
+
+.watchlist-add-remove-button:hover {
+    cursor: pointer;
+}
+

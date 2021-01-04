@@ -74,10 +74,6 @@ class BuySellWatch extends React.Component {
     }
 
     handleSubmit(e) {
-        //need a coditional here if user has watchlist then update if not then buy
-        //this is for buy
-
-        // console.log(this.state.buyingPowerNumShare)
         e.preventDefault();
         if (this.state.buttonLabel === "Review Order") {
             const watchlist = Object.assign({}, this.state.watchlistinfo)
@@ -87,30 +83,28 @@ class BuySellWatch extends React.Component {
                 count += 1;
                 }
             })
-            // console.log(this.state.watchlist)
-            // console.log(this.props.stock)
-            // console.log(count)
             if (count === 1) {
-                this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice)
-                let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
-                let newAccountBal = (this.state.accBal - difference).toFixed(2)
-                if (newAccountBal < 0){
-                    newAccountBal = this.state.accBal
-                }
-                let newNum = parseInt(this.state.watchlistinfo.num_stocks)
-                newNum = this.state.numOfShares + newNum
-                
-                
-                this.setState({
-                    accBal: newAccountBal,
-                    buyingPowerNumShare: `$${newAccountBal} Buying Power Available`,
-                    numOfShares: newNum
+                this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice).then(() =>{
+                    let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
+                    let newAccountBal = (this.state.accBal - difference).toFixed(2)
+                    if (newAccountBal < 0) {
+                        newAccountBal = this.state.accBal
+                    }
+                    let newNum = parseInt(this.state.watchlistinfo.num_stocks)
+                    newNum = this.state.numOfShares + newNum
+
+
+                    this.setState({
+                        accBal: newAccountBal,
+                        buyingPowerNumShare: `$${newAccountBal} Buying Power Available`,
+                        numOfShares: newNum
+                    })
                 })
+                
             }
 
             
             else {
-                 //need to fix so it only creates watchlist once then updates
                 let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
                 let newAccountBal = (this.state.accBal - difference).toFixed(2)
                 if (newAccountBal < 0) {
@@ -242,7 +236,8 @@ class BuySellWatch extends React.Component {
 
     displayLastPrice() {
         console.log(this.state.lastPrice)
-        if (this.state.lastPrice !== 0) {
+        if (this.state.lastPrice !== 0 && this.state.lastPrice !== null) {
+            console.log(this.state.lastPrice)
             let lastPrice = this.state.lastPrice.toFixed(2)
             return(<div>
                 ${lastPrice}
@@ -260,8 +255,6 @@ render() {
     }
     else {
         let canSell;
-        // console.log(this.props.stock)
-        // console.log(this.state.watchlist)
         let i;
         let j;
         let k;
@@ -327,11 +320,17 @@ render() {
                     watch ?
                         null
                         :
-                        <button onClick={this.removeFromList}>Remove from List</button>
+                        <button onClick={this.removeFromList} className="watchlist-add-remove-button"
+                        style={{ color: this.colorOfBuyingPower(), borderColor: this.colorOfBuyingPower() }}
+                        >
+                            Remove from List
+                            </button>
                 }
                 {
                     addtoit ? 
-                    <button onClick={this.addToList}>Add to List</button>
+                    <button onClick={this.addToList} className="watchlist-add-remove-button">
+                        Add to List
+                        </button>
                     :
                     null
                 }
