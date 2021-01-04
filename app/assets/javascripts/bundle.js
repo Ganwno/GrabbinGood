@@ -1831,7 +1831,7 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
       usersignupinfo: {
         username: "",
         password: "",
-        account_balance: 100000
+        account_balance: 60000
       }
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));

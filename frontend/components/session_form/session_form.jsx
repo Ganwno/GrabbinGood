@@ -14,7 +14,7 @@ class SessionForm extends React.Component {
             usersignupinfo: {
                 username: "",
                 password: "",
-                account_balance: 100000
+                account_balance: 60000
             }
         };
         this.handleSubmit = this.handleSubmit.bind(this);
