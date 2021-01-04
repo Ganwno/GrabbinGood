@@ -19,7 +19,9 @@ class BuySellWatch extends React.Component {
             buyingPowerNumShare: `$${this.props.accBal} Buying Power Available`,
             buttonLabel: 'Review Order',
             accBal: this.props.accBal,
-            color: true
+            color: true,
+            nameOfClass: "",
+            nameOfSellClass: "default-sell-class"
 
 
         }
@@ -44,21 +46,24 @@ class BuySellWatch extends React.Component {
                     break;
                 }
             }
-            // console.log(result)
+         
+            let int = parseFloat(this.props.lastPercentChange)
+            let nameOfClass;
+            if (int > 0) {
+                nameOfClass = "positive-buy-title"
+            }
+            else {
+                nameOfClass = "negative-buy-title"
+            }
+
             this.setState({
                 numOfShares: result,
                 lastPrice: this.props.lastPrice,
-                watchlist: Object.values(watchlists.watchlists)
+                watchlist: Object.values(watchlists.watchlists),
+                nameOfClass: nameOfClass
             })
 
-            // this.setState({
-            //     lastPrice: this.props.lastPrice,
-            //     watchlist: Object.values(watchlists.watchlists)
-            // })
         })
-        //have to switch thunk action depending on whether or not the watchlist is in the database. If user
-        //already has stock then you want to update.
-
     }
 
     update(field) {
@@ -152,27 +157,41 @@ class BuySellWatch extends React.Component {
     }
 
     switchToSell(){
-        // let i;
-        // for (i = 0; i < this.state.watchlist.length; i++) {
-        //     if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol) {
-        //         this.setState({
-        //             buyingPowerNumShare: `${this.state.watchlist[i].num_stocks} Shares Available`,
-        //             buttonLabel: 'Review Sell Order',
-        //             numOfShares: this.state.watchlist[i].num_stocks
-        //         })
-        //         break;
-        //     }
-        // }
+        let newName = ''
+        let newNameOfSell = ""
+        if (this.state.nameOfClass === "positive-buy-title") {
+            newName = 'positive-buy-title-two'
+            newNameOfSell = "positive-sell-class"
+        }
+        else {
+            newName = "negative-buy-title-two"
+            newNameOfSell = "negative-sell-class"
+        }
+
         this.setState({
             buyingPowerNumShare: `${this.state.numOfShares} Shares Available`,
-            buttonLabel: 'Review Sell Order'
+            buttonLabel: 'Review Sell Order',
+            nameOfClass: newName,
+            nameOfSellClass: newNameOfSell
         })
     }
 
     switchToBuy(){
+        let newName = ''
+        let newNameSell = ""
+        if (this.state.nameOfClass === "positive-buy-title-two") {
+            newName = 'positive-buy-title'
+            newNameSell = "default-sell-class"
+        }
+        else {
+            newName = "negative-buy-title"
+            newNameSell = "default-sell-class"
+        }
         this.setState({
             buyingPowerNumShare: `$${this.state.accBal} Buying Power Available`,
-            buttonLabel: 'Review Order'
+            buttonLabel: 'Review Order',
+            nameOfClass: newName,
+            nameOfSellClass: newNameSell
         })
     }
 
@@ -221,11 +240,8 @@ class BuySellWatch extends React.Component {
         }
     }
 
-    colorOfBuyingOrSelling() {
-        
-    }
-
     displayLastPrice() {
+        console.log(this.state.lastPrice)
         if (this.state.lastPrice !== 0) {
             let lastPrice = this.state.lastPrice.toFixed(2)
             return(<div>
@@ -277,12 +293,11 @@ render() {
         <div className="buysellwatch-form">
             <div className ="the-whole-form-minus-listwatch">
             <div className="buyorsellstock">
-                    <div onClick={this.switchToBuy} className="buy-stock-title" 
-                    style={{ color: this.colorOfBuyingPower(), borderBottom: `2px solid ${this.colorOfBuyingPower()}` }}>
+            <div onClick={this.switchToBuy} className={this.state.nameOfClass} >
             Buy {this.props.stock.stock_symbol}
             </div>
             {canSell ?
-                <div onClick={this.switchToSell}>
+                <div onClick={this.switchToSell} className={this.state.nameOfSellClass}>
                     Sell {this.props.stock.stock_symbol}
                 </div>
                 : null}

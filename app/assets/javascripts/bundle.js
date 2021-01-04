@@ -2332,7 +2332,9 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       buyingPowerNumShare: "$".concat(_this.props.accBal, " Buying Power Available"),
       buttonLabel: 'Review Order',
       accBal: _this.props.accBal,
-      color: true
+      color: true,
+      nameOfClass: "",
+      nameOfSellClass: "default-sell-class"
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.switchToSell = _this.switchToSell.bind(_assertThisInitialized(_this));
@@ -2360,20 +2362,25 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
             result = arrWatchlist[i].num_stocks;
             break;
           }
-        } // console.log(result)
+        }
 
+        var _int = parseFloat(_this2.props.lastPercentChange);
+
+        var nameOfClass;
+
+        if (_int > 0) {
+          nameOfClass = "positive-buy-title";
+        } else {
+          nameOfClass = "negative-buy-title";
+        }
 
         _this2.setState({
           numOfShares: result,
           lastPrice: _this2.props.lastPrice,
-          watchlist: Object.values(watchlists.watchlists)
-        }); // this.setState({
-        //     lastPrice: this.props.lastPrice,
-        //     watchlist: Object.values(watchlists.watchlists)
-        // })
-
-      }); //have to switch thunk action depending on whether or not the watchlist is in the database. If user
-      //already has stock then you want to update.
+          watchlist: Object.values(watchlists.watchlists),
+          nameOfClass: nameOfClass
+        });
+      });
     }
   }, {
     key: "update",
@@ -2474,28 +2481,43 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "switchToSell",
     value: function switchToSell() {
-      // let i;
-      // for (i = 0; i < this.state.watchlist.length; i++) {
-      //     if (this.props.stock.stock_symbol === this.state.watchlist[i].stock_symbol) {
-      //         this.setState({
-      //             buyingPowerNumShare: `${this.state.watchlist[i].num_stocks} Shares Available`,
-      //             buttonLabel: 'Review Sell Order',
-      //             numOfShares: this.state.watchlist[i].num_stocks
-      //         })
-      //         break;
-      //     }
-      // }
+      var newName = '';
+      var newNameOfSell = "";
+
+      if (this.state.nameOfClass === "positive-buy-title") {
+        newName = 'positive-buy-title-two';
+        newNameOfSell = "positive-sell-class";
+      } else {
+        newName = "negative-buy-title-two";
+        newNameOfSell = "negative-sell-class";
+      }
+
       this.setState({
         buyingPowerNumShare: "".concat(this.state.numOfShares, " Shares Available"),
-        buttonLabel: 'Review Sell Order'
+        buttonLabel: 'Review Sell Order',
+        nameOfClass: newName,
+        nameOfSellClass: newNameOfSell
       });
     }
   }, {
     key: "switchToBuy",
     value: function switchToBuy() {
+      var newName = '';
+      var newNameSell = "";
+
+      if (this.state.nameOfClass === "positive-buy-title-two") {
+        newName = 'positive-buy-title';
+        newNameSell = "default-sell-class";
+      } else {
+        newName = "negative-buy-title";
+        newNameSell = "default-sell-class";
+      }
+
       this.setState({
         buyingPowerNumShare: "$".concat(this.state.accBal, " Buying Power Available"),
-        buttonLabel: 'Review Order'
+        buttonLabel: 'Review Order',
+        nameOfClass: newName,
+        nameOfSellClass: newNameSell
       });
     }
   }, {
@@ -2544,20 +2566,19 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "colorOfBuyingPower",
     value: function colorOfBuyingPower() {
-      var _int = parseFloat(this.props.lastPercentChange);
+      var _int2 = parseFloat(this.props.lastPercentChange);
 
-      if (_int > 0) {
+      if (_int2 > 0) {
         return '#3BD53F';
       } else {
         return '#FF6017';
       }
     }
   }, {
-    key: "colorOfBuyingOrSelling",
-    value: function colorOfBuyingOrSelling() {}
-  }, {
     key: "displayLastPrice",
     value: function displayLastPrice() {
+      console.log(this.state.lastPrice);
+
       if (this.state.lastPrice !== 0) {
         var lastPrice = this.state.lastPrice.toFixed(2);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", lastPrice);
@@ -2611,13 +2632,10 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           className: "buyorsellstock"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           onClick: this.switchToBuy,
-          className: "buy-stock-title",
-          style: {
-            color: this.colorOfBuyingPower(),
-            borderBottom: "2px solid ".concat(this.colorOfBuyingPower())
-          }
+          className: this.state.nameOfClass
         }, "Buy ", this.props.stock.stock_symbol), canSell ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          onClick: this.switchToSell
+          onClick: this.switchToSell,
+          className: this.state.nameOfSellClass
         }, "Sell ", this.props.stock.stock_symbol) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "buysell-sub-form"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
@@ -6742,7 +6760,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    /* padding-bottom: 12px; */\n}\n\n.buy-stock-title{\n    \n    padding-bottom: 12px;\n    \n}\n\n.buysell-sub-form{\n    margin-top: 15px;\n}\n\n.the-whole-form-minus-listwatch{\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.shares-and-input-text {\n    display: flex;\n    padding-left: 20px;\n    padding-right: 20px;\n    padding-bottom: 10px;\n    justify-content: space-between;\n}\n\n.marketprice-and-number {\n    display: flex;\n     padding-left: 20px;\n    padding-right: 20px;\n    justify-content: space-between;\n    padding-bottom: 25px;\n}\n\n.input-for-buy-sell-stocks {\n    width: 60px;\n    margin-left: 50px;\n    text-align: right;\n}\n\n.buywatch-button{\n    margin-left: 30px;\n    margin-right: 20px;\n    margin-bottom: 25px;\n    padding-left: 80px;\n    padding-right: 80px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    color: white;\n    overflow: hidden;\n    white-space: nowrap;\n    border: none;\n    border-radius: 8px;\n}\n\n.buywatch-button:hover {\n    cursor: pointer;\n    background-color: #686868;\n}\n\n.buyingpower-shares{\n    text-align: center;\n    overflow: hidden;\n    white-space: nowrap;\n    padding-top: 10px;\n    padding-right: 20px;\n    padding-left: 20px;\n    border-top: 1px solid #e3e9ed;\n}\n\n.buysellwatch-form{\n    position: fixed;\n    left: 65%;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/stocks/buy_sell_watch/buysell_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,6BAA6B;IAC7B,iBAAiB;IACjB,0BAA0B;AAC9B;;AAEA;;IAEI,oBAAoB;;AAExB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,uCAAuC;AAC3C;;AAEA;IACI,aAAa;IACb,kBAAkB;IAClB,mBAAmB;IACnB,oBAAoB;IACpB,8BAA8B;AAClC;;AAEA;IACI,aAAa;KACZ,kBAAkB;IACnB,mBAAmB;IACnB,8BAA8B;IAC9B,oBAAoB;AACxB;;AAEA;IACI,WAAW;IACX,iBAAiB;IACjB,iBAAiB;AACrB;;AAEA;IACI,iBAAiB;IACjB,kBAAkB;IAClB,mBAAmB;IACnB,kBAAkB;IAClB,mBAAmB;IACnB,iBAAiB;IACjB,oBAAoB;IACpB,YAAY;IACZ,gBAAgB;IAChB,mBAAmB;IACnB,YAAY;IACZ,kBAAkB;AACtB;;AAEA;IACI,eAAe;IACf,yBAAyB;AAC7B;;AAEA;IACI,kBAAkB;IAClB,gBAAgB;IAChB,mBAAmB;IACnB,iBAAiB;IACjB,mBAAmB;IACnB,kBAAkB;IAClB,6BAA6B;AACjC;;AAEA;IACI,eAAe;IACf,SAAS;AACb","sourcesContent":[".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    /* padding-bottom: 12px; */\n}\n\n.buy-stock-title{\n    \n    padding-bottom: 12px;\n    \n}\n\n.buysell-sub-form{\n    margin-top: 15px;\n}\n\n.the-whole-form-minus-listwatch{\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.shares-and-input-text {\n    display: flex;\n    padding-left: 20px;\n    padding-right: 20px;\n    padding-bottom: 10px;\n    justify-content: space-between;\n}\n\n.marketprice-and-number {\n    display: flex;\n     padding-left: 20px;\n    padding-right: 20px;\n    justify-content: space-between;\n    padding-bottom: 25px;\n}\n\n.input-for-buy-sell-stocks {\n    width: 60px;\n    margin-left: 50px;\n    text-align: right;\n}\n\n.buywatch-button{\n    margin-left: 30px;\n    margin-right: 20px;\n    margin-bottom: 25px;\n    padding-left: 80px;\n    padding-right: 80px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    color: white;\n    overflow: hidden;\n    white-space: nowrap;\n    border: none;\n    border-radius: 8px;\n}\n\n.buywatch-button:hover {\n    cursor: pointer;\n    background-color: #686868;\n}\n\n.buyingpower-shares{\n    text-align: center;\n    overflow: hidden;\n    white-space: nowrap;\n    padding-top: 10px;\n    padding-right: 20px;\n    padding-left: 20px;\n    border-top: 1px solid #e3e9ed;\n}\n\n.buysellwatch-form{\n    position: fixed;\n    left: 65%;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    /* padding-bottom: 12px; */\n}\n\n.buy-stock-title{\n    \n    padding-bottom: 12px;\n    \n}\n\n.buysell-sub-form{\n    margin-top: 15px;\n}\n\n.the-whole-form-minus-listwatch{\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.shares-and-input-text {\n    display: flex;\n    padding-left: 20px;\n    padding-right: 20px;\n    padding-bottom: 10px;\n    justify-content: space-between;\n}\n\n.marketprice-and-number {\n    display: flex;\n     padding-left: 20px;\n    padding-right: 20px;\n    justify-content: space-between;\n    padding-bottom: 25px;\n}\n\n.input-for-buy-sell-stocks {\n    width: 60px;\n    margin-left: 50px;\n    text-align: right;\n}\n\n.buywatch-button{\n    margin-left: 30px;\n    margin-right: 20px;\n    margin-bottom: 25px;\n    padding-left: 80px;\n    padding-right: 80px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    color: white;\n    overflow: hidden;\n    white-space: nowrap;\n    border: none;\n    border-radius: 8px;\n}\n\n.buywatch-button:hover {\n    cursor: pointer;\n    background-color: #686868;\n}\n\n.buyingpower-shares{\n    text-align: center;\n    overflow: hidden;\n    white-space: nowrap;\n    padding-top: 10px;\n    padding-right: 20px;\n    padding-left: 20px;\n    border-top: 1px solid #e3e9ed;\n}\n\n.buysellwatch-form{\n    position: fixed;\n    left: 65%;\n}\n\n.positive-buy-title {\n    color: #3BD53F;\n    border-bottom: 2px solid #3BD53F;\n}\n\n.positive-buy-title:hover {\n    cursor: pointer;\n}\n\n.negative-buy-title {\n    color: #FF6017;\n    border-bottom: 2px solid #FF6017;\n}\n\n.negative-buy-title:hover {\n    cursor: pointer;\n}\n\n.positive-buy-title-two {\n    color: black;\n    border-bottom: none;\n}\n\n.positive-buy-title-two:hover {\n    cursor: pointer;\n}\n\n.negative-buy-title-two {\n    color: black;\n    border-bottom: none;\n}\n\n.negative-buy-title-two:hover {\n    cursor: pointer;\n}\n\n.default-sell-class {\n    color: black;\n    border-bottom: none;\n}\n\n.default-sell-class:hover {\n    cursor: pointer;\n}\n\n.negative-sell-class {\n    color: #FF6017;\n    border-bottom: 2px solid #FF6017;\n}\n\n.negative-sell-class:hover {\n    cursor: pointer;\n}\n\n.positive-sell-class {\n     color: #3BD53F;\n    border-bottom: 2px solid #3BD53F;\n}\n\n.positive-sell-class:hover {\n    cursor: pointer;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/stocks/buy_sell_watch/buysell_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,6BAA6B;IAC7B,iBAAiB;IACjB,0BAA0B;AAC9B;;AAEA;;IAEI,oBAAoB;;AAExB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,uCAAuC;AAC3C;;AAEA;IACI,aAAa;IACb,kBAAkB;IAClB,mBAAmB;IACnB,oBAAoB;IACpB,8BAA8B;AAClC;;AAEA;IACI,aAAa;KACZ,kBAAkB;IACnB,mBAAmB;IACnB,8BAA8B;IAC9B,oBAAoB;AACxB;;AAEA;IACI,WAAW;IACX,iBAAiB;IACjB,iBAAiB;AACrB;;AAEA;IACI,iBAAiB;IACjB,kBAAkB;IAClB,mBAAmB;IACnB,kBAAkB;IAClB,mBAAmB;IACnB,iBAAiB;IACjB,oBAAoB;IACpB,YAAY;IACZ,gBAAgB;IAChB,mBAAmB;IACnB,YAAY;IACZ,kBAAkB;AACtB;;AAEA;IACI,eAAe;IACf,yBAAyB;AAC7B;;AAEA;IACI,kBAAkB;IAClB,gBAAgB;IAChB,mBAAmB;IACnB,iBAAiB;IACjB,mBAAmB;IACnB,kBAAkB;IAClB,6BAA6B;AACjC;;AAEA;IACI,eAAe;IACf,SAAS;AACb;;AAEA;IACI,cAAc;IACd,gCAAgC;AACpC;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,cAAc;IACd,gCAAgC;AACpC;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,YAAY;IACZ,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,YAAY;IACZ,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,YAAY;IACZ,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,cAAc;IACd,gCAAgC;AACpC;;AAEA;IACI,eAAe;AACnB;;AAEA;KACK,cAAc;IACf,gCAAgC;AACpC;;AAEA;IACI,eAAe;AACnB","sourcesContent":[".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    /* padding-bottom: 12px; */\n}\n\n.buy-stock-title{\n    \n    padding-bottom: 12px;\n    \n}\n\n.buysell-sub-form{\n    margin-top: 15px;\n}\n\n.the-whole-form-minus-listwatch{\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.shares-and-input-text {\n    display: flex;\n    padding-left: 20px;\n    padding-right: 20px;\n    padding-bottom: 10px;\n    justify-content: space-between;\n}\n\n.marketprice-and-number {\n    display: flex;\n     padding-left: 20px;\n    padding-right: 20px;\n    justify-content: space-between;\n    padding-bottom: 25px;\n}\n\n.input-for-buy-sell-stocks {\n    width: 60px;\n    margin-left: 50px;\n    text-align: right;\n}\n\n.buywatch-button{\n    margin-left: 30px;\n    margin-right: 20px;\n    margin-bottom: 25px;\n    padding-left: 80px;\n    padding-right: 80px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    color: white;\n    overflow: hidden;\n    white-space: nowrap;\n    border: none;\n    border-radius: 8px;\n}\n\n.buywatch-button:hover {\n    cursor: pointer;\n    background-color: #686868;\n}\n\n.buyingpower-shares{\n    text-align: center;\n    overflow: hidden;\n    white-space: nowrap;\n    padding-top: 10px;\n    padding-right: 20px;\n    padding-left: 20px;\n    border-top: 1px solid #e3e9ed;\n}\n\n.buysellwatch-form{\n    position: fixed;\n    left: 65%;\n}\n\n.positive-buy-title {\n    color: #3BD53F;\n    border-bottom: 2px solid #3BD53F;\n}\n\n.positive-buy-title:hover {\n    cursor: pointer;\n}\n\n.negative-buy-title {\n    color: #FF6017;\n    border-bottom: 2px solid #FF6017;\n}\n\n.negative-buy-title:hover {\n    cursor: pointer;\n}\n\n.positive-buy-title-two {\n    color: black;\n    border-bottom: none;\n}\n\n.positive-buy-title-two:hover {\n    cursor: pointer;\n}\n\n.negative-buy-title-two {\n    color: black;\n    border-bottom: none;\n}\n\n.negative-buy-title-two:hover {\n    cursor: pointer;\n}\n\n.default-sell-class {\n    color: black;\n    border-bottom: none;\n}\n\n.default-sell-class:hover {\n    cursor: pointer;\n}\n\n.negative-sell-class {\n    color: #FF6017;\n    border-bottom: 2px solid #FF6017;\n}\n\n.negative-sell-class:hover {\n    cursor: pointer;\n}\n\n.positive-sell-class {\n     color: #3BD53F;\n    border-bottom: 2px solid #3BD53F;\n}\n\n.positive-sell-class:hover {\n    cursor: pointer;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
