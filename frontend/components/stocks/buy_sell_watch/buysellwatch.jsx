@@ -35,6 +35,8 @@ class BuySellWatch extends React.Component {
     }
 
     componentDidMount() {
+        // console.log(typeof this.props.accBal)
+        // console.log(this.props.accBal)
         this.props.fetchWatchlists(this.props.user).then((watchlists) => {
             // console.log(this.props.lastPrice)
             let arrWatchlist = Object.values(watchlists.watchlists);
@@ -84,12 +86,15 @@ class BuySellWatch extends React.Component {
                 }
             })
             if (count === 1) {
+                //this.state.accBal is string
+                //toFixed makes it a string
                 this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice).then(() =>{
                     let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
-                    let newAccountBal = (this.state.accBal - difference).toFixed(2)
+                    let newAccountBal = this.state.accBal - difference
                     if (newAccountBal < 0) {
                         newAccountBal = this.state.accBal
                     }
+                    newAccountBal = newAccountBal.toFixed(2)
                     let newNum = parseInt(this.state.watchlistinfo.num_stocks)
                     newNum = this.state.numOfShares + newNum
 
@@ -106,10 +111,11 @@ class BuySellWatch extends React.Component {
             
             else {
                 let difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks
-                let newAccountBal = (this.state.accBal - difference).toFixed(2)
+                let newAccountBal = this.state.accBal - difference
                 if (newAccountBal < 0) {
                     newAccountBal = this.state.accBal
                 }
+                newAccountBal = newAccountBal.toFixed(2)
                 this.props.createWatchlist(watchlist, this.props.lastPrice).then(() =>{
                     this.props.fetchWatchlists(this.props.user).then((watchlists) => {
 
@@ -235,10 +241,10 @@ class BuySellWatch extends React.Component {
     }
 
     displayLastPrice() {
-        console.log(this.state.lastPrice)
+        // console.log(this.state.lastPrice)
         if (this.state.lastPrice !== 0 && this.state.lastPrice !== undefined) {
-            // console.log(this.state.lastPrice)
-            let lastPrice = this.state.lastPrice.toFixed(2)
+            // console.log(this.state.lastPrice.toFixed(2))
+            let lastPrice = this.state.lastPrice
             return(<div>
                 ${lastPrice}
             </div>)

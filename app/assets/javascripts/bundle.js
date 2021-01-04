@@ -176,12 +176,10 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
 
       var arrOfStockSym = ownStocks;
       var i;
-      var j; // console.log(arr)
-      // console.log(arrOfStockSym)
-
+      var j;
       var newArrOfStockSym = arrOfStockSym.filter(function (watchlist) {
         return watchlist.num_stocks !== 0;
-      }); // console.log(newArrOfStockSym)
+      });
 
       for (i = 0; i < arr.length; i++) {
         arr[i].forEach(function (obj, idx) {
@@ -209,8 +207,6 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
         if (existing.length) {
           var existingIndex = output.indexOf(existing[0]);
           output[existingIndex].high = output[existingIndex].high.concat(item.high);
-          console.log(output[existingIndex].high.concat(item.high));
-          console.log(item.high);
         } else {
           if (typeof item.high == 'number') item.high = [item.high];
           output.push(item);
@@ -2347,6 +2343,8 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      // console.log(typeof this.props.accBal)
+      // console.log(this.props.accBal)
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
         // console.log(this.props.lastPrice)
         var arrWatchlist = Object.values(watchlists.watchlists);
@@ -2406,14 +2404,17 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         });
 
         if (count === 1) {
+          //this.state.accBal is string
+          //toFixed makes it a string
           this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice).then(function () {
             var difference = _this4.props.lastPrice * _this4.state.watchlistinfo.num_stocks;
-            var newAccountBal = (_this4.state.accBal - difference).toFixed(2);
+            var newAccountBal = _this4.state.accBal - difference;
 
             if (newAccountBal < 0) {
               newAccountBal = _this4.state.accBal;
             }
 
+            newAccountBal = newAccountBal.toFixed(2);
             var newNum = parseInt(_this4.state.watchlistinfo.num_stocks);
             newNum = _this4.state.numOfShares + newNum;
 
@@ -2425,12 +2426,13 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           });
         } else {
           var difference = this.props.lastPrice * this.state.watchlistinfo.num_stocks;
-          var newAccountBal = (this.state.accBal - difference).toFixed(2);
+          var newAccountBal = this.state.accBal - difference;
 
           if (newAccountBal < 0) {
             newAccountBal = this.state.accBal;
           }
 
+          newAccountBal = newAccountBal.toFixed(2);
           this.props.createWatchlist(watchlist, this.props.lastPrice).then(function () {
             _this4.props.fetchWatchlists(_this4.props.user).then(function (watchlists) {
               var i;
@@ -2568,11 +2570,10 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "displayLastPrice",
     value: function displayLastPrice() {
-      console.log(this.state.lastPrice);
-
+      // console.log(this.state.lastPrice)
       if (this.state.lastPrice !== 0 && this.state.lastPrice !== undefined) {
-        // console.log(this.state.lastPrice)
-        var lastPrice = this.state.lastPrice.toFixed(2);
+        // console.log(this.state.lastPrice.toFixed(2))
+        var lastPrice = this.state.lastPrice;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", lastPrice);
       } else {
         // console.log('is it here tho')
@@ -3011,14 +3012,28 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
             difference = "+$" + "".concat(difference.toFixed(2));
           } else {
             difference = "".concat(difference.toFixed(2));
+          } // fixes null value in val
+
+
+          var val1 = result.currentAsset[result.currentAsset.length - 1].high;
+
+          if (result.currentAsset[result.currentAsset.length - 1].high === null) {
+            var j;
+
+            for (j = result.currentAsset.length - 1; j >= 0; j--) {
+              if (result.currentAsset[j].high !== null) {
+                val1 = result.currentAsset[j].high;
+                break;
+              }
+            }
           }
 
           _this2.setState({
             data: result.currentAsset,
             symbol: _this2.props.stock.stock_symbol,
-            lastPrice: result.currentAsset[result.currentAsset.length - 1].high,
+            lastPrice: val1,
             firstPrice: result.currentAsset[0].high,
-            val: result.currentAsset[result.currentAsset.length - 1].high.toFixed(2),
+            val: val1.toFixed(2),
             previousClose: result.currentAsset[result.currentAsset.length - 1].close,
             difference: difference,
             percentChange: percentChange,
@@ -3032,6 +3047,7 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
             label = _ref.label,
             active = _ref.active;
 
+        // console.log(label)
         if (active) {
           if (label.includes(":") === false) {
             label = label.split(" ").join(":00 ");
@@ -3039,11 +3055,11 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
 
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, "".concat(label)));
         } //remove else if this fails
-        else {
+        else if (label === null) {
+            return null;
+          } else {
             return null;
           }
-
-        return null;
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {

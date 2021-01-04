@@ -124,7 +124,6 @@ class UserChart extends React.Component{
 
             let result = this.numberWithCommas(output.output[output.output.length - 1].high.toFixed(2))
 
-
             this.setState({
                 data2: output.output,
                 lastPrice: output.output[output.output.length -1].high,

@@ -20,7 +20,9 @@ class Portfolio extends React.Component {
 
     componentDidMount() {
         this.props.fetchWatchlists(this.props.user).then(watchlists => {
+            
             this.props.fetchUserAccBal(this.props.user).then(user => {
+                
                 this.setState({
                     watchlist: Object.values(watchlists.watchlists),
                     accountBalance: user.info.account_balance,

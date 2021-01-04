@@ -121,10 +121,23 @@ class StockChart extends React.Component {
                     difference = `${difference.toFixed(2)}`
                 }
 
+
+                // fixes null value in val
+                let val1 = result.currentAsset[result.currentAsset.length - 1].high
+                    if (result.currentAsset[result.currentAsset.length - 1].high === null) {
+                        let j;
+                        for (j = result.currentAsset.length - 1; j >= 0; j--) {
+                            if (result.currentAsset[j].high !== null) {
+                                val1 = result.currentAsset[j].high
+                                break;
+                            }
+                        }
+                    }
+
                 this.setState({data: result.currentAsset, symbol: this.props.stock.stock_symbol, 
-                lastPrice: result.currentAsset[result.currentAsset.length-1].high, 
+                lastPrice: val1, 
                 firstPrice: result.currentAsset[0].high, 
-                val: result.currentAsset[result.currentAsset.length-1].high.toFixed(2),
+                val: val1.toFixed(2),
                 previousClose: result.currentAsset[result.currentAsset.length - 1].close,
                 difference: difference,
                 percentChange: percentChange,
@@ -136,6 +149,7 @@ class StockChart extends React.Component {
         
 
         function CustomToolTip({ payload, label, active }) {
+            // console.log(label)
             if (active) {
                 if(label.includes(":") === false) {
                     label = label.split(" ").join(":00 ")
@@ -148,11 +162,14 @@ class StockChart extends React.Component {
 
             }
             //remove else if this fails
+            else if (label === null){
+                return null
+            }
+
             else {
                 return null
             }
 
-            return null;
         }
 
         
