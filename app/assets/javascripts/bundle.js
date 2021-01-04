@@ -728,7 +728,6 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
     value: function extendDropDown(e) {
       var _this2 = this;
 
-      console.log(this.state.count);
       e.preventDefault();
 
       if (this.state.dropDown === false && this.state.count % 2 !== 0) {
@@ -754,9 +753,6 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
     value: function closeMenu(e) {
       var _this3 = this;
 
-      console.log(this.dropdownMenu);
-      console.log(e.target);
-
       if (!this.buttonRef.contains(e.target)) {
         var newCount2 = this.state.count + 1;
         this.setState({
@@ -772,6 +768,7 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
+      var accBal = parseFloat(this.props.accountBalance).toFixed(2);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "right-nav"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -797,18 +794,21 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
           _this4.buttonRef = ele;
         }
       }, "Account"), this.state.dropDown ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "menu",
-        ref: function ref(element) {
-          _this4.dropdownMenu = element;
-        }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "dropdown-for-acc"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dropdown-username"
+      }, this.props.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "accbal-for-dropdown"
+      }, "$", accBal, " Buying Power"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.props.logout,
         className: "logout-button-for-nav"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "/images/logout.png",
         alt: "",
         className: "logout-img-for-dropdown"
-      }), "Log Out")) : null));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "text-for-dropdown-logout"
+      }, "Log Out"))) : null));
     }
   }]);
 
@@ -1047,7 +1047,7 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       inputVal: "",
       watchlist: [],
-      accountbalance: 0,
+      accountBalance: "",
       placeholder: ""
     };
     return _this;
@@ -1060,6 +1060,9 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
         _this2.props.fetchUserAccBal(_this2.props.user).then(function (user) {
+          console.log(_typeof(user.info.account_balance));
+          console.log(user.info.account_balance);
+
           _this2.setState({
             watchlist: Object.values(watchlists.watchlists),
             accountBalance: user.info.account_balance,
@@ -1087,7 +1090,9 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
           alt: "",
           className: "logo-image"
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_search_bar_container__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          logout: this.props.logout
+          logout: this.props.logout,
+          accountBalance: this.state.accountBalance,
+          username: this.props.username
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "page-content-two"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1096,7 +1101,7 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
           ownStocks: this.state.watchlist,
           chartInfo: this.props.updateUserChart,
           accountBalance: this.state.accountBalance
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "watchlist-whole"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
           watchlist: this.state.watchlist
@@ -1139,7 +1144,8 @@ var mSTP = function mSTP(state) {
     stocks: Object.values(state.entities.stocks),
     user: state.session.id,
     arrOfUsersStocks: Object.values(state.entities.watchlist),
-    accBal: state.entities.users.account_balance
+    accBal: state.entities.users.account_balance,
+    username: state.entities.users.username
   };
 };
 
@@ -6622,7 +6628,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    position: absolute;\n    z-index: 1;\n    cursor: pointer;\n}\n\n.logout-img-for-dropdown{\n    object-fit: cover;\n    height: 15px;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/dropdownacc/drop_down.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,kBAAkB;AACtB;AACA;IACI,YAAY;AAChB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;AACA;IACI,uBAAuB;IACvB,YAAY;IACZ,aAAa;IACb,eAAe;IACf,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kBAAkB;IAClB,UAAU;IACV,eAAe;AACnB;;AAEA;IACI,iBAAiB;IACjB,YAAY;AAChB","sourcesContent":[".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    position: absolute;\n    z-index: 1;\n    cursor: pointer;\n}\n\n.logout-img-for-dropdown{\n    object-fit: cover;\n    height: 15px;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n    position: relative;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    z-index: 1;\n    cursor: pointer;\n    display: flex;\n    width: 100%;\n    padding-top: 13px;\n    padding-bottom: 13px;\n    padding-right: 30px;\n    border-top: 1px solid #E3E9ED;\n    \n}\n\n.logout-button-for-nav:hover {\n    background-color: rgb(246, 249, 250);\n}\n\n.logout-img-for-dropdown{\n    object-fit: cover;\n    height: 15px;\n    padding-right: 10px;\n}\n\n.dropdown-for-acc {\n    position: absolute;\n    right: 30px;\n    top: 55px;\n     box-shadow: 0 0 20px rgb(221, 206, 206);\n     z-index: 1;\n     background-color: white;\n     \n}\n\n.text-for-dropdown-logout {\n    overflow: hidden; \n    white-space: nowrap;\n}\n\n.accbal-for-dropdown {\n    padding-top: 13px;\n    padding-bottom: 13px;\n    padding-left: 15px;\n    padding-right: 15px;\n}\n\n.dropdown-username {\n    padding-top: 13px;\n    padding-bottom: 13px;\n    padding-left: 15px;\n    padding-right: 15px;\n    font-weight: bold;\n}\n\n/* .full-logout-container {\n    padding-left: 15px;\n    padding-right: 15px;\n    border-top: 1px solid #E3E9ED;\n} */\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/dropdownacc/drop_down.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,kBAAkB;AACtB;AACA;IACI,YAAY;AAChB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;AACA;IACI,uBAAuB;IACvB,YAAY;IACZ,aAAa;IACb,eAAe;IACf,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,cAAc;;AAElB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,UAAU;IACV,eAAe;IACf,aAAa;IACb,WAAW;IACX,iBAAiB;IACjB,oBAAoB;IACpB,mBAAmB;IACnB,6BAA6B;;AAEjC;;AAEA;IACI,oCAAoC;AACxC;;AAEA;IACI,iBAAiB;IACjB,YAAY;IACZ,mBAAmB;AACvB;;AAEA;IACI,kBAAkB;IAClB,WAAW;IACX,SAAS;KACR,uCAAuC;KACvC,UAAU;KACV,uBAAuB;;AAE5B;;AAEA;IACI,gBAAgB;IAChB,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;IACjB,oBAAoB;IACpB,kBAAkB;IAClB,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;IACjB,oBAAoB;IACpB,kBAAkB;IAClB,mBAAmB;IACnB,iBAAiB;AACrB;;AAEA;;;;GAIG","sourcesContent":[".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n    position: relative;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    z-index: 1;\n    cursor: pointer;\n    display: flex;\n    width: 100%;\n    padding-top: 13px;\n    padding-bottom: 13px;\n    padding-right: 30px;\n    border-top: 1px solid #E3E9ED;\n    \n}\n\n.logout-button-for-nav:hover {\n    background-color: rgb(246, 249, 250);\n}\n\n.logout-img-for-dropdown{\n    object-fit: cover;\n    height: 15px;\n    padding-right: 10px;\n}\n\n.dropdown-for-acc {\n    position: absolute;\n    right: 30px;\n    top: 55px;\n     box-shadow: 0 0 20px rgb(221, 206, 206);\n     z-index: 1;\n     background-color: white;\n     \n}\n\n.text-for-dropdown-logout {\n    overflow: hidden; \n    white-space: nowrap;\n}\n\n.accbal-for-dropdown {\n    padding-top: 13px;\n    padding-bottom: 13px;\n    padding-left: 15px;\n    padding-right: 15px;\n}\n\n.dropdown-username {\n    padding-top: 13px;\n    padding-bottom: 13px;\n    padding-left: 15px;\n    padding-right: 15px;\n    font-weight: bold;\n}\n\n/* .full-logout-container {\n    padding-left: 15px;\n    padding-right: 15px;\n    border-top: 1px solid #E3E9ED;\n} */\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

@@ -14,7 +14,6 @@ class AccountDropDown extends React.Component {
     }
 
     extendDropDown(e) {
-        console.log(this.state.count)
         e.preventDefault();
         if (this.state.dropDown === false && this.state.count % 2 !== 0) {
            let newCount = this.state.count + 1
@@ -34,8 +33,6 @@ class AccountDropDown extends React.Component {
     }
 
     closeMenu(e) {
-        console.log(this.dropdownMenu)
-        console.log(e.target)
         if (!this.buttonRef.contains(e.target)) {
             let newCount2 = this.state.count + 1
         this.setState({ dropDown: false, count: newCount2 }, () => {
@@ -45,6 +42,7 @@ class AccountDropDown extends React.Component {
     }
 
     render() {
+        let accBal = parseFloat(this.props.accountBalance).toFixed(2)
         return(
             <div className = "right-nav">
                 <a href="https://www.linkedin.com/in/christopher-lee-7b48b6134/" className= "linkedin-img-container">
@@ -60,11 +58,15 @@ class AccountDropDown extends React.Component {
                     Account
                 </button>
                 {this.state.dropDown ? (
-                    <div className="menu" ref={(element) => {
-                    this.dropdownMenu = element
-                    }}>
-                  <button onClick={this.props.logout} className='logout-button-for-nav'><img src ="/images/logout.png" alt ="" className="logout-img-for-dropdown">
-                      </img>Log Out</button>
+                <div className="dropdown-for-acc">
+                    <div className="dropdown-username">{this.props.username}</div>
+                    <div className="accbal-for-dropdown">${accBal} Buying Power</div>  
+                    <button onClick={this.props.logout} className='logout-button-for-nav'>
+                    <img src ="/images/logout.png" alt ="" className="logout-img-for-dropdown"></img>
+                    <div className="text-for-dropdown-logout">
+                    Log Out
+                    </div>
+                    </button>
                 </div>
                 ) : 
                 ( null)

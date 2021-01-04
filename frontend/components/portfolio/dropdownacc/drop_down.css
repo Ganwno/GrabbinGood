@@ -33,22 +33,71 @@
     outline: none;
     cursor: pointer;
     font-size: 14px;
+    position: relative;
 }
 
 .account-dd-button:hover {
     color: #00C805;
+
 }
 
 .logout-button-for-nav {
     background-color: white;
     border: none;
-    position: absolute;
     z-index: 1;
     cursor: pointer;
+    display: flex;
+    width: 100%;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-right: 30px;
+    border-top: 1px solid #E3E9ED;
+    
+}
+
+.logout-button-for-nav:hover {
+    background-color: rgb(246, 249, 250);
 }
 
 .logout-img-for-dropdown{
     object-fit: cover;
     height: 15px;
+    padding-right: 10px;
 }
+
+.dropdown-for-acc {
+    position: absolute;
+    right: 30px;
+    top: 55px;
+     box-shadow: 0 0 20px rgb(221, 206, 206);
+     z-index: 1;
+     background-color: white;
+     
+}
+
+.text-for-dropdown-logout {
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+.accbal-for-dropdown {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dropdown-username {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-weight: bold;
+}
+
+/* .full-logout-container {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-top: 1px solid #E3E9ED;
+} */
 

@@ -13,7 +13,7 @@ class Portfolio extends React.Component {
     this.state = {
         inputVal: "",
         watchlist: [],
-        accountbalance: 0,
+        accountBalance: "",
         placeholder: ""
     } 
     }
@@ -22,6 +22,8 @@ class Portfolio extends React.Component {
         this.props.fetchWatchlists(this.props.user).then(watchlists => {
             
             this.props.fetchUserAccBal(this.props.user).then(user => {
+                console.log(typeof user.info.account_balance)
+                console.log(user.info.account_balance)
                 
                 this.setState({
                     watchlist: Object.values(watchlists.watchlists),
@@ -48,13 +50,13 @@ class Portfolio extends React.Component {
                 </Link>
                 <SearchBarContainer/>
                 </div>
-                <AccountDropDown logout={this.props.logout}/>
+                <AccountDropDown logout={this.props.logout} accountBalance={this.state.accountBalance} username={this.props.username}/>
                 </div>
                 <div className="page-content-two">
                 <br/>
                 <div className="userchart-two-whole">
                 <UserChart ownStocks={this.state.watchlist} chartInfo={this.props.updateUserChart} accountBalance={this.state.accountBalance}/>
-                {/* <UserNews/> */}
+                <UserNews/>
                 </div>
                 <div className= 'watchlist-whole'>
                 <WatchlistContainer watchlist={this.state.watchlist} />

@@ -11,7 +11,8 @@ const mSTP = (state) => {
         stocks: Object.values(state.entities.stocks),
         user: state.session.id,
         arrOfUsersStocks: Object.values(state.entities.watchlist),
-        accBal: state.entities.users.account_balance
+        accBal: state.entities.users.account_balance,
+        username: state.entities.users.username
     }
 }
 
