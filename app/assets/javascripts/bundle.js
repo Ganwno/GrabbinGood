@@ -3048,18 +3048,20 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
             active = _ref.active;
 
         // console.log(label)
-        if (active) {
-          if (label.includes(":") === false) {
-            label = label.split(" ").join(":00 ");
-          }
+        // console.log(active)
+        if (label === null) {
+          return null;
+        } else {
+          if (active) {
+            if (label.includes(":") === false) {
+              label = label.split(" ").join(":00 ");
+            }
 
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, "".concat(label)));
-        } //remove else if this fails
-        else if (label === null) {
-            return null;
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, "".concat(label)));
           } else {
             return null;
           }
+        }
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {

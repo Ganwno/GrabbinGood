@@ -150,26 +150,29 @@ class StockChart extends React.Component {
 
         function CustomToolTip({ payload, label, active }) {
             // console.log(label)
-            if (active) {
-                if(label.includes(":") === false) {
-                    label = label.split(" ").join(":00 ")
-                }
-                return (
-                    <div>
-                        <p>{`${label}`}</p>
-                    </div>
-                );
-
-            }
-            //remove else if this fails
-            else if (label === null){
+            // console.log(active)
+            if (label === null) {
                 return null
             }
-
             else {
-                return null
-            }
 
+                if (active) {
+                    if (label.includes(":") === false) {
+                        label = label.split(" ").join(":00 ")
+                    }
+
+                    return (
+                        <div>
+                            <p>{`${label}`}</p>
+                        </div>
+                    );
+
+                }
+
+                else {
+                    return null
+                }
+            }
         }
 
         
