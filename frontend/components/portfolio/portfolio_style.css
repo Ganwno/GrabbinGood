@@ -33,3 +33,12 @@
     left: 80%;
 }
 
+.buyingpower-portfolio {
+    display: flex;
+    justify-content: space-between;
+    width: 58%;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    border-bottom: 2px solid #E3E9ED;
+    font-weight: bold;
+}

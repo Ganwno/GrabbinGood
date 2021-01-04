@@ -41,6 +41,7 @@ class Portfolio extends React.Component {
         return null;
         }
         else {
+            let userAccBal = parseFloat(this.state.accountBalance).toFixed(2)
         return(
             <div className = "portfolio">
                 <div className = "nav-bar">
@@ -56,6 +57,9 @@ class Portfolio extends React.Component {
                 <br/>
                 <div className="userchart-two-whole">
                 <UserChart ownStocks={this.state.watchlist} chartInfo={this.props.updateUserChart} accountBalance={this.state.accountBalance}/>
+                <div className="buyingpower-portfolio">
+                <div>Buying Power</div> <div>${userAccBal}</div>
+                </div>
                 <UserNews/>
                 </div>
                 <div className= 'watchlist-whole'>

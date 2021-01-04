@@ -1077,6 +1077,7 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       if (this.state.placeholder === '') {
         return null;
       } else {
+        var userAccBal = parseFloat(this.state.accountBalance).toFixed(2);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "portfolio"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1101,7 +1102,9 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
           ownStocks: this.state.watchlist,
           chartInfo: this.props.updateUserChart,
           accountBalance: this.state.accountBalance
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "buyingpower-portfolio"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Buying Power"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", userAccBal)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "watchlist-whole"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
           watchlist: this.state.watchlist
@@ -6678,7 +6681,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content-two {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-right: 180px;\n    margin-top: 50px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n.userchart-two-whole {\n    margin-left: 150px;\n}\n\n.watchlist-whole {\n    position: fixed;\n    left: 80%;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/portfolio_style.css"],"names":[],"mappings":";;AAEA;IACI,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;AAChB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,mBAAmB;IACnB,gBAAgB;GACjB,wBAAwB;AAC3B;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI,eAAe;IACf,SAAS;AACb","sourcesContent":["\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content-two {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-right: 180px;\n    margin-top: 50px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n.userchart-two-whole {\n    margin-left: 150px;\n}\n\n.watchlist-whole {\n    position: fixed;\n    left: 80%;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content-two {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-right: 180px;\n    margin-top: 50px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n.userchart-two-whole {\n    margin-left: 150px;\n}\n\n.watchlist-whole {\n    position: fixed;\n    left: 80%;\n}\n\n.buyingpower-portfolio {\n    display: flex;\n    justify-content: space-between;\n    width: 58%;\n    padding-top: 35px;\n    padding-bottom: 35px;\n    border-bottom: 2px solid #E3E9ED;\n    font-weight: bold;\n}\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/portfolio_style.css"],"names":[],"mappings":";;AAEA;IACI,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;IACd,YAAY;AAChB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,mBAAmB;IACnB,gBAAgB;GACjB,wBAAwB;AAC3B;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI,eAAe;IACf,SAAS;AACb;;AAEA;IACI,aAAa;IACb,8BAA8B;IAC9B,UAAU;IACV,iBAAiB;IACjB,oBAAoB;IACpB,gCAAgC;IAChC,iBAAiB;AACrB","sourcesContent":["\n\n.indiv-suggestions {\n    justify-content: space-between;\n}\n\n.nav-section {\n    display: flex;\n    justify-content: space-between;\n}\n\n.logout-button {\n    display: block;\n    height: 40px;\n}\n\n.page-content-two {\n    display: flex;\n}\n\n.watchlist-whole {\n    margin-right: 180px;\n    margin-top: 50px;\n   box-shadow: 0 0 3px #ccc;\n}\n\n.userchart-two-whole {\n    margin-left: 150px;\n}\n\n.watchlist-whole {\n    position: fixed;\n    left: 80%;\n}\n\n.buyingpower-portfolio {\n    display: flex;\n    justify-content: space-between;\n    width: 58%;\n    padding-top: 35px;\n    padding-bottom: 35px;\n    border-bottom: 2px solid #E3E9ED;\n    font-weight: bold;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
