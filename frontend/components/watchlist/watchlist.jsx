@@ -33,7 +33,6 @@ class Watchlist extends React.Component {
     }
 
     colorOfBought(idx){
-        // console.log(typeof this.state.percentChangeOfBought[idx])
 
         if (parseFloat(this.state.percentChangeOfBought[idx]) > 0) {
             return '#3BD53F'

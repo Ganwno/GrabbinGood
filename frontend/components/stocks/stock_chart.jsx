@@ -14,7 +14,8 @@ class StockChart extends React.Component {
             firstPrice: '',
             val: '',
             difference: '',
-            previousClose: 0
+            previousClose: 0,
+            lastPercentChange: ""
         }
         // this.theLastPrice = this.theLastPrice.bind(this);
         this.strokeColor = this.strokeColor.bind(this);
@@ -126,9 +127,9 @@ class StockChart extends React.Component {
                 val: result.currentAsset[result.currentAsset.length-1].high.toFixed(2),
                 previousClose: result.currentAsset[result.currentAsset.length - 1].close,
                 difference: difference,
-                percentChange: percentChange
+                percentChange: percentChange,
+                lastPercentChange: percentChange
                 })
-                console.log(parseInt(percentChange))
             })
         }
 
@@ -179,7 +180,9 @@ class StockChart extends React.Component {
                     />
                 </LineChart>
                 </div>
-                <div className="whole-buysellwatch"> <BuySellWatch stock={this.props.stock} user={this.props.user} lastPrice={this.state.lastPrice} accBal={this.props.accBal}/></div>
+                <div className="whole-buysellwatch"> <BuySellWatch stock={this.props.stock} user={this.props.user} lastPrice={this.state.lastPrice} accBal={this.props.accBal}
+                lastPercentChange={this.state.lastPercentChange}
+                /></div>
             </div>
         )
     }

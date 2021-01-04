@@ -6,9 +6,9 @@
 }
 
 .buy-stock-title{
-    color: #FF651E;
+    
     padding-bottom: 12px;
-    border-bottom: 2px solid #FF651E;
+    
 }
 
 .buysell-sub-form{
@@ -42,15 +42,16 @@
 }
 
 .buywatch-button{
-   margin:0 auto;
-    display:block;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 25px;
     padding-left: 80px;
     padding-right: 80px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #FF651E;
     color: white;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .buyingpower-shares{

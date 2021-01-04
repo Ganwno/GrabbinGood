@@ -27,6 +27,7 @@ class BuySellWatch extends React.Component {
         this.switchToBuy = this.switchToBuy.bind(this)
         this.addToList = this.addToList.bind(this)
         this.removeFromList = this.removeFromList.bind(this)
+        this.colorOfBuyingPower = this.colorOfBuyingPower.bind(this)
     }
 
     componentDidMount() {
@@ -208,6 +209,16 @@ class BuySellWatch extends React.Component {
         )
     }
 
+    colorOfBuyingPower() {
+       let int = parseFloat(this.props.lastPercentChange)
+        if (int > 0) {
+            return '#3BD53F'
+        }
+        else {
+            return '#FF6017'
+        }
+    }
+
 
 render() {
     if (this.state.lastPrice === 0) {
@@ -249,7 +260,8 @@ render() {
         <div className="buysellwatch-form">
             <div className ="the-whole-form-minus-listwatch">
             <div className="buyorsellstock">
-            <div onClick={this.switchToBuy} className="buy-stock-title">
+                    <div onClick={this.switchToBuy} className="buy-stock-title" 
+                    style={{ color: this.colorOfBuyingPower(), borderBottom: `2px solid ${this.colorOfBuyingPower()}` }}>
             Buy {this.props.stock.stock_symbol}
             </div>
             {canSell ?
@@ -268,12 +280,14 @@ render() {
                 <input type="text"  placeholder="0"
                     onChange={this.update('num_stocks')} className="input-for-buy-sell-stocks"/>
                 </div>
-                        <div className="marketprice-and-number"><div>Market Price</div> 
+                        <div className="marketprice-and-number"><div style={{ color: this.colorOfBuyingPower() }}>Market Price</div> 
                         <div> ${this.state.lastPrice}</div>
                         </div>
-                <button className="buywatch-button">{this.state.buttonLabel}</button>
+                        <button className="buywatch-button" style={{ backgroundColor: this.colorOfBuyingPower() }}>{this.state.buttonLabel}</button>
                 </form>
-                <div className="buyingpower-shares">{this.state.buyingPowerNumShare}</div>
+
+                    <div className="buyingpower-shares" style={{ color: this.colorOfBuyingPower() }}>
+                    {this.state.buyingPowerNumShare}</div>
             </div>
                 {this.renderErrors()}
             </div>
