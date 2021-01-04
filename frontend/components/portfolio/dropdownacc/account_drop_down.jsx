@@ -26,6 +26,8 @@ class AccountDropDown extends React.Component {
     }
 
     closeMenu(e) {
+        console.log(this.dropdownMenu)
+        console.log(e.target)
         if (!this.dropdownMenu.contains(e.target)) {
 
         this.setState({ dropDown: false }, () => {

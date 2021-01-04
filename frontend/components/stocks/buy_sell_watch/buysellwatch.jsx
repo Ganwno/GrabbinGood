@@ -236,14 +236,15 @@ class BuySellWatch extends React.Component {
 
     displayLastPrice() {
         console.log(this.state.lastPrice)
-        if (this.state.lastPrice !== 0 && this.state.lastPrice !== null) {
-            console.log(this.state.lastPrice)
+        if (this.state.lastPrice !== 0 && this.state.lastPrice !== undefined) {
+            // console.log(this.state.lastPrice)
             let lastPrice = this.state.lastPrice.toFixed(2)
             return(<div>
                 ${lastPrice}
             </div>)
         }
         else {
+            // console.log('is it here tho')
             return null;
         }
     }
@@ -328,7 +329,9 @@ render() {
                 }
                 {
                     addtoit ? 
-                    <button onClick={this.addToList} className="watchlist-add-remove-button">
+                    <button onClick={this.addToList} className="watchlist-add-remove-button"
+                    style={{ color: this.colorOfBuyingPower(), borderColor: this.colorOfBuyingPower() }}
+                    >
                         Add to List
                         </button>
                     :

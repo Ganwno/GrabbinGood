@@ -72,7 +72,7 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
             arr[i].forEach((obj, idx) => {
                 //for loop fixes null values
                 if (obj.high === null) {
-                    for (j = idx; j > 0; j--) {
+                    for (j = idx; j >= 0; j--) {
                         if (arr[i][j].high !== null) {
                             obj.high = arr[i][j].high
                             break;
@@ -86,9 +86,7 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
         }
         let output = [];
         let flattened = arr.flat();
-
-        // console.log(flattened)
-        // console.log(arr)
+        
         flattened.forEach(function (item) {
             var existing = output.filter(function (v, i) {
                 return v.label == item.label;
@@ -96,12 +94,9 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
             if (existing.length) {
                 var existingIndex = output.indexOf(existing[0]);
                 output[existingIndex].high = output[existingIndex].high.concat(item.high)
+                console.log(output[existingIndex].high.concat(item.high))
+                console.log(item.high)
             } 
-            // else if (arr.length === 1) {
-            //     // console.log('whats going on')
-            //     item.high = [item.high].concat(newAccBal)
-            //     output.push(item)
-            // }
             else {
                 if (typeof item.high == 'number')
                     item.high = [item.high];
@@ -115,7 +110,6 @@ export const updateUserChart = (ownStocks, newAccBal) => dispatch => {
         output.forEach((obj) => {
             obj.high = obj.high.reduce(reducer)
         })
-        // console.log(output)
         return dispatch(receiveUserData(output))
     })
 }

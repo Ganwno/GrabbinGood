@@ -37,7 +37,6 @@ class Portfolio extends React.Component {
         return null;
         }
         else {
-            console.log(this.state.watchlist)
         return(
             <div className = "portfolio">
                 <div className = "nav-bar">

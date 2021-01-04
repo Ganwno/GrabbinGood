@@ -187,7 +187,7 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
         arr[i].forEach(function (obj, idx) {
           //for loop fixes null values
           if (obj.high === null) {
-            for (j = idx; j > 0; j--) {
+            for (j = idx; j >= 0; j--) {
               if (arr[i][j].high !== null) {
                 obj.high = arr[i][j].high;
                 break;
@@ -200,9 +200,7 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
       }
 
       var output = [];
-      var flattened = arr.flat(); // console.log(flattened)
-      // console.log(arr)
-
+      var flattened = arr.flat();
       flattened.forEach(function (item) {
         var existing = output.filter(function (v, i) {
           return v.label == item.label;
@@ -211,23 +209,19 @@ var updateUserChart = function updateUserChart(ownStocks, newAccBal) {
         if (existing.length) {
           var existingIndex = output.indexOf(existing[0]);
           output[existingIndex].high = output[existingIndex].high.concat(item.high);
-        } // else if (arr.length === 1) {
-        //     // console.log('whats going on')
-        //     item.high = [item.high].concat(newAccBal)
-        //     output.push(item)
-        // }
-        else {
-            if (typeof item.high == 'number') item.high = [item.high];
-            output.push(item);
-          }
+          console.log(output[existingIndex].high.concat(item.high));
+          console.log(item.high);
+        } else {
+          if (typeof item.high == 'number') item.high = [item.high];
+          output.push(item);
+        }
       });
       output.forEach(function (obj) {
         obj.high = obj.high.concat(newAccBal);
       });
       output.forEach(function (obj) {
         obj.high = obj.high.reduce(reducer);
-      }); // console.log(output)
-
+      });
       return dispatch(receiveUserData(output));
     });
   };
@@ -754,6 +748,9 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
     value: function closeMenu(e) {
       var _this3 = this;
 
+      console.log(this.dropdownMenu);
+      console.log(e.target);
+
       if (!this.dropdownMenu.contains(e.target)) {
         this.setState({
           dropDown: false
@@ -1066,7 +1063,6 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
       if (this.state.placeholder === '') {
         return null;
       } else {
-        console.log(this.state.watchlist);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "portfolio"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2574,11 +2570,12 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
     value: function displayLastPrice() {
       console.log(this.state.lastPrice);
 
-      if (this.state.lastPrice !== 0 && this.state.lastPrice !== null) {
-        console.log(this.state.lastPrice);
+      if (this.state.lastPrice !== 0 && this.state.lastPrice !== undefined) {
+        // console.log(this.state.lastPrice)
         var lastPrice = this.state.lastPrice.toFixed(2);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", lastPrice);
       } else {
+        // console.log('is it here tho')
         return null;
       }
     }
@@ -2666,7 +2663,11 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           }
         }, "Remove from List"), addtoit ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: this.addToList,
-          className: "watchlist-add-remove-button"
+          className: "watchlist-add-remove-button",
+          style: {
+            color: this.colorOfBuyingPower(),
+            borderColor: this.colorOfBuyingPower()
+          }
         }, "Add to List") : null);
       }
     }
