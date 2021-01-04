@@ -6,31 +6,39 @@ class AccountDropDown extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            dropDown: false
+            dropDown: false,
+            count: 1
         }
         this.extendDropDown = this.extendDropDown.bind(this)
         this.closeMenu = this.closeMenu.bind(this);
     }
 
     extendDropDown(e) {
-        console.log(this.state.dropDown)
+        console.log(this.state.count)
         e.preventDefault();
-        if (this.state.dropDown === false) {
-            // console.log('this is it')
+        if (this.state.dropDown === false && this.state.count % 2 !== 0) {
+           let newCount = this.state.count + 1
         this.setState({
-            dropDown: true
+            dropDown: true,
+            count: newCount
         }, () => {
             document.addEventListener('mousedown', this.closeMenu);
         })
+        }
+        else if (this.state.count % 2 === 0) {
+            let newCount2 = this.state.count + 1
+            this.setState({ dropDown: false, count: newCount2 }, () => {
+                document.removeEventListener('mousedown', this.closeMenu);
+            });
         }
     }
 
     closeMenu(e) {
         console.log(this.dropdownMenu)
         console.log(e.target)
-        if (!this.dropdownMenu.contains(e.target)) {
-
-        this.setState({ dropDown: false }, () => {
+        if (!this.buttonRef.contains(e.target)) {
+            let newCount2 = this.state.count + 1
+        this.setState({ dropDown: false, count: newCount2 }, () => {
             document.removeEventListener('mousedown', this.closeMenu);
         });
     }
@@ -46,7 +54,9 @@ class AccountDropDown extends React.Component {
                 <img src="/images/github.png" alt="" className="github-image"></img>
                 </a>
                 <div className = 'drop-log-out'>
-                <button className = 'account-dd-button'onClick={this.extendDropDown}>
+                <button className = 'account-dd-button'onClick={this.extendDropDown} ref={(ele) =>{
+                    this.buttonRef = ele
+                }}>
                     Account
                 </button>
                 {this.state.dropDown ? (

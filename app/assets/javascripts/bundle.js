@@ -715,7 +715,8 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      dropDown: false
+      dropDown: false,
+      count: 1
     };
     _this.extendDropDown = _this.extendDropDown.bind(_assertThisInitialized(_this));
     _this.closeMenu = _this.closeMenu.bind(_assertThisInitialized(_this));
@@ -727,15 +728,24 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
     value: function extendDropDown(e) {
       var _this2 = this;
 
-      console.log(this.state.dropDown);
+      console.log(this.state.count);
       e.preventDefault();
 
-      if (this.state.dropDown === false) {
-        // console.log('this is it')
+      if (this.state.dropDown === false && this.state.count % 2 !== 0) {
+        var newCount = this.state.count + 1;
         this.setState({
-          dropDown: true
+          dropDown: true,
+          count: newCount
         }, function () {
           document.addEventListener('mousedown', _this2.closeMenu);
+        });
+      } else if (this.state.count % 2 === 0) {
+        var newCount2 = this.state.count + 1;
+        this.setState({
+          dropDown: false,
+          count: newCount2
+        }, function () {
+          document.removeEventListener('mousedown', _this2.closeMenu);
         });
       }
     }
@@ -747,9 +757,11 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
       console.log(this.dropdownMenu);
       console.log(e.target);
 
-      if (!this.dropdownMenu.contains(e.target)) {
+      if (!this.buttonRef.contains(e.target)) {
+        var newCount2 = this.state.count + 1;
         this.setState({
-          dropDown: false
+          dropDown: false,
+          count: newCount2
         }, function () {
           document.removeEventListener('mousedown', _this3.closeMenu);
         });
@@ -780,7 +792,10 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
         className: "drop-log-out"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "account-dd-button",
-        onClick: this.extendDropDown
+        onClick: this.extendDropDown,
+        ref: function ref(ele) {
+          _this4.buttonRef = ele;
+        }
       }, "Account"), this.state.dropDown ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "menu",
         ref: function ref(element) {
@@ -1081,7 +1096,7 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
           ownStocks: this.state.watchlist,
           chartInfo: this.props.updateUserChart,
           accountBalance: this.state.accountBalance
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "watchlist-whole"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
           watchlist: this.state.watchlist
