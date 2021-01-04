@@ -221,6 +221,10 @@ class BuySellWatch extends React.Component {
         }
     }
 
+    colorOfBuyingOrSelling() {
+        
+    }
+
     displayLastPrice() {
         if (this.state.lastPrice !== 0) {
             let lastPrice = this.state.lastPrice.toFixed(2)
