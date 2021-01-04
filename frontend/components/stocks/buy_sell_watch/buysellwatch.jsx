@@ -18,7 +18,8 @@ class BuySellWatch extends React.Component {
             watchlist: [],
             buyingPowerNumShare: `$${this.props.accBal} Buying Power Available`,
             buttonLabel: 'Review Order',
-            accBal: this.props.accBal
+            accBal: this.props.accBal,
+            color: true
 
 
         }
@@ -28,6 +29,7 @@ class BuySellWatch extends React.Component {
         this.addToList = this.addToList.bind(this)
         this.removeFromList = this.removeFromList.bind(this)
         this.colorOfBuyingPower = this.colorOfBuyingPower.bind(this)
+        this.displayLastPrice = this.displayLastPrice.bind(this)
     }
 
     componentDidMount() {
@@ -219,6 +221,18 @@ class BuySellWatch extends React.Component {
         }
     }
 
+    displayLastPrice() {
+        if (this.state.lastPrice !== 0) {
+            let lastPrice = this.state.lastPrice.toFixed(2)
+            return(<div>
+                ${lastPrice}
+            </div>)
+        }
+        else {
+            return null;
+        }
+    }
+
 
 render() {
     if (this.state.lastPrice === 0) {
@@ -255,7 +269,6 @@ render() {
                 break;
             }
         }
-
     return(
         <div className="buysellwatch-form">
             <div className ="the-whole-form-minus-listwatch">
@@ -281,7 +294,7 @@ render() {
                     onChange={this.update('num_stocks')} className="input-for-buy-sell-stocks"/>
                 </div>
                         <div className="marketprice-and-number"><div style={{ color: this.colorOfBuyingPower() }}>Market Price</div> 
-                        <div> ${this.state.lastPrice}</div>
+                        <div>{this.displayLastPrice()}</div>
                         </div>
                         <button className="buywatch-button" style={{ backgroundColor: this.colorOfBuyingPower() }}>{this.state.buttonLabel}</button>
                 </form>
