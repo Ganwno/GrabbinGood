@@ -2,5 +2,64 @@
     display: flex;
     justify-content: space-around;
     padding-top: 12px;
-    padding-bottom: 12px;
+    /* padding-bottom: 12px; */
 }
+
+.buy-stock-title{
+    color: #FF651E;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #FF651E;
+}
+
+.buysell-sub-form{
+    margin-top: 15px;
+}
+
+.the-whole-form-minus-listwatch{
+    box-shadow: 0 0 20px rgb(221, 206, 206);
+}
+
+.shares-and-input-text {
+    display: flex;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    justify-content: space-between;
+}
+
+.marketprice-and-number {
+    display: flex;
+     padding-left: 20px;
+    padding-right: 20px;
+    justify-content: space-between;
+    padding-bottom: 25px;
+}
+
+.input-for-buy-sell-stocks {
+    width: 60px;
+    margin-left: 50px;
+    text-align: right;
+}
+
+.buywatch-button{
+   margin:0 auto;
+    display:block;
+    margin-bottom: 25px;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #FF651E;
+    color: white;
+}
+
+.buyingpower-shares{
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-top: 1px solid #e3e9ed;
+}
+

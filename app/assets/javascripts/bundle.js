@@ -737,9 +737,11 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
     value: function extendDropDown(e) {
       var _this2 = this;
 
+      console.log(this.state.dropDown);
       e.preventDefault();
 
       if (this.state.dropDown === false) {
+        // console.log('this is it')
         this.setState({
           dropDown: true
         }, function () {
@@ -794,7 +796,11 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.props.logout,
         className: "logout-button-for-nav"
-      }, "Log Out")) : null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "/images/logout.png",
+        alt: "",
+        className: "logout-img-for-dropdown"
+      }), "Log Out")) : null));
     }
   }]);
 
@@ -2573,22 +2579,36 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "buysellwatch-form"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "the-whole-form-minus-listwatch"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "buyorsellstock"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          onClick: this.switchToBuy
+          onClick: this.switchToBuy,
+          className: "buy-stock-title"
         }, "Buy ", this.props.stock.stock_symbol), canSell ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           onClick: this.switchToSell
-        }, "Sell ", this.props.stock.stock_symbol) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        }, "Sell ", this.props.stock.stock_symbol) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "buysell-sub-form"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
           onSubmit: this.handleSubmit
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "shares-and-input-text"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
-          value: this.state.watchlistinfo.num_stocks,
-          onChange: this.update('num_stocks')
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price ", this.state.lastPrice), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, this.state.buttonLabel)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.buyingPowerNumShare), watch ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          placeholder: "0",
+          onChange: this.update('num_stocks'),
+          className: "input-for-buy-sell-stocks"
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "marketprice-and-number"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " $", this.state.lastPrice)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "buywatch-button"
+        }, this.state.buttonLabel)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "buyingpower-shares"
+        }, this.state.buyingPowerNumShare)), this.renderErrors()), watch ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: this.removeFromList
         }, "Remove from List"), addtoit ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: this.addToList
-        }, "Add to List") : null, this.renderErrors());
+        }, "Add to List") : null);
       }
     }
   }]);
@@ -2942,6 +2962,8 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
             difference: difference,
             percentChange: percentChange
           });
+
+          console.log(parseInt(percentChange));
         });
       }
 
@@ -3225,10 +3247,7 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
         accBal: this.props.accBal
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_about_section__WEBPACK_IMPORTED_MODULE_3__["default"], {
         stock: this.props.stock
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_section_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        stock: this.props.stock,
-        retrieveNews: this.props.updateCurrentCompanyNews
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
     }
   }]);
 
@@ -3350,7 +3369,8 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "colorOfBought",
     value: function colorOfBought(idx) {
-      if (parseInt(this.state.percentChangeOfBought[idx]) > 0) {
+      // console.log(typeof this.state.percentChangeOfBought[idx])
+      if (parseFloat(this.state.percentChangeOfBought[idx]) > 0) {
         return '#3BD53F';
       } else {
         return '#FF6017';
@@ -3359,7 +3379,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "color",
     value: function color(idx) {
-      if (parseInt(this.state.percentChangeOfWatched[idx]) > 0) {
+      if (parseFloat(this.state.percentChangeOfWatched[idx]) > 0) {
         return '#3BD53F';
       } else {
         return '#FF6017';
@@ -6506,7 +6526,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    position: absolute;\n    z-index: 1;\n    cursor: pointer;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/dropdownacc/drop_down.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,kBAAkB;AACtB;AACA;IACI,YAAY;AAChB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;AACA;IACI,uBAAuB;IACvB,YAAY;IACZ,aAAa;IACb,eAAe;IACf,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kBAAkB;IAClB,UAAU;IACV,eAAe;AACnB","sourcesContent":[".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    position: absolute;\n    z-index: 1;\n    cursor: pointer;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    position: absolute;\n    z-index: 1;\n    cursor: pointer;\n}\n\n.logout-img-for-dropdown{\n    object-fit: cover;\n    height: 15px;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/dropdownacc/drop_down.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,kBAAkB;AACtB;AACA;IACI,YAAY;AAChB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;;AAEA;IACI,iBAAiB;IACjB,YAAY;;AAEhB;;AAEA;IACI,YAAY;IACZ,iBAAiB;AACrB;AACA;IACI,uBAAuB;IACvB,YAAY;IACZ,aAAa;IACb,eAAe;IACf,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kBAAkB;IAClB,UAAU;IACV,eAAe;AACnB;;AAEA;IACI,iBAAiB;IACjB,YAAY;AAChB","sourcesContent":[".right-nav {\n    display: flex;\n    margin-right: 30px;\n}\n.linkedin-img-container {\n    margin: auto;\n}\n\n.linkedin-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.github-img-container {\n    margin: auto;\n    margin-left: 30px;\n}\n\n.github-image {\n    object-fit: cover;\n    height: 35px;\n\n}\n\n.drop-log-out {\n    margin: auto;\n    margin-left: 30px;\n}\n.account-dd-button {\n    background-color: white;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    font-size: 14px;\n}\n\n.account-dd-button:hover {\n    color: #00C805;\n}\n\n.logout-button-for-nav {\n    background-color: white;\n    border: none;\n    position: absolute;\n    z-index: 1;\n    cursor: pointer;\n}\n\n.logout-img-for-dropdown{\n    object-fit: cover;\n    height: 15px;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -6681,7 +6701,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    padding-bottom: 12px;\n}", "",{"version":3,"sources":["webpack://./frontend/components/stocks/buy_sell_watch/buysell_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,6BAA6B;IAC7B,iBAAiB;IACjB,oBAAoB;AACxB","sourcesContent":[".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    padding-bottom: 12px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    /* padding-bottom: 12px; */\n}\n\n.buy-stock-title{\n    color: #FF651E;\n    padding-bottom: 12px;\n    border-bottom: 2px solid #FF651E;\n}\n\n.buysell-sub-form{\n    margin-top: 15px;\n}\n\n.the-whole-form-minus-listwatch{\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.shares-and-input-text {\n    display: flex;\n    padding-left: 20px;\n    padding-right: 20px;\n    padding-bottom: 10px;\n    justify-content: space-between;\n}\n\n.marketprice-and-number {\n    display: flex;\n     padding-left: 20px;\n    padding-right: 20px;\n    justify-content: space-between;\n    padding-bottom: 25px;\n}\n\n.input-for-buy-sell-stocks {\n    width: 60px;\n    margin-left: 50px;\n    text-align: right;\n}\n\n.buywatch-button{\n   margin:0 auto;\n    display:block;\n    margin-bottom: 25px;\n    padding-left: 80px;\n    padding-right: 80px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    background-color: #FF651E;\n    color: white;\n}\n\n.buyingpower-shares{\n    text-align: center;\n    overflow: hidden;\n    white-space: nowrap;\n    padding-top: 10px;\n    padding-right: 20px;\n    padding-left: 20px;\n    border-top: 1px solid #e3e9ed;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/components/stocks/buy_sell_watch/buysell_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,6BAA6B;IAC7B,iBAAiB;IACjB,0BAA0B;AAC9B;;AAEA;IACI,cAAc;IACd,oBAAoB;IACpB,gCAAgC;AACpC;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,uCAAuC;AAC3C;;AAEA;IACI,aAAa;IACb,kBAAkB;IAClB,mBAAmB;IACnB,oBAAoB;IACpB,8BAA8B;AAClC;;AAEA;IACI,aAAa;KACZ,kBAAkB;IACnB,mBAAmB;IACnB,8BAA8B;IAC9B,oBAAoB;AACxB;;AAEA;IACI,WAAW;IACX,iBAAiB;IACjB,iBAAiB;AACrB;;AAEA;GACG,aAAa;IACZ,aAAa;IACb,mBAAmB;IACnB,kBAAkB;IAClB,mBAAmB;IACnB,iBAAiB;IACjB,oBAAoB;IACpB,yBAAyB;IACzB,YAAY;AAChB;;AAEA;IACI,kBAAkB;IAClB,gBAAgB;IAChB,mBAAmB;IACnB,iBAAiB;IACjB,mBAAmB;IACnB,kBAAkB;IAClB,6BAA6B;AACjC","sourcesContent":[".buyorsellstock {\n    display: flex;\n    justify-content: space-around;\n    padding-top: 12px;\n    /* padding-bottom: 12px; */\n}\n\n.buy-stock-title{\n    color: #FF651E;\n    padding-bottom: 12px;\n    border-bottom: 2px solid #FF651E;\n}\n\n.buysell-sub-form{\n    margin-top: 15px;\n}\n\n.the-whole-form-minus-listwatch{\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.shares-and-input-text {\n    display: flex;\n    padding-left: 20px;\n    padding-right: 20px;\n    padding-bottom: 10px;\n    justify-content: space-between;\n}\n\n.marketprice-and-number {\n    display: flex;\n     padding-left: 20px;\n    padding-right: 20px;\n    justify-content: space-between;\n    padding-bottom: 25px;\n}\n\n.input-for-buy-sell-stocks {\n    width: 60px;\n    margin-left: 50px;\n    text-align: right;\n}\n\n.buywatch-button{\n   margin:0 auto;\n    display:block;\n    margin-bottom: 25px;\n    padding-left: 80px;\n    padding-right: 80px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    background-color: #FF651E;\n    color: white;\n}\n\n.buyingpower-shares{\n    text-align: center;\n    overflow: hidden;\n    white-space: nowrap;\n    padding-top: 10px;\n    padding-right: 20px;\n    padding-left: 20px;\n    border-top: 1px solid #e3e9ed;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

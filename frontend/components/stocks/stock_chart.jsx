@@ -128,6 +128,7 @@ class StockChart extends React.Component {
                 difference: difference,
                 percentChange: percentChange
                 })
+                console.log(parseInt(percentChange))
             })
         }
 

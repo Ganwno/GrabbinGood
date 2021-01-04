@@ -42,7 +42,7 @@ class Api::WatchlistsController < ApplicationController
     result[0].num_stocks = result[0].num_stocks - (params['watchlist'][:num_stocks]).to_i
 
     if result[0].num_stocks < 0 
-        errors = ["You do not own that many Stocks"]
+        errors = ["Not Enough Shares"]
         render json: errors, status: 422
     else
 

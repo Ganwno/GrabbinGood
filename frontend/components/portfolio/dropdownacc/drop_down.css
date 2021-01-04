@@ -47,3 +47,8 @@
     cursor: pointer;
 }
 
+.logout-img-for-dropdown{
+    object-fit: cover;
+    height: 15px;
+}
+

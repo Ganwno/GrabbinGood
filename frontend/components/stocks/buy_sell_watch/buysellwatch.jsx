@@ -247,8 +247,9 @@ render() {
 
     return(
         <div className="buysellwatch-form">
+            <div className ="the-whole-form-minus-listwatch">
             <div className="buyorsellstock">
-            <div onClick={this.switchToBuy}>
+            <div onClick={this.switchToBuy} className="buy-stock-title">
             Buy {this.props.stock.stock_symbol}
             </div>
             {canSell ?
@@ -257,16 +258,25 @@ render() {
                 </div>
                 : null}
             </div>
-            <div>Shares</div>
+            <div className="buysell-sub-form">
+    
+            
     
                 <form onSubmit={this.handleSubmit} >
-                <input type="text" value={this.state.watchlistinfo.num_stocks}
-                    onChange={this.update('num_stocks')}
-                />
-                <div>Market Price {this.state.lastPrice}</div>
-                <button>{this.state.buttonLabel}</button>
+                <div className="shares-and-input-text">
+                <div>Shares</div>
+                <input type="text"  placeholder="0"
+                    onChange={this.update('num_stocks')} className="input-for-buy-sell-stocks"/>
+                </div>
+                        <div className="marketprice-and-number"><div>Market Price</div> 
+                        <div> ${this.state.lastPrice}</div>
+                        </div>
+                <button className="buywatch-button">{this.state.buttonLabel}</button>
                 </form>
-                <div>{this.state.buyingPowerNumShare}</div>
+                <div className="buyingpower-shares">{this.state.buyingPowerNumShare}</div>
+            </div>
+                {this.renderErrors()}
+            </div>
                 {
                     watch ?
                         null
@@ -279,7 +289,6 @@ render() {
                     :
                     null
                 }
-                {this.renderErrors()}
             
         </div>
     )

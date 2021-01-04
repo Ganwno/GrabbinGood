@@ -33,7 +33,9 @@ class Watchlist extends React.Component {
     }
 
     colorOfBought(idx){
-        if (parseInt(this.state.percentChangeOfBought[idx]) > 0) {
+        // console.log(typeof this.state.percentChangeOfBought[idx])
+
+        if (parseFloat(this.state.percentChangeOfBought[idx]) > 0) {
             return '#3BD53F'
         }
         else {
@@ -42,7 +44,7 @@ class Watchlist extends React.Component {
     }
 
     color(idx) {
-        if (parseInt(this.state.percentChangeOfWatched[idx]) > 0) {
+        if (parseFloat(this.state.percentChangeOfWatched[idx]) > 0) {
             return '#3BD53F'
         }
         else {

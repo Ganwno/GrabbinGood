@@ -13,19 +13,19 @@ class AccountDropDown extends React.Component {
     }
 
     extendDropDown(e) {
+        console.log(this.state.dropDown)
         e.preventDefault();
         if (this.state.dropDown === false) {
+            // console.log('this is it')
         this.setState({
             dropDown: true
         }, () => {
             document.addEventListener('mousedown', this.closeMenu);
         })
-    }
-
+        }
     }
 
     closeMenu(e) {
-
         if (!this.dropdownMenu.contains(e.target)) {
 
         this.setState({ dropDown: false }, () => {
@@ -51,13 +51,15 @@ class AccountDropDown extends React.Component {
                     <div className="menu" ref={(element) => {
                     this.dropdownMenu = element
                     }}>
-                  <button onClick={this.props.logout} className='logout-button-for-nav'>Log Out</button>
+                  <button onClick={this.props.logout} className='logout-button-for-nav'><img src ="/images/logout.png" alt ="" className="logout-img-for-dropdown">
+                      </img>Log Out</button>
                 </div>
                 ) : 
                 ( null)
                 }
                 </div>
             </div>
+            
         )
     }
 }
