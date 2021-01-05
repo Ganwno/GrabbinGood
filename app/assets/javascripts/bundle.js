@@ -2436,20 +2436,60 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "update",
-    value: function update(field) {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
+      console.log(this.state.watchlistinfo);
+      console.log(nextProps);
+      this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
+        var arrWatchlist = Object.values(watchlists.watchlists);
+        var i;
+        var result;
+
+        for (i = 0; i < arrWatchlist.length; i++) {
+          if (_this3.props.stock.stock_symbol === arrWatchlist[i].stock_symbol) {
+            result = arrWatchlist[i].num_stocks;
+            break;
+          }
+        }
+
+        var _int2 = parseFloat(nextProps.lastPercentChange);
+
+        var nameOfClass;
+
+        if (_int2 > 0) {
+          nameOfClass = "positive-buy-title";
+        } else {
+          nameOfClass = "negative-buy-title";
+        }
+
+        _this3.setState({
+          numOfShares: result,
+          lastPrice: nextProps.lastPrice,
+          watchlist: Object.values(watchlists.watchlists),
+          nameOfClass: nameOfClass,
+          watchlistinfo: _objectSpread(_objectSpread({}, _this3.state.watchlistinfo), {}, {
+            stock_id: nextProps.stock.id
+          })
+        });
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(field) {
+      var _this4 = this;
+
       return function (e) {
-        return _this3.setState({
-          watchlistinfo: _objectSpread(_objectSpread({}, _this3.state.watchlistinfo), {}, _defineProperty({}, field, e.currentTarget.value))
+        return _this4.setState({
+          watchlistinfo: _objectSpread(_objectSpread({}, _this4.state.watchlistinfo), {}, _defineProperty({}, field, e.currentTarget.value))
         });
       };
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      var _this4 = this;
+      var _this5 = this;
 
       e.preventDefault();
 
@@ -2457,7 +2497,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         var watchlist = Object.assign({}, this.state.watchlistinfo);
         var count = 0;
         this.state.watchlist.forEach(function (obj) {
-          if (_this4.props.stock.stock_symbol === obj.stock_symbol) {
+          if (_this5.props.stock.stock_symbol === obj.stock_symbol) {
             count += 1;
           }
         });
@@ -2466,18 +2506,18 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
           //this.state.accBal is string
           //toFixed makes it a string
           this.props.updateWatchlist(this.props.stock.id, watchlist, this.props.lastPrice).then(function () {
-            var difference = _this4.props.lastPrice * _this4.state.watchlistinfo.num_stocks;
-            var newAccountBal = _this4.state.accBal - difference;
+            var difference = _this5.props.lastPrice * _this5.state.watchlistinfo.num_stocks;
+            var newAccountBal = _this5.state.accBal - difference;
 
             if (newAccountBal < 0) {
-              newAccountBal = _this4.state.accBal;
+              newAccountBal = _this5.state.accBal;
             }
 
             newAccountBal = newAccountBal.toFixed(2);
-            var newNum = parseInt(_this4.state.watchlistinfo.num_stocks);
-            newNum = _this4.state.numOfShares + newNum;
+            var newNum = parseInt(_this5.state.watchlistinfo.num_stocks);
+            newNum = _this5.state.numOfShares + newNum;
 
-            _this4.setState({
+            _this5.setState({
               accBal: newAccountBal,
               buyingPowerNumShare: "$".concat(newAccountBal, " Buying Power Available"),
               numOfShares: newNum
@@ -2493,19 +2533,19 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
 
           newAccountBal = newAccountBal.toFixed(2);
           this.props.createWatchlist(watchlist, this.props.lastPrice).then(function () {
-            _this4.props.fetchWatchlists(_this4.props.user).then(function (watchlists) {
+            _this5.props.fetchWatchlists(_this5.props.user).then(function (watchlists) {
               var i;
               var num_stocks = 0;
               var arrayOfRes = Object.values(watchlists.watchlists);
 
               for (i = 0; i < arrayOfRes.length; i++) {
-                if (_this4.props.stock.stock_symbol === arrayOfRes[i].stock_symbol) {
+                if (_this5.props.stock.stock_symbol === arrayOfRes[i].stock_symbol) {
                   num_stocks = arrayOfRes[i].num_stocks;
                   break;
                 }
               }
 
-              _this4.setState({
+              _this5.setState({
                 watchlist: Object.values(watchlists.watchlists),
                 accBal: newAccountBal,
                 buyingPowerNumShare: "$".concat(newAccountBal, " Buying Power Available"),
@@ -2575,7 +2615,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "addToList",
     value: function addToList() {
-      var _this5 = this;
+      var _this6 = this;
 
       var watchlist = Object.assign({}, {
         stock_id: this.props.stock.id,
@@ -2583,8 +2623,8 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
         num_stocks: 0
       });
       this.props.createWatchlist(watchlist).then(function () {
-        _this5.props.fetchWatchlists(_this5.props.user).then(function (watchlists) {
-          _this5.setState({
+        _this6.props.fetchWatchlists(_this6.props.user).then(function (watchlists) {
+          _this6.setState({
             watchlist: Object.values(watchlists.watchlists)
           });
         });
@@ -2593,12 +2633,12 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "removeFromList",
     value: function removeFromList() {
-      var _this6 = this;
+      var _this7 = this;
 
       var watchlist = Object.assign({}, this.state.watchlistinfo);
       this.props.sellWatchlist(this.props.stock.id, watchlist).then(function () {
-        _this6.props.fetchWatchlists(_this6.props.user).then(function (watchlists) {
-          _this6.setState({
+        _this7.props.fetchWatchlists(_this7.props.user).then(function (watchlists) {
+          _this7.setState({
             watchlist: Object.values(watchlists.watchlists)
           });
         });
@@ -2618,9 +2658,9 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "colorOfBuyingPower",
     value: function colorOfBuyingPower() {
-      var _int2 = parseFloat(this.props.lastPercentChange);
+      var _int3 = parseFloat(this.props.lastPercentChange);
 
-      if (_int2 > 0) {
+      if (_int3 > 0) {
         return '#3BD53F';
       } else {
         return '#FF6017';
@@ -3060,8 +3100,23 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       if (this.state.symbol !== this.props.stock.stock_symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
         this.props.financial(stock).then(function (result) {
-          var difference = result.currentAsset[result.currentAsset.length - 1].high - result.currentAsset[0].high;
-          var percentChange = difference / result.currentAsset[0].high * 100;
+          var recentPrice = result.currentAsset[result.currentAsset.length - 1].high;
+
+          if (recentPrice === null) {
+            var idx;
+
+            for (idx = result.currentAsset.length - 1; idx >= 0; idx--) {
+              if (result.currentAsset[idx] !== null) {
+                recentPrice = result.currentAsset[idx];
+                break;
+              }
+            }
+          } // console.log(recentPrice)
+          // console.log(result.currentAsset[0].high)
+
+
+          var difference = recentPrice - result.currentAsset[0].high;
+          var percentChange = difference / result.currentAsset[0].high * 100; // console.log(result)
 
           if (percentChange < 0) {
             percentChange = percentChange.toFixed(2) + "%";

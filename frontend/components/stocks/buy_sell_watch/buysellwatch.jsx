@@ -68,6 +68,46 @@ class BuySellWatch extends React.Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(this.state.watchlistinfo)
+        console.log(nextProps)
+        this.props.fetchWatchlists(this.props.user).then((watchlists) => {
+
+            let arrWatchlist = Object.values(watchlists.watchlists);
+            let i;
+            let result;
+            for (i = 0; i < arrWatchlist.length; i++) {
+                if (this.props.stock.stock_symbol === arrWatchlist[i].stock_symbol) {
+                    result = arrWatchlist[i].num_stocks
+                    break;
+                }
+            }
+
+        let int = parseFloat(nextProps.lastPercentChange)
+        let nameOfClass;
+        if (int > 0) {
+            nameOfClass = "positive-buy-title"
+        }
+        else {
+            nameOfClass = "negative-buy-title"
+        }
+
+        this.setState({
+            numOfShares: result,
+            lastPrice: nextProps.lastPrice,
+            watchlist: Object.values(watchlists.watchlists),
+            nameOfClass: nameOfClass,
+            watchlistinfo: {
+                ...this.state.watchlistinfo,
+                stock_id: nextProps.stock.id
+            }
+        })
+        })
+    }
+
+
+
+
     update(field) {
         return e => this.setState({
             watchlistinfo: { ...this.state.watchlistinfo,
