@@ -1336,12 +1336,17 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "search-section"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "magnifying-plus-search"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "mangnifying-img",
+        src: "/images/magnifying.png"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         placeholder: "Search",
         className: "search-bar",
         onChange: this.handleChange
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "suggestions"
       }, matchedInputs.map(function (stock, idx) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1353,7 +1358,11 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
           },
           className: "link",
           onClick: _this2.clearSearch
-        }, stock.stock_symbol, "    ", stock.company_name));
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "search-stock-sym"
+        }, stock.stock_symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "search-stock-company-name"
+        }, stock.company_name)));
       }))));
     }
   }]);
@@ -6706,7 +6715,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".search-bar {\n    background-color: white;\n    height: 30px;\n    width: inherit;\n    padding-left: 0;\n    padding-right: 0;\n    border: none;\n     box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.search-bar:focus {\n    outline: none;\n}\n\n.search-section {\n    margin-top: 2px;\n    position: absolute;\n    z-index: 1;\n    margin-left: 70px;\n    width: 475px;\n    font-family: 'Open Sans', sans-serif;\n}\n\n.suggestions {\n    width: inherit;\n    /* border-width: 2px;\n    border-style: solid;\n    border: transparent; */\n    /* box-shadow: 0 1px 6px gray; */\n    background-color: white;\n    font-size: 15px;\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.suggestions > div:hover{\n    background-color: rgb(231, 242, 246);\n    cursor: pointer;\n}\n\n.indiv-suggestions {\n    width: inherit;\n}\n\n.link {\n    text-decoration: none;\n    color: black;\n    display:block;\n    width: inherit;\n}\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/search/search.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;IACvB,YAAY;IACZ,cAAc;IACd,eAAe;IACf,gBAAgB;IAChB,YAAY;KACX,uCAAuC;AAC5C;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,eAAe;IACf,kBAAkB;IAClB,UAAU;IACV,iBAAiB;IACjB,YAAY;IACZ,oCAAoC;AACxC;;AAEA;IACI,cAAc;IACd;;0BAEsB;IACtB,gCAAgC;IAChC,uBAAuB;IACvB,eAAe;IACf,uCAAuC;AAC3C;;AAEA;IACI,oCAAoC;IACpC,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,qBAAqB;IACrB,YAAY;IACZ,aAAa;IACb,cAAc;AAClB","sourcesContent":[".search-bar {\n    background-color: white;\n    height: 30px;\n    width: inherit;\n    padding-left: 0;\n    padding-right: 0;\n    border: none;\n     box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.search-bar:focus {\n    outline: none;\n}\n\n.search-section {\n    margin-top: 2px;\n    position: absolute;\n    z-index: 1;\n    margin-left: 70px;\n    width: 475px;\n    font-family: 'Open Sans', sans-serif;\n}\n\n.suggestions {\n    width: inherit;\n    /* border-width: 2px;\n    border-style: solid;\n    border: transparent; */\n    /* box-shadow: 0 1px 6px gray; */\n    background-color: white;\n    font-size: 15px;\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.suggestions > div:hover{\n    background-color: rgb(231, 242, 246);\n    cursor: pointer;\n}\n\n.indiv-suggestions {\n    width: inherit;\n}\n\n.link {\n    text-decoration: none;\n    color: black;\n    display:block;\n    width: inherit;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".search-bar {\n    background-color: white;\n    height: 30px;\n    width: 100%;\n    padding-left: 0;\n    padding-right: 0;\n    border: none;\n}\n\n.search-bar:focus {\n    outline: none;\n}\n\n.search-section {\n    margin-top: 2px;\n    position: absolute;\n    z-index: 1;\n    margin-left: 70px;\n    width: 475px;\n    font-family: 'Open Sans', sans-serif;\n}\n\n.suggestions {\n    width: inherit;\n    /* border-width: 2px;\n    border-style: solid;\n    border: transparent; */\n    /* box-shadow: 0 1px 6px gray; */\n    background-color: white;\n    font-size: 15px;\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.suggestions > div:hover{\n    background-color: rgb(231, 242, 246);\n    cursor: pointer;\n}\n\n.indiv-suggestions {\n    width: inherit;\n}\n\n.link {\n    text-decoration: none;\n    color: black;\n    display:block;\n    width: inherit;\n    display: flex;\n}\n\n.mangnifying-img {\n    object-fit: cover;\n    height: 15px;\n    padding-left: 10px;\n    padding-right: 5px;\n    padding-top: 9px;\n}\n\n.magnifying-plus-search {\n    display: flex;\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.search-stock-sym {\n    width: 20%;\n    padding-left: 25px;\n}\n\n.search-stock-company-name {\n    width: 70%;\n}\n", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/search/search.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;IACvB,YAAY;IACZ,WAAW;IACX,eAAe;IACf,gBAAgB;IAChB,YAAY;AAChB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,eAAe;IACf,kBAAkB;IAClB,UAAU;IACV,iBAAiB;IACjB,YAAY;IACZ,oCAAoC;AACxC;;AAEA;IACI,cAAc;IACd;;0BAEsB;IACtB,gCAAgC;IAChC,uBAAuB;IACvB,eAAe;IACf,uCAAuC;AAC3C;;AAEA;IACI,oCAAoC;IACpC,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,qBAAqB;IACrB,YAAY;IACZ,aAAa;IACb,cAAc;IACd,aAAa;AACjB;;AAEA;IACI,iBAAiB;IACjB,YAAY;IACZ,kBAAkB;IAClB,kBAAkB;IAClB,gBAAgB;AACpB;;AAEA;IACI,aAAa;IACb,uCAAuC;AAC3C;;AAEA;IACI,UAAU;IACV,kBAAkB;AACtB;;AAEA;IACI,UAAU;AACd","sourcesContent":[".search-bar {\n    background-color: white;\n    height: 30px;\n    width: 100%;\n    padding-left: 0;\n    padding-right: 0;\n    border: none;\n}\n\n.search-bar:focus {\n    outline: none;\n}\n\n.search-section {\n    margin-top: 2px;\n    position: absolute;\n    z-index: 1;\n    margin-left: 70px;\n    width: 475px;\n    font-family: 'Open Sans', sans-serif;\n}\n\n.suggestions {\n    width: inherit;\n    /* border-width: 2px;\n    border-style: solid;\n    border: transparent; */\n    /* box-shadow: 0 1px 6px gray; */\n    background-color: white;\n    font-size: 15px;\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.suggestions > div:hover{\n    background-color: rgb(231, 242, 246);\n    cursor: pointer;\n}\n\n.indiv-suggestions {\n    width: inherit;\n}\n\n.link {\n    text-decoration: none;\n    color: black;\n    display:block;\n    width: inherit;\n    display: flex;\n}\n\n.mangnifying-img {\n    object-fit: cover;\n    height: 15px;\n    padding-left: 10px;\n    padding-right: 5px;\n    padding-top: 9px;\n}\n\n.magnifying-plus-search {\n    display: flex;\n    box-shadow: 0 0 20px rgb(221, 206, 206);\n}\n\n.search-stock-sym {\n    width: 20%;\n    padding-left: 25px;\n}\n\n.search-stock-company-name {\n    width: 70%;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

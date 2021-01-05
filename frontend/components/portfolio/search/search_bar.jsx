@@ -48,8 +48,11 @@ class SearchBar extends React.Component {
     return(
         <div>
             <div className = "search-section" >
+                <div className="magnifying-plus-search">
+                <img className="mangnifying-img" src="/images/magnifying.png"/>
                 <input type="text" placeholder="Search" className="search-bar" 
                 onChange={this.handleChange} />
+                </div>
                     <div className = "suggestions">
                         {
                             matchedInputs.map((stock, idx) => {
@@ -57,7 +60,12 @@ class SearchBar extends React.Component {
                             <Link to={{pathname: `/stocks/${stock.id}`}} className = 'link' 
                             onClick={this.clearSearch}
                             >
-                                    {stock.stock_symbol}    {stock.company_name}
+                            <div className="search-stock-sym">
+                            {stock.stock_symbol}
+                            </div>
+                            <div className="search-stock-company-name">           
+                            {stock.company_name}
+                            </div>
                             </Link>
                             </div>
                             })  

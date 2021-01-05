@@ -1,11 +1,10 @@
 .search-bar {
     background-color: white;
     height: 30px;
-    width: inherit;
+    width: 100%;
     padding-left: 0;
     padding-right: 0;
     border: none;
-     box-shadow: 0 0 20px rgb(221, 206, 206);
 }
 
 .search-bar:focus {
@@ -46,4 +45,27 @@
     color: black;
     display:block;
     width: inherit;
+    display: flex;
+}
+
+.mangnifying-img {
+    object-fit: cover;
+    height: 15px;
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 9px;
+}
+
+.magnifying-plus-search {
+    display: flex;
+    box-shadow: 0 0 20px rgb(221, 206, 206);
+}
+
+.search-stock-sym {
+    width: 20%;
+    padding-left: 25px;
+}
+
+.search-stock-company-name {
+    width: 70%;
 }
