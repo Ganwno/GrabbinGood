@@ -1576,32 +1576,50 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
 
       var newAccBal = parseInt(this.props.accountBalance);
       this.props.chartInfo(this.props.ownStocks, newAccBal).then(function (output) {
-        var difference = output.output[output.output.length - 1].high - output.output[0].high;
-        var percentChange = difference / output.output[0].high * 100;
+        // console.log(output)
+        var difference;
+        var percentChange;
+        var result;
+        var finaloutput = output.output;
 
-        if (percentChange < 0) {
-          percentChange = percentChange.toFixed(2) + "%";
+        if (output.output.length < 1) {
+          _this2.setState({
+            data2: finaloutput,
+            lastPrice: null,
+            firstPrice: null,
+            difference: null,
+            percentChange: null,
+            val: null,
+            placeholder: 'placeholder'
+          });
         } else {
-          percentChange = "+" + "".concat(percentChange.toFixed(2)) + "%";
+          difference = finaloutput[finaloutput.length - 1].high - finaloutput[0].high;
+          percentChange = difference / finaloutput[0].high * 100;
+
+          if (percentChange < 0) {
+            percentChange = percentChange.toFixed(2) + "%";
+          } else {
+            percentChange = "+" + "".concat(percentChange.toFixed(2)) + "%";
+          }
+
+          if (difference >= 0) {
+            difference = "+$" + "".concat(difference.toFixed(2));
+          } else {
+            difference = "".concat(difference.toFixed(2));
+          }
+
+          result = _this2.numberWithCommas(finaloutput[finaloutput.length - 1].high.toFixed(2));
+
+          _this2.setState({
+            data2: finaloutput,
+            lastPrice: finaloutput[finaloutput.length - 1].high,
+            firstPrice: finaloutput[0].high,
+            difference: difference,
+            percentChange: percentChange,
+            val: result,
+            placeholder: 'placeholder'
+          });
         }
-
-        if (difference >= 0) {
-          difference = "+$" + "".concat(difference.toFixed(2));
-        } else {
-          difference = "".concat(difference.toFixed(2));
-        }
-
-        var result = _this2.numberWithCommas(output.output[output.output.length - 1].high.toFixed(2));
-
-        _this2.setState({
-          data2: output.output,
-          lastPrice: output.output[output.output.length - 1].high,
-          firstPrice: output.output[0].high,
-          difference: difference,
-          percentChange: percentChange,
-          val: result,
-          placeholder: 'placeholder'
-        });
       });
     }
   }, {
@@ -1628,6 +1646,7 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
       if (this.state.placeholder === "") {
         return null;
       } else if (this.state.placeholder === "placeholder" && this.state.data2.length < 1) {
+        console.log('REMOKU');
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Buy Stocks in order to show Users data!");
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -3036,6 +3055,8 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       // refresh issue fixed
+      // console.log(this.state.symbol)
+      // console.log(this.props.stock.stock_symbol)
       if (this.state.symbol !== this.props.stock.stock_symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
         this.props.financial(stock).then(function (result) {

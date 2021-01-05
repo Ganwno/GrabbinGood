@@ -102,6 +102,8 @@ class StockChart extends React.Component {
 
     render(){
         // refresh issue fixed
+        // console.log(this.state.symbol)
+        // console.log(this.props.stock.stock_symbol)
         if (this.state.symbol !== this.props.stock.stock_symbol){
             let stock = this.props.stock.stock_symbol.toLowerCase();
             this.props.financial(stock)

@@ -108,8 +108,25 @@ class UserChart extends React.Component{
     componentDidMount(){
         let newAccBal = parseInt(this.props.accountBalance)
         this.props.chartInfo(this.props.ownStocks, newAccBal).then((output) => {
-            let difference = output.output[output.output.length - 1].high - output.output[0].high;
-            let percentChange = (difference / output.output[0].high) * 100
+            // console.log(output)
+            let difference;
+            let percentChange;
+            let result;
+            let finaloutput = output.output
+            if (output.output.length < 1) {
+                this.setState({
+                    data2: finaloutput,
+                    lastPrice: null,
+                    firstPrice: null,
+                    difference: null,
+                    percentChange: null,
+                    val: null,
+                    placeholder: 'placeholder'
+                })
+            }
+            else {
+            difference = finaloutput[finaloutput.length - 1].high - finaloutput[0].high;
+            percentChange = (difference / finaloutput[0].high) * 100
             if (percentChange < 0) {
                 percentChange = percentChange.toFixed(2) + "%"
             }
@@ -123,18 +140,20 @@ class UserChart extends React.Component{
                 difference = `${difference.toFixed(2)}`
             }
 
-            let result = this.numberWithCommas(output.output[output.output.length - 1].high.toFixed(2))
+            result = this.numberWithCommas(finaloutput[finaloutput.length - 1].high.toFixed(2))
 
             this.setState({
-                data2: output.output,
-                lastPrice: output.output[output.output.length -1].high,
-                firstPrice: output.output[0].high,
+                data2: finaloutput,
+                lastPrice: finaloutput[finaloutput.length -1].high,
+                firstPrice: finaloutput[0].high,
                 difference: difference,
                 percentChange: percentChange,
                 val: result,
                 placeholder: 'placeholder'
             })
+        }
         })
+        
     }
 
 
@@ -160,6 +179,7 @@ class UserChart extends React.Component{
             return null;
         }
         else if ( this.state.placeholder === "placeholder" && this.state.data2.length < 1) {
+            console.log('REMOKU')
             return(
                 <div>
                     Buy Stocks in order to show Users data!
