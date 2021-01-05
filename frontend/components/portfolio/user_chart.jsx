@@ -9,7 +9,8 @@ class UserChart extends React.Component{
         this.state = {
             data2: [],
             difference: '',
-            percentChange: ''
+            percentChange: '',
+            placeholder: ''
         }
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.strokeColor = this.strokeColor.bind(this);
@@ -130,7 +131,8 @@ class UserChart extends React.Component{
                 firstPrice: output.output[0].high,
                 difference: difference,
                 percentChange: percentChange,
-                val: result
+                val: result,
+                placeholder: 'placeholder'
             })
         })
     }
@@ -154,8 +156,10 @@ class UserChart extends React.Component{
             return null;
         }
 
-
-        if (this.state.data2.length < 1) {
+        if (this.state.placeholder === "") {
+            return null;
+        }
+        else if ( this.state.placeholder === "placeholder" && this.state.data2.length < 1) {
             return(
                 <div>
                     Buy Stocks in order to show Users data!

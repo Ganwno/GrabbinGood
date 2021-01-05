@@ -151,7 +151,7 @@ class StockChart extends React.Component {
         function CustomToolTip({ payload, label, active }) {
             // console.log(label)
             // console.log(active)
-            if (label === null) {
+            if (label === undefined) {
                 return null
             }
             else {

@@ -33,7 +33,7 @@ class AccountDropDown extends React.Component {
     }
 
     closeMenu(e) {
-        if (!this.buttonRef.contains(e.target)) {
+        if (!this.buttonRef.contains(e.target) && !this.logoutbutton.contains(e.target)) {
             let newCount2 = this.state.count + 1
         this.setState({ dropDown: false, count: newCount2 }, () => {
             document.removeEventListener('mousedown', this.closeMenu);
@@ -61,7 +61,7 @@ class AccountDropDown extends React.Component {
                 <div className="dropdown-for-acc">
                     <div className="dropdown-username">{this.props.username}</div>
                     <div className="accbal-for-dropdown">${accBal} Buying Power</div>  
-                    <button onClick={this.props.logout} className='logout-button-for-nav'>
+                    <button onClick={this.props.logout} className='logout-button-for-nav' ref={(ele2) =>{this.logoutbutton = ele2}}>
                     <img src ="/images/logout.png" alt ="" className="logout-img-for-dropdown"></img>
                     <div className="text-for-dropdown-logout">
                     Log Out

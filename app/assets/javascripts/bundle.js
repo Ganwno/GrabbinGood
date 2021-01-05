@@ -753,7 +753,7 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
     value: function closeMenu(e) {
       var _this3 = this;
 
-      if (!this.buttonRef.contains(e.target)) {
+      if (!this.buttonRef.contains(e.target) && !this.logoutbutton.contains(e.target)) {
         var newCount2 = this.state.count + 1;
         this.setState({
           dropDown: false,
@@ -801,7 +801,10 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
         className: "accbal-for-dropdown"
       }, "$", accBal, " Buying Power"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.props.logout,
-        className: "logout-button-for-nav"
+        className: "logout-button-for-nav",
+        ref: function ref(ele2) {
+          _this4.logoutbutton = ele2;
+        }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "/images/logout.png",
         alt: "",
@@ -1466,7 +1469,8 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       data2: [],
       difference: '',
-      percentChange: ''
+      percentChange: '',
+      placeholder: ''
     };
     _this.handleMouseMove = _this.handleMouseMove.bind(_assertThisInitialized(_this));
     _this.strokeColor = _this.strokeColor.bind(_assertThisInitialized(_this));
@@ -1595,7 +1599,8 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
           firstPrice: output.output[0].high,
           difference: difference,
           percentChange: percentChange,
-          val: result
+          val: result,
+          placeholder: 'placeholder'
         });
       });
     }
@@ -1620,7 +1625,9 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
         return null;
       }
 
-      if (this.state.data2.length < 1) {
+      if (this.state.placeholder === "") {
+        return null;
+      } else if (this.state.placeholder === "placeholder" && this.state.data2.length < 1) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Buy Stocks in order to show Users data!");
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -3082,7 +3089,7 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
 
         // console.log(label)
         // console.log(active)
-        if (label === null) {
+        if (label === undefined) {
           return null;
         } else {
           if (active) {
