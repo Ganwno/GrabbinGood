@@ -54,3 +54,8 @@
 .whole-section-news {
     width: 80%;
 }
+
+.shortend-news-summ {
+    font-size: 12px;
+    font-weight: 300;
+}

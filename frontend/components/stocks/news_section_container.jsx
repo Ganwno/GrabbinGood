@@ -8,13 +8,22 @@ class NewsSection extends React.Component {
             arrNews: [],
             symbol: ''
         }
+        this.newsToOneSetence = this.newsToOneSetence.bind(this)
+    }
+
+    newsToOneSetence(news) {
+        let newsArr = news.summary.split(" ")
+        return newsArr.slice(0, 22).join(" ") + "..."
     }
 
     render() {
         if (this.props.stock.stock_symbol !== this.state.symbol) {
             let stock = this.props.stock.stock_symbol.toLowerCase()
             this.props.retrieveNews(stock)
-                 .then(result => this.setState({ arrNews: result.news, symbol: this.props.stock.stock_symbol}))
+                 .then(result => {
+                     console.log(result.news[4].summary.split(" "))
+                     this.setState({ arrNews: result.news, symbol: this.props.stock.stock_symbol})
+                })
         }
         //fixed infinite api call
         return (
@@ -28,6 +37,11 @@ class NewsSection extends React.Component {
                             <div className = "news-source">{news.source}</div>
                         <br/>
                         {news.headline}
+                        <br/>
+                        <br/>
+                        <div className="shortend-news-summ">
+                        {this.newsToOneSetence(news)}
+                        </div>
                         </div>
                         <img src={news.image} alt="" className ='img-news'/>
                     </li>

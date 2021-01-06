@@ -8,6 +8,13 @@ class UserNews extends React.Component {
             firstRender: false,
             symbol: ''
         }
+
+        this.newsToOneSetence = this.newsToOneSetence.bind(this)
+    }
+
+    newsToOneSetence(news) {
+        let newsArr = news.summary.split(" ")
+        return newsArr.slice(0, 22).join(" ") + "..."
     }
 
     render() {
@@ -30,6 +37,11 @@ class UserNews extends React.Component {
                                     <div className="news-source-two">{news.source}</div>
                                     <br />
                                     {news.headline}
+                                    <br/>
+                                    <br/>
+                                    <div className="shortend-news-summ">
+                                    {this.newsToOneSetence(news)}
+                                    </div>
                                 </div>
                                 <img src={news.image} alt="" className='img-news-two' />
                             </li>

@@ -69,8 +69,8 @@ class BuySellWatch extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(this.state.watchlistinfo)
-        console.log(nextProps)
+        // console.log(this.state.watchlistinfo)
+        // console.log(nextProps)
         this.props.fetchWatchlists(this.props.user).then((watchlists) => {
 
             let arrWatchlist = Object.values(watchlists.watchlists);
