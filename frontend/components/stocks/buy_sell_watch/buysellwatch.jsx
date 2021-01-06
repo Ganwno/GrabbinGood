@@ -156,7 +156,9 @@ class BuySellWatch extends React.Component {
                 if (newAccountBal < 0) {
                     newAccountBal = this.state.accBal
                 }
-                newAccountBal = newAccountBal.toFixed(2)
+                newAccountBal = parseFloat(newAccountBal).toFixed(2)
+                // newAccountBal = newAccountBal.toFixed(2)
+                console.log(typeof newAccountBal)
                 this.props.createWatchlist(watchlist, this.props.lastPrice).then(() =>{
                     this.props.fetchWatchlists(this.props.user).then((watchlists) => {
 

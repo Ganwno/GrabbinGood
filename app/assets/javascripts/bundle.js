@@ -2549,7 +2549,9 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
             newAccountBal = this.state.accBal;
           }
 
-          newAccountBal = newAccountBal.toFixed(2);
+          newAccountBal = parseFloat(newAccountBal).toFixed(2); // newAccountBal = newAccountBal.toFixed(2)
+
+          console.log(_typeof(newAccountBal));
           this.props.createWatchlist(watchlist, this.props.lastPrice).then(function () {
             _this5.props.fetchWatchlists(_this5.props.user).then(function (watchlists) {
               var i;
