@@ -45,10 +45,10 @@ class AccountDropDown extends React.Component {
         let accBal = parseFloat(this.props.accountBalance).toFixed(2)
         return(
             <div className = "right-nav">
-                <a href="https://www.linkedin.com/in/christopher-lee-7b48b6134/" className= "linkedin-img-container">
+                <a href="https://www.linkedin.com/in/christopher-lee-7b48b6134/" className= "linkedin-img-container" target="_blank">
                 <img src="/images/linkedin.svg" alt="" className="linkedin-image"></img>
                 </a>
-                <a href="https://github.com/Gogetaspirit/GrabbinGood" className = "github-img-container">
+                <a href="https://github.com/Gogetaspirit/GrabbinGood" className="github-img-container" target="_blank">
                 <img src="/images/github.png" alt="" className="github-image"></img>
                 </a>
                 <div className = 'drop-log-out'>

@@ -582,12 +582,14 @@ var Greeting = function Greeting(_ref) {
   }, "In order to see more of my work, be sure to check out my socials down below."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "greeting-sociallinks"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "https://github.com/Gogetaspirit/GrabbinGood"
+    href: "https://github.com/Gogetaspirit/GrabbinGood",
+    target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: "greeting-github",
     src: "/images/github.png"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "https://www.linkedin.com/in/christopher-lee-7b48b6134/"
+    href: "https://www.linkedin.com/in/christopher-lee-7b48b6134/",
+    target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: "greeting-linkedin",
     src: "/images/linkedin.svg"
@@ -773,14 +775,16 @@ var AccountDropDown = /*#__PURE__*/function (_React$Component) {
         className: "right-nav"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "https://www.linkedin.com/in/christopher-lee-7b48b6134/",
-        className: "linkedin-img-container"
+        className: "linkedin-img-container",
+        target: "_blank"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "/images/linkedin.svg",
         alt: "",
         className: "linkedin-image"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "https://github.com/Gogetaspirit/GrabbinGood",
-        className: "github-img-container"
+        className: "github-img-container",
+        target: "_blank"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "/images/github.png",
         alt: "",
@@ -6768,7 +6772,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".indiv-news-two {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news-two:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news-two {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements-two {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news-two {\n    width: 75%;\n}\n\n.section-name-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link-two {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source-two {\n    font-size: 11px;\n}\n\n.whole-section-news-two {\n    width: 60%;\n}", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/news/user_news_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,WAAW;IACX,8BAA8B;IAC9B,eAAe;IACf;AACJ;;AAEA;IACI,oCAAoC;AACxC;;AAEA;KACK,iBAAiB;IAClB,WAAW;IACX,UAAU;IACV,YAAY;IACZ,kBAAkB;AACtB;;AAEA;IACI,UAAU;IACV,qBAAqB;;AAEzB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,oBAAoB;IACpB,qBAAqB;IACrB,qBAAqB;IACrB,oBAAoB;AACxB;;AAEA;IACI,YAAY;IACZ,qBAAqB;IACrB,eAAe;IACf,yCAAyC;IACzC,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,UAAU;AACd","sourcesContent":[".indiv-news-two {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news-two:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news-two {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements-two {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news-two {\n    width: 75%;\n}\n\n.section-name-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link-two {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source-two {\n    font-size: 11px;\n}\n\n.whole-section-news-two {\n    width: 60%;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".indiv-news-two {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news-two:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news-two {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements-two {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news-two {\n    width: 75%;\n}\n\n.section-name-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link-two {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source-two {\n    font-size: 11px;\n}\n\n.whole-section-news-two {\n    width: 60%;\n}\n\n.shortend-news-summ {\n    font-size: 12px;\n    font-weight: 300;\n}", "",{"version":3,"sources":["webpack://./frontend/components/portfolio/news/user_news_style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,WAAW;IACX,8BAA8B;IAC9B,eAAe;IACf;AACJ;;AAEA;IACI,oCAAoC;AACxC;;AAEA;KACK,iBAAiB;IAClB,WAAW;IACX,UAAU;IACV,YAAY;IACZ,kBAAkB;AACtB;;AAEA;IACI,UAAU;IACV,qBAAqB;;AAEzB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;IACnB,oBAAoB;IACpB,qBAAqB;IACrB,qBAAqB;IACrB,oBAAoB;AACxB;;AAEA;IACI,YAAY;IACZ,qBAAqB;IACrB,eAAe;IACf,yCAAyC;IACzC,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,eAAe;IACf,gBAAgB;AACpB","sourcesContent":[".indiv-news-two {\n    display: flex;\n    width: 100%;\n    justify-content: space-between;\n    margin-top: 5px;\n    height: 175px\n}\n\n.indiv-news-two:hover {\n    background-color: rgb(231, 242, 246);\n}\n\n.img-news-two {\n     object-fit: cover;\n    height: 70%;\n    width: 35%;\n    margin: auto;\n    padding-left: 10px;\n}\n\n.news-elements-two {\n    padding: 0;\n    list-style-type: none;\n    \n}\n\n.subsection-news-two {\n    width: 75%;\n}\n\n.section-name-two {\n    border-width: 2px;\n    border-style: solid;\n    border-top: #E3E9ED;\n    border-left: #E3E9ED;\n    border-right: #E3E9ED;\n    border-color: #E3E9ED;\n    padding-bottom: 10px;\n}\n\n.news-link-two {\n    color: black;\n    text-decoration: none;\n    font-size: 14px;\n    font-family: Arial, Helvetica, sans-serif;\n    font-weight: bolder;\n}\n\n.news-source-two {\n    font-size: 11px;\n}\n\n.whole-section-news-two {\n    width: 60%;\n}\n\n.shortend-news-summ {\n    font-size: 12px;\n    font-weight: 300;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
