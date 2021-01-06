@@ -1,5 +1,6 @@
 import React from 'react';
 import './session_style.css';
+import {FiAlertCircle} from 'react-icons/fi'
 import {Redirect, Link} from 'react-router-dom';
 
 
@@ -57,8 +58,8 @@ class SessionForm extends React.Component {
         return(
             <ul className="errors">
                 {this.props.errors.map((error, idx) => (
-                    <li key={idx}>
-                        {error}
+                    <li key={idx} className="errors-list">
+                        <FiAlertCircle/> {error}
                     </li>
                 ))}
             </ul>

@@ -106,10 +106,13 @@ body {
 .errors {
     margin-top: 0px;
     padding-bottom: 5px;
+    list-style: none;
+    font-weight: bold;
 }
 
 .username-pass-for-form{
     margin-bottom: 10px;
 }
+
 
 

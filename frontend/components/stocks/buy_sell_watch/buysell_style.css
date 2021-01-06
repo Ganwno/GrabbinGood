@@ -156,3 +156,7 @@
     cursor: pointer;
 }
 
+.errors-buysell {
+    list-style: none;
+}
+

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FiAlertCircle } from 'react-icons/fi'
 import {createWatchlist, fetchWatchlists, updateWatchlist, sellWatchlist} from '../../../actions/watchlist_actions'
 import './buysell_style.css'
 
@@ -260,10 +261,10 @@ class BuySellWatch extends React.Component {
 
     renderErrors() {
         return (
-            <ul className="errors">
+            <ul className="errors-buysell">
                 {this.props.errors.map((error, idx) => (
                     <li key={idx}>
-                        {error}
+                       <FiAlertCircle/> {error}
                     </li>
                 ))}
             </ul>
@@ -360,6 +361,7 @@ render() {
 
                     <div className="buyingpower-shares" style={{ color: this.colorOfBuyingPower() }}>
                     {this.state.buyingPowerNumShare}</div>
+                    <br/>
             </div>
                 {this.renderErrors()}
             </div>
