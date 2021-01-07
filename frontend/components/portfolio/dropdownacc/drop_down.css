@@ -101,3 +101,10 @@
     border-top: 1px solid #E3E9ED;
 } */
 
+.profile-image {
+     object-fit: cover;
+    height: 35px;
+    margin-right: 30px;
+}
+
+

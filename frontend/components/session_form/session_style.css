@@ -39,10 +39,10 @@ body {
     flex: 1;
     margin: auto;
     padding-right: 50px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 .title {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 21px;
     
 }
@@ -114,5 +114,22 @@ body {
     margin-bottom: 10px;
 }
 
+.link-to-signup {
+    display: flex;
+}
+
+.sessionlink-to-signup {
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.link-to-login {
+    display: flex;
+}
+
+.sessionlink-to-login {
+    margin-left: 10px;
+    text-decoration: none;
+}
 
 

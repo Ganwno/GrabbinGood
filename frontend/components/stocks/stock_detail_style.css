@@ -1,5 +1,5 @@
 .stock-detail-page {
-    font-family: 'Open Sans', sans-serif;
+     font-family: 'Roboto', sans-serif;
 }
 
 .nav-bar {
@@ -30,6 +30,6 @@
 }
 
 .stock-name {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
 }

@@ -1,5 +1,5 @@
 .stock-name-for-chart {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+     font-family: 'Roboto', sans-serif;
     margin-top: 0px;
     margin-bottom: 2px;
 }
@@ -14,7 +14,7 @@
 }
 
 .percent-change {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+     font-family: 'Roboto', sans-serif;
     font-size: 15px;
     font-weight: bold;
     margin-bottom: 25px;

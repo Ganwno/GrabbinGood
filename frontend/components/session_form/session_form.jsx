@@ -114,7 +114,12 @@ class SessionForm extends React.Component {
                         
                         <button className="demo-button"
                             onClick={this.demoHandleSubmit}>Demo User</button>
+                        
 
+                        </div>
+                        <br/>
+                        <div className="link-to-signup">
+                            <div>Don't Have An Account?</div> <Link to="/signup" className="sessionlink-to-signup"><div>Sign Up</div></Link>
                         </div>
                         
                     </div>
@@ -162,8 +167,12 @@ class SessionForm extends React.Component {
                         </div>
                         
                     </div>
-                    
+                    <br/>
+                    <div className="link-to-login">
+                            <div>Already Have An Account?</div> <Link to="/login" className="sessionlink-to-login"><div> Log In</div></Link>
+                    </div>
                 </form>
+                
             </div>
             )
         }

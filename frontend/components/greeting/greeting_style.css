@@ -6,7 +6,7 @@
     justify-content: space-between;
     overflow: hidden;
     padding: 5px 20px;
-    font-family: 'Open Sans', sans-serif;
+     font-family: 'Roboto', sans-serif;
     margin-top: 10px;
     height: 50px;
     margin-bottom: 2px;
@@ -62,7 +62,7 @@
  }
 
  .caption {
-   font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
    height: 70%;
    margin: auto;
    background-color: #CAF65C;
@@ -123,7 +123,7 @@
   background-color: white;
   height: 30%;
   padding-top: 25px;
-  font-family: 'Open Sans', sans-serif;
+   font-family: 'Roboto', sans-serif;
 }
 
 .footer {
@@ -162,4 +162,10 @@ p {
 
 .greeting-sociallinks {
   padding-top: 20px;
+}
+
+.profile-greeting {
+  object-fit: cover;
+    height: 35px;
+    margin-left: 10px;
 }
