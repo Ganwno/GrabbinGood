@@ -4,7 +4,7 @@
 
 GrabbinGood is a fullstack application that mimics the qualities and features of Robinhood. The purpose of GrabbinGood is to display the same functionalities of Robinhood such as simulating trades or managing portfolios. This is done using real-time data through the use of an API. The money used in this application is fake and not real money.
 
-[See the Live Site](https://grabbin-good.herokuapp.com/)
+<a href="https://grabbin-good.herokuapp.com/" target="_blank">See The Live Site!</a>
 
 ## Technologies Used
 This fullstack application mainly uses Ruby on Rails for managing backend API while React manages the frontend. Redux is also used for application state management. 
