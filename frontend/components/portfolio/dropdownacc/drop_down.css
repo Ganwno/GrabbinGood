@@ -34,6 +34,7 @@
     cursor: pointer;
     font-size: 14px;
     position: relative;
+     font-family: 'Roboto', sans-serif;
 }
 
 .account-dd-button:hover {
@@ -78,6 +79,7 @@
 .text-for-dropdown-logout {
     overflow: hidden; 
     white-space: nowrap;
+     font-family: 'Roboto', sans-serif;
 }
 
 .accbal-for-dropdown {
@@ -85,6 +87,7 @@
     padding-bottom: 13px;
     padding-left: 15px;
     padding-right: 15px;
+     font-family: 'Roboto', sans-serif;
 }
 
 .dropdown-username {
@@ -93,13 +96,8 @@
     padding-left: 15px;
     padding-right: 15px;
     font-weight: bold;
+     font-family: 'Roboto', sans-serif;
 }
-
-/* .full-logout-container {
-    padding-left: 15px;
-    padding-right: 15px;
-    border-top: 1px solid #E3E9ED;
-} */
 
 .profile-image {
      object-fit: cover;
