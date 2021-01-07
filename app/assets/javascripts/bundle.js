@@ -3429,7 +3429,8 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       symbol: '',
-      description: ''
+      description: '',
+      accountBal: ''
     };
     return _this;
   }
@@ -3437,13 +3438,14 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
   _createClass(StockDetail, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      console.log(this.props.accBal === 'NaN');
       this.props.showStocks();
       this.props.fetchUserAccBal(this.props.user);
     }
   }, {
     key: "render",
     value: function render() {
-      if (!this.props.stock) {
+      if (this.props.stock === undefined) {
         return null;
       } //fixes refresh issue
 
@@ -3461,7 +3463,8 @@ var StockDetail = /*#__PURE__*/function (_React$Component) {
         alt: "",
         className: "logo-image"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_search_search_bar_container__WEBPACK_IMPORTED_MODULE_1__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_portfolio_dropdownacc_account_drop_down__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        logout: this.props.logout
+        logout: this.props.logout,
+        accountBalance: this.props.accBal
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-content"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
