@@ -54,6 +54,7 @@
     white-space: nowrap;
     border: none;
     border-radius: 8px;
+     font-family: 'Roboto', sans-serif;
 }
 
 .buywatch-button:hover {
@@ -150,6 +151,7 @@
     background-color:transparent;
      border-radius: 8px;
      border: 1px solid;
+      font-family: 'Roboto', sans-serif;
 }
 
 .watchlist-add-remove-button:hover {
