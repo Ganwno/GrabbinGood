@@ -38,9 +38,9 @@ const Greeting = ({currentUser, logout}) => {
                     </p>
                     <p className='second-p'>In order to see more of my work, be sure to check out my socials down below.</p>
                         <div className="greeting-sociallinks">
-                            <a href='https://github.com/Gogetaspirit/GrabbinGood' target="_blank"><img className="greeting-github" src='/images/github.png'></img></a>
+                            <a href='https://github.com/clee1996/GrabbinGood' target="_blank"><img className="greeting-github" src='/images/github.png'></img></a>
                             <a href='https://www.linkedin.com/in/christopher-lee-7b48b6134/' target="_blank"><img className="greeting-linkedin" src='/images/linkedin.svg'></img></a>
-                            <a href="https://gogetaspirit.github.io/" target="_blank"><img src="/images/portfolio.png" alt="" className="profile-greeting"></img>
+                            <a href="https://clee1996.github.io/" target="_blank"><img src="/images/portfolio.png" alt="" className="profile-greeting"></img>
                             </a>
                         </div>
                 </div>
