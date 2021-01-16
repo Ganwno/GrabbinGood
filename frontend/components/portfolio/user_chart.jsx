@@ -16,9 +16,7 @@ class UserChart extends React.Component{
         this.strokeColor = this.strokeColor.bind(this);
         this.handleMouseOff = this.handleMouseOff.bind(this)
     }
-//    let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`
-// fetch(url).then(response => response.json())
-//     .then((result) => { 
+
 
      numberWithCommas(x) {
     let result = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -108,7 +106,7 @@ class UserChart extends React.Component{
     componentDidMount(){
         let newAccBal = parseInt(this.props.accountBalance)
         this.props.chartInfo(this.props.ownStocks, newAccBal).then((output) => {
-            // console.log(output)
+            
             let difference;
             let percentChange;
             let result;
@@ -179,7 +177,7 @@ class UserChart extends React.Component{
             return null;
         }
         else if ( this.state.placeholder === "placeholder" && this.state.data2.length < 1) {
-            console.log('REMOKU')
+            
             return(
                 <div>
                     Buy Stocks in order to show Users data!

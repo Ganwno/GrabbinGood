@@ -22,8 +22,6 @@ class Portfolio extends React.Component {
         this.props.fetchWatchlists(this.props.user).then(watchlists => {
             
             this.props.fetchUserAccBal(this.props.user).then(user => {
-                console.log(typeof user.info.account_balance)
-                console.log(user.info.account_balance)
                 
                 this.setState({
                     watchlist: Object.values(watchlists.watchlists),

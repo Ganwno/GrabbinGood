@@ -56,8 +56,7 @@ class Watchlist extends React.Component {
     componentDidMount() {
         let arrOwnStocks = []
         let arrOfStockSym = []
-        // console.log(this.props.watchlist)
-        // console.log(this.state.watchlist)
+     
         this.props.watchlist.forEach(watchlist => {
             let stockSym = watchlist.stock_symbol.toLowerCase();
             arrOfStockSym.push(stockSym)
@@ -67,7 +66,7 @@ class Watchlist extends React.Component {
             
         })  
         Promise.all(arrOwnStocks).then(arrOfObj => {
-            // console.log(arrOfObj)
+           
         let newArr = []
         let arrFirstPrice = []
             arrOfObj.forEach(arr => {
@@ -134,20 +133,12 @@ class Watchlist extends React.Component {
         })
     }
 
-    // componentWillReceiveProps(nextProps){
-    //     console.log(nextProps)
-    //     this.setState({
-    //         watchlist: nextProps.watchlist
-    //     })
-    // }
+   
 
 
 
     render(){
-        // if (this.state.placeholder === '') {
-        //     return null;
-        // }
-        // console.log(this.props.watchlist)
+    
         if (this.props.watchlist.length !== this.state.arrOfObj) {
             return null
         }

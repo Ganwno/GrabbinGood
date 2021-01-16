@@ -1109,9 +1109,6 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
 
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
         _this2.props.fetchUserAccBal(_this2.props.user).then(function (user) {
-          console.log(_typeof(user.info.account_balance));
-          console.log(user.info.account_balance);
-
           _this2.setState({
             watchlist: Object.values(watchlists.watchlists),
             accountBalance: user.info.account_balance,
@@ -1522,10 +1519,7 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
     _this.strokeColor = _this.strokeColor.bind(_assertThisInitialized(_this));
     _this.handleMouseOff = _this.handleMouseOff.bind(_assertThisInitialized(_this));
     return _this;
-  } //    let url = `https://cloud.iexapis.com/stable/stock/${stock}/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5`
-  // fetch(url).then(response => response.json())
-  //     .then((result) => { 
-
+  }
 
   _createClass(UserChart, [{
     key: "numberWithCommas",
@@ -1622,7 +1616,6 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
 
       var newAccBal = parseInt(this.props.accountBalance);
       this.props.chartInfo(this.props.ownStocks, newAccBal).then(function (output) {
-        // console.log(output)
         var difference;
         var percentChange;
         var result;
@@ -1692,7 +1685,6 @@ var UserChart = /*#__PURE__*/function (_React$Component) {
       if (this.state.placeholder === "") {
         return null;
       } else if (this.state.placeholder === "placeholder" && this.state.data2.length < 1) {
-        console.log('REMOKU');
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Buy Stocks in order to show Users data!");
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -2463,10 +2455,7 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      // console.log(typeof this.props.accBal)
-      // console.log(this.props.accBal)
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
-        // console.log(this.props.lastPrice)
         var arrWatchlist = Object.values(watchlists.watchlists);
         var i;
         var result;
@@ -2501,8 +2490,6 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
-      // console.log(this.state.watchlistinfo)
-      // console.log(nextProps)
       this.props.fetchWatchlists(this.props.user).then(function (watchlists) {
         var arrWatchlist = Object.values(watchlists.watchlists);
         var i;
@@ -2594,7 +2581,6 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
 
           newAccountBal = parseFloat(newAccountBal).toFixed(2); // newAccountBal = newAccountBal.toFixed(2)
 
-          console.log(_typeof(newAccountBal));
           this.props.createWatchlist(watchlist, this.props.lastPrice).then(function () {
             _this5.props.fetchWatchlists(_this5.props.user).then(function (watchlists) {
               var i;
@@ -2732,13 +2718,10 @@ var BuySellWatch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "displayLastPrice",
     value: function displayLastPrice() {
-      // console.log(this.state.lastPrice)
       if (this.state.lastPrice !== 0 && this.state.lastPrice !== undefined) {
-        // console.log(this.state.lastPrice.toFixed(2))
         var lastPrice = this.state.lastPrice;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", lastPrice);
       } else {
-        // console.log('is it here tho')
         return null;
       }
     }
@@ -3118,10 +3101,7 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
           percentChange: percentChange,
           difference: difference
         });
-      } // else if (e.activePayload === null || e.activePayload[0].value === null){
-      //     return null;
-      // }
-
+      }
     }
   }, {
     key: "handleMouseOff",
@@ -3167,8 +3147,6 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       // refresh issue fixed
-      // console.log(this.state.symbol)
-      // console.log(this.props.stock.stock_symbol)
       if (this.state.symbol !== this.props.stock.stock_symbol) {
         var stock = this.props.stock.stock_symbol.toLowerCase();
         this.props.financial(stock).then(function (result) {
@@ -3183,12 +3161,10 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
                 break;
               }
             }
-          } // console.log(recentPrice)
-          // console.log(result.currentAsset[0].high)
-
+          }
 
           var difference = recentPrice - result.currentAsset[0].high;
-          var percentChange = difference / result.currentAsset[0].high * 100; // console.log(result)
+          var percentChange = difference / result.currentAsset[0].high * 100;
 
           if (percentChange < 0) {
             percentChange = percentChange.toFixed(2) + "%";
@@ -3235,8 +3211,8 @@ var StockChart = /*#__PURE__*/function (_React$Component) {
             label = _ref.label,
             active = _ref.active;
 
-        // console.log(label)
-        // console.log(active)
+        // (label)
+        // (active)
         if (label === undefined) {
           return null;
         } else {
@@ -3665,9 +3641,7 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var arrOwnStocks = [];
-      var arrOfStockSym = []; // console.log(this.props.watchlist)
-      // console.log(this.state.watchlist)
-
+      var arrOfStockSym = [];
       this.props.watchlist.forEach(function (watchlist) {
         var stockSym = watchlist.stock_symbol.toLowerCase();
         arrOfStockSym.push(stockSym);
@@ -3678,7 +3652,6 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
         arrOwnStocks.push(promise);
       });
       Promise.all(arrOwnStocks).then(function (arrOfObj) {
-        // console.log(arrOfObj)
         var newArr = [];
         var arrFirstPrice = [];
         arrOfObj.forEach(function (arr) {
@@ -3747,22 +3720,12 @@ var Watchlist = /*#__PURE__*/function (_React$Component) {
           arrOfObj: arrOfObj.length
         });
       });
-    } // componentWillReceiveProps(nextProps){
-    //     console.log(nextProps)
-    //     this.setState({
-    //         watchlist: nextProps.watchlist
-    //     })
-    // }
-
+    }
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
-      // if (this.state.placeholder === '') {
-      //     return null;
-      // }
-      // console.log(this.props.watchlist)
       if (this.props.watchlist.length !== this.state.arrOfObj) {
         return null;
       } else {

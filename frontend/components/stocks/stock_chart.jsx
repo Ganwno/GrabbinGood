@@ -58,9 +58,7 @@ class StockChart extends React.Component {
         
             this.setState({val: currentPrice.toFixed(2), percentChange: percentChange, difference: difference})
         }
-        // else if (e.activePayload === null || e.activePayload[0].value === null){
-        //     return null;
-        // }
+       
     }
 
     handleMouseOff() {
@@ -102,8 +100,6 @@ class StockChart extends React.Component {
 
     render(){
         // refresh issue fixed
-        // console.log(this.state.symbol)
-        // console.log(this.props.stock.stock_symbol)
         if (this.state.symbol !== this.props.stock.stock_symbol){
             let stock = this.props.stock.stock_symbol.toLowerCase();
             this.props.financial(stock)
@@ -119,13 +115,12 @@ class StockChart extends React.Component {
                             }
                         }
                     }
-                    // console.log(recentPrice)
-                    // console.log(result.currentAsset[0].high)
+                   
 
 
                 let difference = recentPrice - result.currentAsset[0].high;
                     let percentChange = (difference / result.currentAsset[0].high) * 100
-                    // console.log(result)
+                    
                 if (percentChange < 0) {
                         percentChange = percentChange.toFixed(2) + "%"
                     }
@@ -167,8 +162,8 @@ class StockChart extends React.Component {
         
 
         function CustomToolTip({ payload, label, active }) {
-            // console.log(label)
-            // console.log(active)
+            // (label)
+            // (active)
             if (label === undefined) {
                 return null
             }

@@ -36,10 +36,9 @@ class BuySellWatch extends React.Component {
     }
 
     componentDidMount() {
-        // console.log(typeof this.props.accBal)
-        // console.log(this.props.accBal)
+    
         this.props.fetchWatchlists(this.props.user).then((watchlists) => {
-            // console.log(this.props.lastPrice)
+           
             let arrWatchlist = Object.values(watchlists.watchlists);
             let i;
             let result;
@@ -70,8 +69,6 @@ class BuySellWatch extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log(this.state.watchlistinfo)
-        // console.log(nextProps)
         this.props.fetchWatchlists(this.props.user).then((watchlists) => {
 
             let arrWatchlist = Object.values(watchlists.watchlists);
@@ -158,7 +155,7 @@ class BuySellWatch extends React.Component {
                 }
                 newAccountBal = parseFloat(newAccountBal).toFixed(2)
                 // newAccountBal = newAccountBal.toFixed(2)
-                console.log(typeof newAccountBal)
+                
                 this.props.createWatchlist(watchlist, this.props.lastPrice).then(() =>{
                     this.props.fetchWatchlists(this.props.user).then((watchlists) => {
 
@@ -284,16 +281,16 @@ class BuySellWatch extends React.Component {
     }
 
     displayLastPrice() {
-        // console.log(this.state.lastPrice)
+        
         if (this.state.lastPrice !== 0 && this.state.lastPrice !== undefined) {
-            // console.log(this.state.lastPrice.toFixed(2))
+           
             let lastPrice = this.state.lastPrice
             return(<div>
                 ${lastPrice}
             </div>)
         }
         else {
-            // console.log('is it here tho')
+            
             return null;
         }
     }
