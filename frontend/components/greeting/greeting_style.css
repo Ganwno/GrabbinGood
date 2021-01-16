@@ -163,10 +163,17 @@ p {
 
 .greeting-sociallinks {
   padding-top: 20px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .profile-greeting {
   object-fit: cover;
     height: 35px;
     margin-left: 10px;
+}
+
+.greeting-angellist {
+  object-fit: cover;
+    height: 35px;
 }

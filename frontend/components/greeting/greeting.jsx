@@ -4,7 +4,6 @@ import './greeting_style.css';
 import PortfolioContainer from '../portfolio/portfolio_container';
 
 const Greeting = ({currentUser, logout}) => {
-    // const sessionLinks = () => (
         return(
         <div className = 'front-page'>
         <nav className= "header">
@@ -38,23 +37,27 @@ const Greeting = ({currentUser, logout}) => {
                     </p>
                     <p className='second-p'>In order to see more of my work, be sure to check out my socials down below.</p>
                         <div className="greeting-sociallinks">
+                            <div>
                             <a href='https://github.com/clee1996/GrabbinGood' target="_blank"><img className="greeting-github" src='/images/github.png'></img></a>
+                            <div>Github</div>
+                            </div>
+                            <div>
                             <a href='https://www.linkedin.com/in/christopher-lee-7b48b6134/' target="_blank"><img className="greeting-linkedin" src='/images/linkedin.svg'></img></a>
-                            <a href="https://clee1996.github.io/" target="_blank"><img src="/images/portfolio.png" alt="" className="profile-greeting"></img>
-                            </a>
+                            <div>Linkedin</div>
+                            </div>
+                            <div>
+                            <a href="https://clee1996.github.io/" target="_blank"><img src="/images/portfolio.png" alt="" className="profile-greeting"></img></a>
+                            <div>Personal</div>
+                            </div>
+                            <div>
+                                <a href="https://angel.co/u/christopher-lee-133" target="_blank"><img src="/images/angellist.png" alt="" className="greeting-angellist"></img></a>
+                                <div>Angellist</div>
+                            </div>
                         </div>
                 </div>
             </div>
         </div>
     )
-
-    // const signedIn = () => (
-
-    // <PortfolioContainer/>
-    // )
-    // redirect to portfolio page if signed in
-
-    // return currentUser ? signedIn() : sessionLinks();
 }
 
 export default Greeting;
