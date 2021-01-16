@@ -9,12 +9,13 @@
 .linkedin-image {
     object-fit: cover;
     height: 35px;
+     margin-left: 15px;
 
 }
 
 .github-img-container {
     margin: auto;
-    margin-left: 30px;
+   
 }
 
 .github-image {
@@ -102,7 +103,48 @@
 .profile-image {
      object-fit: cover;
     height: 35px;
-    margin-right: 30px;
+    margin-left: 15px;
 }
 
+.angellist-image {
+    object-fit: cover;
+    height: 35px;
+     margin-left: 15px;
+}
 
+.personal-container-dropdown {
+    margin-right: 20px;
+}
+
+.linkedin-container-dropdown {
+    margin-right: 20px;
+}
+
+.github-container-dropdown {
+    margin-right: 20px;
+}
+
+.angellist-container-dropdown {
+    margin-right: 20px;
+   
+}
+
+.profile-image-container {
+    text-decoration: none;
+    color: black;
+}
+
+.linkedin-img-container {
+    text-decoration: none;
+    color: black;
+}
+
+.github-img-container {
+    text-decoration: none;
+    color: black;
+}
+
+.angellist-img-container {
+     text-decoration: none;
+    color: black;
+}

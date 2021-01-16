@@ -22,7 +22,6 @@ class StockDetail extends React.Component {
     }
 
     componentDidMount(){
-        console.log(this.props.accBal === 'NaN')
         this.props.showStocks()
         this.props.fetchUserAccBal(this.props.user)
         
@@ -31,7 +30,7 @@ class StockDetail extends React.Component {
 
 
     render() {
-        if (this.props.stock === undefined) {
+        if (this.props.stock === undefined || this.props.primAccBal === undefined) {
             return null;
         }
         //fixes refresh issue
@@ -44,7 +43,7 @@ class StockDetail extends React.Component {
                 </Link>
                 <SearchBarContainer />
                 </div>
-                <AccountDropDown logout={this.props.logout} accountBalance={this.props.accBal}/>
+                <AccountDropDown logout={this.props.logout} accountBalance={this.props.accBal} username={this.props.username}/>
                 </div>
                 <br/>
                 <div className = 'page-content'>

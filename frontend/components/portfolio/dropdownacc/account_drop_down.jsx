@@ -45,15 +45,32 @@ class AccountDropDown extends React.Component {
         let accBal = parseFloat(this.props.accountBalance).toFixed(2)
         return(
             <div className = "right-nav">
+                <div className="personal-container-dropdown">
                 <a href="https://clee1996.github.io/" className="profile-image-container" target="_blank">
                     <img src="/images/portfolio.png" alt="" className="profile-image"></img>
+                        <div>Personal</div>
                 </a>
+                </div>
+                <div className="linkedin-container-dropdown">
                 <a href="https://www.linkedin.com/in/christopher-lee-7b48b6134/" className= "linkedin-img-container" target="_blank">
                 <img src="/images/linkedin.svg" alt="" className="linkedin-image"></img>
+                        <div>Linkedin</div>
                 </a>
+                </div>
+                <div className="github-container-dropdown">
                 <a href="https://github.com/clee1996/GrabbinGood" className="github-img-container" target="_blank">
                 <img src="/images/github.png" alt="" className="github-image"></img>
+                        <div>Github</div>
                 </a>
+                </div>
+                <div className="angellist-container-dropdown">
+                    <a href="https://angel.co/u/christopher-lee-133" className="angellist-img-container" target="_blank">
+                        <img src="/images/angellist.png" alt="" className="angellist-image"></img>
+                        <div>Angellist</div>
+                    </a>
+                    
+                </div>
+
                 <div className = 'drop-log-out'>
                 <button className = 'account-dd-button'onClick={this.extendDropDown} ref={(ele) =>{
                     this.buttonRef = ele

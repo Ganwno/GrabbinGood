@@ -21,7 +21,6 @@ class NewsSection extends React.Component {
             let stock = this.props.stock.stock_symbol.toLowerCase()
             this.props.retrieveNews(stock)
                  .then(result => {
-                     console.log(result.news[4].summary.split(" "))
                      this.setState({ arrNews: result.news, symbol: this.props.stock.stock_symbol})
                 })
         }

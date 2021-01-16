@@ -10,7 +10,9 @@ const mSTP = (state, ownProps) => {
     return {
         stock: state.entities.stocks[ownProps.match.params.id],
         user: state.session.id,
-        accBal: parseFloat(state.entities.users.account_balance).toFixed(2)
+        primAccBal: state.entities.users.account_balance,
+        accBal: parseFloat(state.entities.users.account_balance).toFixed(2),
+        username: state.entities.users.username
     }
 }
 
