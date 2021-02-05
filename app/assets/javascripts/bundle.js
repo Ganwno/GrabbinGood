@@ -958,12 +958,9 @@ var UserNews = /*#__PURE__*/function (_React$Component) {
       if (this.state.firstRender === false) {
         var arrOfStocks = ['msft', 'amzn', 'dis', 'aapl', 'sbux', 'tsla', 'zm', 'fb', 'nke'];
         var randomAsset = arrOfStocks[Math.floor(Math.random() * arrOfStocks.length)];
-        var url = "https://cloud.iexapis.com/stable/stock/".concat(randomAsset, "/news/last/6?token=pk_7f907de6dd184f68962cd03c99b625ce");
-        fetch(url).then(function (response) {
-          return response.json();
-        }).then(function (result) {
-          return _this2.setState({
-            arrNews: result,
+        this.props.retrieveNews(randomAsset).then(function (result) {
+          _this2.setState({
+            arrNews: result.news,
             firstRender: true
           });
         });
@@ -1150,7 +1147,9 @@ var Portfolio = /*#__PURE__*/function (_React$Component) {
           accountBalance: this.state.accountBalance
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "buyingpower-portfolio"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Buying Power"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", userAccBal)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Buying Power"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", userAccBal)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_news_user_news__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          retrieveNews: this.props.updateCurrentCompanyNews
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "watchlist-whole"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_watchlist_watchlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
           watchlist: this.state.watchlist
@@ -1214,6 +1213,9 @@ var mDTP = function mDTP(dispatch) {
     },
     fetchUserAccBal: function fetchUserAccBal(user_id) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["fetchUserAccBal"])(user_id));
+    },
+    updateCurrentCompanyNews: function updateCurrentCompanyNews(sym) {
+      return dispatch(Object(_actions_external_stock_actions__WEBPACK_IMPORTED_MODULE_5__["updateCurrentCompanyNews"])(sym));
     }
   };
 };
@@ -3839,14 +3841,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
 /* harmony import */ var _components_root__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/root */ "./frontend/components/root.jsx");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _actions_stock_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions/stock_actions */ "./frontend/actions/stock_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-
-
- //testing
 
 
 
@@ -3868,14 +3865,7 @@ document.addEventListener("DOMContentLoaded", function () {
     store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])();
   }
 
-  var root = document.getElementById("root"); //testing only
-
-  window.dispatch = store.dispatch;
-  window.getState = store.getState;
-  window.login = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["login"];
-  window.logout = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["logout"];
-  window.showStock = _actions_stock_actions__WEBPACK_IMPORTED_MODULE_5__["showStock"];
-  window.showStocks = _actions_stock_actions__WEBPACK_IMPORTED_MODULE_5__["showStocks"];
+  var root = document.getElementById("root");
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_root__WEBPACK_IMPORTED_MODULE_3__["default"], {
     store: store
   }), root);
@@ -4359,7 +4349,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_1__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_3___default.a));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_1__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
@@ -4381,25 +4371,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCompanyNews", function() { return fetchCompanyNews; });
 var fetchInfoForStock = function fetchInfoForStock(symbol) {
   return $.ajax({
-    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartInterval=5"),
+    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=").concat(window.iexAPIKey, "&chartInterval=5"),
     method: 'GET'
   });
 };
 var fetchCompanyInfo = function fetchCompanyInfo(symbol) {
   return $.ajax({
-    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=pk_0df25c5085a9428590bbb49600f9487c"),
+    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/company?token=").concat(window.iexAPIKey),
     method: 'GET'
   });
 };
 var fetchInfoStockWatchlist = function fetchInfoStockWatchlist(symbol) {
   return $.ajax({
-    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=pk_0df25c5085a9428590bbb49600f9487c&chartLast=5"),
+    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/intraday-prices?token=").concat(window.iexAPIKey, "&chartLast=5"),
     method: 'GET'
   });
 };
 var fetchCompanyNews = function fetchCompanyNews(symbol) {
   return $.ajax({
-    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/news/last/6?token=pk_0df25c5085a9428590bbb49600f9487c"),
+    url: "https://cloud.iexapis.com/stable/stock/".concat(symbol, "/news/last/6?token=").concat(window.iexAPIKey),
     method: 'GET'
   });
 };

@@ -3,7 +3,7 @@ import { fetchUserAccBal, logout} from '../../actions/session_actions';
 import Portfolio from './portfolio';
 import {showStocks} from '../../actions/stock_actions';
 import { fetchWatchlists } from '../../actions/watchlist_actions';
-import { updateUserChart } from '../../actions/external_stock_actions';
+import { updateCurrentCompanyNews, updateUserChart } from '../../actions/external_stock_actions';
 
 const mSTP = (state) => {
     
@@ -22,7 +22,8 @@ const mDTP = (dispatch) => {
     showStocks: () => dispatch(showStocks()),
     fetchWatchlists: (user_id) => dispatch(fetchWatchlists(user_id)),
     updateUserChart: (ownStocks, newAccBal) => dispatch(updateUserChart(ownStocks, newAccBal)),
-    fetchUserAccBal: (user_id) => dispatch(fetchUserAccBal(user_id))
+    fetchUserAccBal: (user_id) => dispatch(fetchUserAccBal(user_id)),
+    updateCurrentCompanyNews: (sym) => dispatch(updateCurrentCompanyNews(sym))
     }
 }
 

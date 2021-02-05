@@ -21,9 +21,9 @@ class UserNews extends React.Component {
         if (this.state.firstRender === false) {
             let arrOfStocks = ['msft', 'amzn', 'dis', 'aapl', 'sbux', 'tsla', 'zm', 'fb', 'nke'];
             let randomAsset = arrOfStocks[Math.floor(Math.random() * arrOfStocks.length)];
-            let url = `https://cloud.iexapis.com/stable/stock/${randomAsset}/news/last/6?token=pk_7f907de6dd184f68962cd03c99b625ce`;
-            fetch(url).then(response => response.json())
-                .then(result => this.setState({ arrNews: result, firstRender: true  }))
+            this.props.retrieveNews(randomAsset).then((result) => {
+                this.setState({arrNews: result.news, firstRender: true})
+            })
         }
 
         return (

@@ -58,7 +58,7 @@ class Portfolio extends React.Component {
                 <div className="buyingpower-portfolio">
                 <div>Buying Power</div> <div>${userAccBal}</div>
                 </div>
-                <UserNews/>
+                <UserNews retrieveNews={this.props.updateCurrentCompanyNews}/>
                 </div>
                 <div className= 'watchlist-whole'>
                 <WatchlistContainer watchlist={this.state.watchlist} />
