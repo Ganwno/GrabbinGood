@@ -16,6 +16,8 @@ class User < ApplicationRecord
     through: :watchlists,
     source: :stock
 
+    #password method is a setter method that stores password digest into db using bcrypt hashing function
+
     def password=(password) 
         @password = password
         self.password_digest = BCrypt::Password.create(password)
